@@ -3,6 +3,7 @@
 }
 
 #game-guide .section-title {
+  margin-top: 25px;
   font-size: clamp(62px, 6.2vw, 98px);
   line-height: 0.9;
   text-align: left;
@@ -10,16 +11,23 @@
 }
 
 .feature-stage {
-  margin: -54px auto 0;
+  margin: 30px auto 0;
   width: min(94vw, 960px);
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   gap: 8px;
 }
 
-.feature-screen {
+.feature-main {
   flex: 0 0 68%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-screen {
+  width: 100%;
   background: transparent;
   padding: 8px 8px 11px;
   position: relative;
@@ -68,15 +76,17 @@
   max-height: 520px;
   object-fit: contain;
   display: block;
+  transform: translateY(-90px);
 }
 
 .feature-caption {
-  margin: 20px 0 0;
+  margin: 18px 0 0;
   font-size: clamp(60px, 5.8vw, 84px);
   font-weight: 900;
   color: #111;
   text-shadow: 2px 2px 0 #fff;
   line-height: 1.02;
+  text-align: center;
 }
 
 .feature-subcaption {
@@ -84,6 +94,7 @@
   font-size: clamp(22px, 2.25vw, 36px);
   font-weight: 800;
   line-height: 1.08;
+  text-align: center;
 }
 
 @media (min-width: 1600px) {
@@ -97,12 +108,15 @@
 
   .feature-stage {
     width: min(94vw, 1700px);
-    margin-top: -92px;
+    margin-top: 22px;
     gap: 0;
   }
 
-  .feature-screen {
+  .feature-main {
     flex: 0 0 63%;
+  }
+
+  .feature-screen {
     padding: 12px 12px 15px;
   }
 
@@ -129,15 +143,20 @@
   .feature-portrait img {
     width: min(100%, 640px);
     max-height: 780px;
+    transform: translateY(-130px);
   }
 
   .feature-caption {
-    margin-top: 34px;
-    font-size: 112px;
+    margin-top: 24px;
+    font-size: 70px;
+
+    color: white;                     /* text color */
+    -webkit-text-stroke: 4px black;   /* outline thickness + color */
+    font-weight: 1000;
   }
 
   .feature-subcaption {
-    font-size: 52px;
+    font-size: 35px;
   }
 }
 
@@ -161,6 +180,11 @@
     gap: 10px;
   }
 
+  .feature-main {
+    width: 100%;
+    flex: none;
+  }
+
   .feature-screen {
     width: 100%;
   }
@@ -172,6 +196,10 @@
   .feature-portrait {
     min-height: 0;
     width: min(56vw, 280px);
+  }
+
+  .feature-portrait img {
+    transform: none;
   }
 
   .feature-caption {

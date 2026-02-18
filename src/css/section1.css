@@ -7,6 +7,10 @@
   z-index: 15;
 }
 
+#main {
+  font-family: "Prompt", "Segoe UI", Tahoma, sans-serif;
+}
+
 .header-center-block {
   display: flex;
   align-items: flex-start;
@@ -228,7 +232,7 @@
   }
 
   .hero-thai-title {
-    font-size: 48px;
+    font-size: 40px;
     line-height: 1.04;
   }
 
@@ -337,4 +341,3 @@
     white-space: normal;
   }
 }
-
