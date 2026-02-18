@@ -39,12 +39,14 @@
 }
 
 .character-copy {
-  max-width: 620px;
-  font-size: clamp(19px, 1.22vw, 24px);
+  max-width: 520px;
+  font-size: clamp(17px, 1.08vw, 21px);
   line-height: 1.35;
-  font-weight: 700;
+  font-weight: 600;
   margin: 12px auto 0;
   text-align: left;
+  text-shadow: none;
+  -webkit-text-stroke: 0 transparent;
 }
 
 .character-tabs {
@@ -135,8 +137,8 @@
   }
 
   .character-copy {
-    max-width: 880px;
-    font-size: 31px;
+    max-width: 700px;
+    font-size: 27px;
     margin-top: 24px;
   }
 
