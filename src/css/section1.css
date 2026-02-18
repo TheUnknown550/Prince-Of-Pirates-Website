@@ -320,20 +320,20 @@
   }
 
   .header-nav {
-    gap: clamp(8px, 0.9vw, 14px);
+    gap: clamp(10px, 1.1vw, 18px);
     margin-top: 14px;
   }
 
   .header-nav-button {
-    padding: 8px 6px;
+    padding: 10px 8px;
   }
 
   .header-nav-button .en {
-    font-size: clamp(18px, 1.35vw, 25px);
+    font-size: clamp(21px, 1.5vw, 29px);
   }
 
   .header-nav-button .th {
-    font-size: clamp(9px, 0.72vw, 12px);
+    font-size: clamp(10px, 0.8vw, 14px);
   }
 
   .hero-layout {
@@ -386,29 +386,29 @@
   }
 
   .first-page-header {
-    top: 10px;
+    top: 4px;
     width: min(95vw, 1120px);
   }
 
   .header-center-block {
-    align-items: center;
+    align-items: flex-start;
   }
 
   .header-nav {
-    gap: clamp(5px, 0.72vw, 11px);
-    margin-top: 14px;
+    gap: clamp(7px, 0.95vw, 13px);
+    margin-top: 8px;
   }
 
   .header-nav-button {
-    padding: 6px 6px;
+    padding: 8px 8px;
   }
 
   .header-nav-button .en {
-    font-size: clamp(16px, 1.35vw, 21px);
+    font-size: clamp(19px, 1.55vw, 25px);
   }
 
   .header-nav-button .th {
-    font-size: clamp(9px, 0.72vw, 11px);
+    font-size: clamp(10px, 0.84vw, 13px);
   }
 
   .hero-layout {
