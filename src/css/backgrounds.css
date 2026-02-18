@@ -1,0 +1,30 @@
+﻿* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.bg-frame {
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: #000;
+}
+
+.bg-page-1 {
+  background-image: url("../../assests/main_web/page1/bg_page.jpg");
+}
+
+.bg-page-2 {
+  background-image: url("../../assests/main_web/page2/bg_page.jpg");
+}
+
+.bg-page-3 {
+  background-image: url("../../assests/main_web/page3/bg_page.jpg");
+}
