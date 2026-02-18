@@ -10,13 +10,17 @@ body {
   color: #1c1c1c;
 }
 
+body {
+  overflow-x: hidden;
+  background: #fff;
+}
+
 button {
   font: inherit;
 }
 
 .bg-frame {
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -28,17 +32,19 @@ button {
   background-image: url("../../assests/main_web/page1/bg_page.jpg");
   overflow: visible;
   z-index: 3;
-  display: flex;
-  flex-direction: column;
+  height: clamp(500px, 53.8vw, 1030px);
 }
 
 .bg-page-2 {
   background-image: url("../../assests/main_web/page2/bg_page.jpg");
-  z-index: 1;
+  z-index: 2;
+  height: clamp(520px, 58vw, 1120px);
 }
 
 .bg-page-3 {
   background-image: url("../../assests/main_web/page3/bg_page.jpg");
+  z-index: 1;
+  height: clamp(530px, 58.5vw, 1140px);
 }
 
 .image-button {
@@ -56,20 +62,53 @@ button {
 
 .section-content {
   width: min(100vw, 960px);
+  height: 100%;
   margin: 0 auto;
-  padding-top: 28px;
+  padding-top: 26px;
   text-align: center;
+  position: relative;
 }
 
 .section-title {
   margin: 0;
-  font-size: clamp(68px, 7vw, 90px);
+  font-size: clamp(72px, 7.4vw, 102px);
   font-weight: 900;
-  line-height: 0.9;
+  line-height: 0.92;
   color: #111;
   text-shadow: 3px 3px 0 #fff;
 }
 
 .section-title span {
   color: #ffb320;
+}
+
+@media (min-width: 1600px) {
+  .bg-page-1 {
+    height: 1030px;
+  }
+
+  .bg-page-2 {
+    height: 1030px;
+  }
+
+  .bg-page-3 {
+    height: 1040px;
+  }
+
+  .section-content {
+    width: min(96vw, 1760px);
+  }
+}
+
+@media (max-width: 900px) {
+  .bg-page-1,
+  .bg-page-2,
+  .bg-page-3 {
+    height: auto;
+  }
+
+  .section-content {
+    width: min(96vw, 960px);
+    height: auto;
+  }
 }
