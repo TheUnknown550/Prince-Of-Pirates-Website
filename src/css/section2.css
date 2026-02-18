@@ -1,40 +1,37 @@
-﻿#game-guide .section-content {
+#game-guide .section-content {
   padding-top: 56px;
 }
 
 #game-guide .section-title {
-  font-size: clamp(82px, 8.2vw, 114px);
+  font-size: clamp(62px, 6.2vw, 98px);
+  line-height: 0.9;
+  text-align: left;
+  margin-left: clamp(20px, 8vw, 170px);
 }
 
 .feature-stage {
   margin: 12px auto 0;
-  width: min(94vw, 900px);
+  width: min(94vw, 960px);
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
+  gap: 8px;
 }
 
 .feature-screen {
-  flex: 0 0 70%;
+  flex: 0 0 71%;
   background: transparent;
-  /* border: 10px solid #ffd734;
-  border-radius: 6px;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25); */
   padding: 8px 8px 11px;
   position: relative;
 }
 
 .feature-screen-inner {
   min-height: 300px;
-  /* border: 3px solid #0d1530;
-  border-radius: 4px;
-  background: transparent; */
   overflow: hidden;
 }
 
 .feature-screen-inner img {
-  width: 85%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
@@ -60,16 +57,15 @@
 }
 
 .feature-portrait {
-  flex: 0 0 30%;
-  /* min-height: 390px; */
+  flex: 0 0 29%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 
 .feature-portrait img {
-  width: min(100%, 340px);
-  max-height: 420px;
+  width: min(100%, 390px);
+  max-height: 480px;
   object-fit: contain;
   display: block;
 }
@@ -96,23 +92,22 @@
   }
 
   #game-guide .section-title {
-    font-size: 146px;
+    font-size: 112px;
   }
 
   .feature-stage {
-    width: min(94vw, 1680px);
+    width: min(94vw, 1700px);
     margin-top: 20px;
-    gap: 24px;
+    gap: 0;
   }
 
   .feature-screen {
-    border-width: 14px;
+    flex: 0 0 66%;
     padding: 12px 12px 15px;
   }
 
   .feature-screen-inner {
     min-height: 520px;
-    border-width: 4px;
   }
 
   .feature-dots {
@@ -127,12 +122,13 @@
   }
 
   .feature-portrait {
-    min-height: 560px;
+    flex: 0 0 34%;
+    min-height: 600px;
   }
 
   .feature-portrait img {
-    width: min(100%, 470px);
-    max-height: 560px;
+    width: min(100%, 590px);
+    max-height: 740px;
   }
 
   .feature-caption {
@@ -153,6 +149,8 @@
 
   #game-guide .section-title {
     font-size: clamp(56px, 11vw, 84px);
+    text-align: center;
+    margin-left: 0;
   }
 
   .feature-stage {
