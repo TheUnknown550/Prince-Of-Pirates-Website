@@ -4,17 +4,17 @@
   background: #171922;
   color: #f2f2f2;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 14px;
-  padding: 14px clamp(16px, 7vw, 120px) 10px;
+  padding: 12px clamp(16px, 7vw, 120px);
   font-size: clamp(13px, 0.95vw, 17px);
 }
 
 .site-footer-text {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 4px;
 }
 
@@ -25,13 +25,13 @@
 .site-footer-logo {
   width: clamp(130px, 12vw, 196px);
   height: auto;
-  align-self: flex-end;
+  align-self: center;
 }
 
 @media (min-width: 1600px) {
   .site-footer {
     min-height: 112px;
-    padding: 18px clamp(24px, 7vw, 140px) 14px;
+    padding: 16px clamp(24px, 7vw, 140px);
     font-size: 18px;
   }
 
@@ -42,7 +42,7 @@
 
 @media (max-width: 900px) {
   .site-footer {
-    padding: 10px 16px 8px;
+    padding: 10px 16px;
     align-items: center;
   }
 
