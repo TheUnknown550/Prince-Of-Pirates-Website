@@ -209,6 +209,18 @@
   margin: 0 auto;
 }
 
+.hero-detail-image {
+  margin: -4px 0 2px;
+}
+
+.hero-detail-image img {
+  width: min(100%, 441px);
+  display: block;
+  margin: 0 auto;
+  transform: scaleY(0.92);
+  transform-origin: center;
+}
+
 .hero-thai-title {
   margin: 0;
   font-weight: 800;
@@ -253,6 +265,7 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
+  margin-top: -8px;
   margin-bottom: 8px;
 }
 
@@ -387,6 +400,10 @@
     width: min(100%, 760px);
   }
 
+  .hero-detail-image img {
+    width: min(100%, 520px);
+  }
+
   .hero-thai-title {
     font-size: 40px;
     line-height: 1.04;
@@ -498,6 +515,15 @@
     width: min(95vw, 620px);
   }
 
+  .hero-detail-image {
+    margin: -2px 0 6px;
+  }
+
+  .hero-detail-image img {
+    width: min(92vw, 430px);
+    transform: scaleY(0.94);
+  }
+
   .hero-thai-title {
     font-size: clamp(22px, 5.6vw, 34px);
   }
@@ -523,6 +549,7 @@
 
   .store-buttons {
     gap: 6px;
+    margin-top: -6px;
     margin-bottom: 10px;
   }
 
