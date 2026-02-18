@@ -22,6 +22,13 @@
                     <img src="assests/main_web/page1/logo.png" alt="Prince Of Pirates logo">
                 </button>
 
+                <button class="mobile-menu-toggle" type="button" data-action="toggle-mobile-menu"
+                    aria-label="Open navigation menu" aria-controls="mobile-nav-overlay" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
                 <nav class="header-nav" aria-label="Main navigation">
                     <button class="header-nav-button" type="button" data-action="main">
                         <span class="en">Main</span>
@@ -48,6 +55,39 @@
                         <span class="th">กลุ่มพูดคุย ซื้อขาย</span>
                     </button>
                 </nav>
+            </div>
+
+            <div class="mobile-menu-overlay" id="mobile-nav-overlay" hidden aria-hidden="true">
+                <div class="mobile-menu-panel">
+                    <button class="mobile-menu-close" type="button" data-action="close-mobile-menu"
+                        aria-label="Close navigation menu">&times;</button>
+                    <nav class="mobile-menu-nav" aria-label="Mobile navigation">
+                        <button class="mobile-menu-link" type="button" data-action="main">
+                            <span class="en">Main</span>
+                            <span class="th">หน้าแรก</span>
+                        </button>
+                        <button class="mobile-menu-link" type="button" data-action="register">
+                            <span class="en">Register</span>
+                            <span class="th">สมัครสมาชิก</span>
+                        </button>
+                        <button class="mobile-menu-link" type="button" data-action="topup">
+                            <span class="en">Topup</span>
+                            <span class="th">เติมเงิน</span>
+                        </button>
+                        <button class="mobile-menu-link" type="button" data-action="game-guide">
+                            <span class="en">Game Guide</span>
+                            <span class="th">แนะนำผู้เล่นใหม่</span>
+                        </button>
+                        <button class="mobile-menu-link" type="button" data-action="news">
+                            <span class="en">News</span>
+                            <span class="th">ข่าวสาร</span>
+                        </button>
+                        <button class="mobile-menu-link" type="button" data-action="community">
+                            <span class="en">Community</span>
+                            <span class="th">กลุ่มพูดคุย ซื้อขาย</span>
+                        </button>
+                    </nav>
+                </div>
             </div>
         </header>
 

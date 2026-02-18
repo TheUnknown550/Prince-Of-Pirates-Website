@@ -112,6 +112,69 @@
   display: block;
 }
 
+@media (max-width: 1200px) and (min-width: 901px) {
+  #character .section-content {
+    width: min(96vw, 1040px);
+    padding-top: 12px;
+  }
+
+  .character-left {
+    flex: 0 0 58%;
+    padding-left: 6px;
+    padding-bottom: 10px;
+  }
+
+  .character-title-image {
+    margin-top: 10px;
+  }
+
+  .character-title-image img {
+    width: min(100%, 860px);
+  }
+
+  .character-nameplate img {
+    width: clamp(320px, 36vw, 500px);
+  }
+
+  .character-copy {
+    max-width: 430px;
+    font-size: clamp(15px, 1.2vw, 18px);
+  }
+
+  .character-tabs {
+    margin-top: 16px;
+    gap: 6px;
+  }
+
+  .luffy-tab img {
+    width: clamp(150px, 15.2vw, 188px);
+  }
+
+  .solo-tab img {
+    width: clamp(162px, 16.4vw, 202px);
+  }
+
+  .nami-tab img {
+    width: clamp(148px, 15vw, 184px);
+  }
+
+  .char-arrow-btn img {
+    width: clamp(22px, 2.2vw, 30px);
+  }
+
+  .char-arrow-btn {
+    transform: translateY(clamp(12px, 1.4vw, 18px));
+  }
+
+  .character-right {
+    flex: 0 0 42%;
+  }
+
+  .character-silhouette {
+    width: min(100%, 500px);
+  }
+}
+
 @media (min-width: 1600px) {
   #character .section-content {
     width: min(96vw, 1800px);
@@ -201,6 +264,8 @@
   }
 
   .character-copy {
+    max-width: min(92vw, 440px);
+    font-size: clamp(15px, 3.8vw, 18px);
     margin-left: auto;
     margin-right: auto;
   }
@@ -242,5 +307,27 @@
 
   .character-silhouette {
     width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .character-tabs {
+    gap: 6px;
+  }
+
+  .luffy-tab img {
+    width: min(30vw, 130px);
+  }
+
+  .solo-tab img {
+    width: min(32vw, 138px);
+  }
+
+  .nami-tab img {
+    width: min(29vw, 126px);
+  }
+
+  .char-arrow-btn img {
+    width: min(5vw, 22px);
   }
 }

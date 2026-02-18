@@ -1,4 +1,9 @@
 (function () {
+  const MOBILE_BREAKPOINT = 900;
+  const mobileMenu = document.getElementById("mobile-nav-overlay");
+  const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+  let isMobileMenuOpen = false;
+
   const actionHandlers = {
     main: function () {
       scrollToSection("main");
@@ -50,8 +55,35 @@
     },
     "character-next": function () {
       cycleCharacter(1);
+    },
+    "toggle-mobile-menu": function () {
+      toggleMobileMenu();
+    },
+    "close-mobile-menu": function () {
+      closeMobileMenu();
     }
   };
+
+  function setMobileMenuOpen(nextState) {
+    if (!mobileMenu || !mobileMenuToggle) {
+      return;
+    }
+
+    isMobileMenuOpen = nextState;
+    mobileMenu.hidden = !nextState;
+    mobileMenu.classList.toggle("is-open", nextState);
+    mobileMenu.setAttribute("aria-hidden", String(!nextState));
+    mobileMenuToggle.setAttribute("aria-expanded", String(nextState));
+    document.body.classList.toggle("menu-open", nextState);
+  }
+
+  function toggleMobileMenu() {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  }
+
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
+  }
 
   function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
@@ -90,6 +122,32 @@
     if (typeof handler === "function") {
       handler();
     }
+
+    if (
+      button.closest(".mobile-menu-overlay") &&
+      action !== "toggle-mobile-menu" &&
+      action !== "close-mobile-menu"
+    ) {
+      closeMobileMenu();
+    }
+  }
+
+  function onWindowResize() {
+    if (window.innerWidth > MOBILE_BREAKPOINT && isMobileMenuOpen) {
+      closeMobileMenu();
+    }
+  }
+
+  function onDocumentKeyDown(event) {
+    if (event.key === "Escape" && isMobileMenuOpen) {
+      closeMobileMenu();
+    }
+  }
+
+  function onMenuOverlayClick(event) {
+    if (event.target === mobileMenu) {
+      closeMobileMenu();
+    }
   }
 
   function bindActionButtons() {
@@ -99,5 +157,15 @@
     });
   }
 
+  function bindMobileMenuEvents() {
+    window.addEventListener("resize", onWindowResize);
+    document.addEventListener("keydown", onDocumentKeyDown);
+
+    if (mobileMenu) {
+      mobileMenu.addEventListener("click", onMenuOverlayClick);
+    }
+  }
+
   bindActionButtons();
+  bindMobileMenuEvents();
 })();

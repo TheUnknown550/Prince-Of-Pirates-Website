@@ -51,3 +51,20 @@
   }
 }
 
+@media (max-width: 700px) {
+  .site-footer {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .site-footer-text {
+    align-items: center;
+  }
+
+  .site-footer-logo {
+    width: clamp(118px, 34vw, 170px);
+  }
+}
+
