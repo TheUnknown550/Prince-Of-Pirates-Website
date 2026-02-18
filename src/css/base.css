@@ -32,8 +32,8 @@ img {
 .bg-frame {
   width: 100%;
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
+  background-position: center top;
+  background-size: cover;
   position: relative;
   overflow: hidden;
 }
@@ -42,19 +42,19 @@ img {
   background-image: url("../../assests/main_web/page1/bg_page.jpg");
   overflow: visible;
   z-index: 3;
-  height: clamp(500px, 53.8vw, 1030px);
+  height: clamp(520px, 56vw, 960px);
 }
 
 .bg-page-2 {
   background-image: url("../../assests/main_web/page2/bg_page.jpg");
   z-index: 2;
-  height: clamp(520px, 58vw, 1120px);
+  height: clamp(540px, 58vw, 980px);
 }
 
 .bg-page-3 {
   background-image: url("../../assests/main_web/page3/bg_page.jpg");
   z-index: 1;
-  height: clamp(530px, 58.5vw, 1140px);
+  height: clamp(560px, 60vw, 1000px);
 }
 
 .image-button {
@@ -94,15 +94,15 @@ img {
 
 @media (min-width: 1600px) {
   .bg-page-1 {
-    height: 1030px;
+    height: 960px;
   }
 
   .bg-page-2 {
-    height: 1030px;
+    height: 980px;
   }
 
   .bg-page-3 {
-    height: 1040px;
+    height: 1000px;
   }
 
   .section-content {
@@ -112,24 +112,32 @@ img {
 
 @media (max-width: 1599px) and (min-width: 1201px) {
   .bg-page-1 {
-    height: clamp(920px, 64vw, 1030px);
+    height: clamp(700px, 57vw, 920px);
   }
 
   .bg-page-2 {
-    height: clamp(930px, 66vw, 1030px);
+    height: clamp(720px, 58vw, 940px);
   }
 
   .bg-page-3 {
-    height: clamp(940px, 67vw, 1040px);
+    height: clamp(730px, 59vw, 960px);
   }
 }
 
 @media (max-width: 1200px) {
-  .bg-page-1,
-  .bg-page-2,
+  .bg-page-1 {
+    height: auto;
+    min-height: clamp(560px, 78vw, 760px);
+  }
+
+  .bg-page-2 {
+    height: auto;
+    min-height: clamp(580px, 82vw, 800px);
+  }
+
   .bg-page-3 {
     height: auto;
-    min-height: clamp(700px, 105vw, 980px);
+    min-height: clamp(600px, 86vw, 840px);
   }
 
   .section-content {

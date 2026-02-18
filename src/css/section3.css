@@ -1,13 +1,22 @@
-﻿#character .section-content {
+#character {
+  display: flex;
+  align-items: stretch;
+}
+
+#character .section-content {
   width: min(96vw, 1180px);
+  height: 100%;
+  min-height: inherit;
   padding-top: 18px;
+  padding-bottom: 0;
 }
 
 .character-layout {
   text-align: left;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
+  width: 100%;
   height: 100%;
 }
 
@@ -15,7 +24,7 @@
   flex: 0 0 62%;
   padding-left: 12px;
   padding-top: 8px;
-  padding-bottom: 18px;
+  padding-bottom: 0;
 }
 
 .character-title-image {
@@ -101,27 +110,42 @@
 .character-right {
   flex: 0 0 38%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-end;
+  align-self: stretch;
+  min-height: 0;
   height: 100%;
+  padding-right: clamp(0px, 0.8vw, 14px);
 }
 
 .character-silhouette {
   width: min(100%, 560px);
+  height: auto;
+  max-height: 100%;
   object-fit: contain;
+  object-position: center bottom;
   display: block;
+  margin: 0 auto -2px;
 }
 
 @media (max-width: 1599px) and (min-width: 1201px) {
+  .bg-page-3 {
+    height: clamp(680px, 55vw, 860px);
+    min-height: 0;
+    background-size: cover;
+    background-position: 62% center;
+  }
+
   #character .section-content {
     width: min(96vw, 1320px);
     padding-top: 16px;
+    padding-bottom: 0;
   }
 
   .character-left {
     flex: 0 0 60%;
     padding-left: 16px;
-    padding-bottom: 14px;
+    padding-bottom: 0;
   }
 
   .character-title-image img {
@@ -165,29 +189,32 @@
 
   .character-right {
     flex: 0 0 40%;
+    justify-content: center;
   }
 
   .character-silhouette {
-    width: min(100%, 620px);
+    width: min(100%, 580px);
   }
 }
 
 @media (max-width: 1200px) and (min-width: 901px) {
   .bg-page-3 {
+    height: clamp(700px, 75vw, 820px);
     min-height: 0;
     background-size: cover;
-    background-position: center;
+    background-position: 62% center;
   }
 
   #character .section-content {
     width: min(96vw, 1040px);
     padding-top: 12px;
+    padding-bottom: 0;
   }
 
   .character-left {
     flex: 0 0 58%;
     padding-left: 6px;
-    padding-bottom: 10px;
+    padding-bottom: 0;
   }
 
   .character-title-image {
@@ -234,10 +261,11 @@
 
   .character-right {
     flex: 0 0 42%;
+    justify-content: center;
   }
 
   .character-silhouette {
-    width: min(100%, 500px);
+    width: min(100%, 470px);
   }
 }
 
@@ -245,12 +273,13 @@
   #character .section-content {
     width: min(96vw, 1800px);
     padding-top: 24px;
+    padding-bottom: 0;
   }
 
   .character-left {
     padding-left: 54px;
     padding-top: 8px;
-    padding-bottom: 24px;
+    padding-bottom: 0;
   }
 
   .character-title-image img {
@@ -297,7 +326,7 @@
   }
 
   .character-silhouette {
-    width: min(100%, 760px);
+    width: min(100%, 700px);
   }
 }
 
@@ -310,7 +339,7 @@
   .character-layout {
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 10px;
     text-align: center;
   }
 
@@ -366,14 +395,20 @@
   }
 
   .character-right {
-    width: min(94vw, 520px);
+    width: min(90vw, 480px);
     flex: none;
     justify-content: center;
+    align-self: center;
+    height: auto;
     margin-bottom: 0;
   }
 
   .character-silhouette {
     width: 100%;
+    max-width: none;
+    height: auto;
+    margin-bottom: 0;
+    object-position: center bottom;
   }
 }
 

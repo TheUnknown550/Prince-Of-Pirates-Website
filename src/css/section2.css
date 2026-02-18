@@ -1,5 +1,6 @@
 #game-guide .section-content {
   padding-top: 32px;
+  padding-bottom: 0;
 }
 
 .feature-title-image {
@@ -17,7 +18,7 @@
   margin: 30px auto 0;
   width: min(94vw, 960px);
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: center;
   gap: 8px;
 }
@@ -79,7 +80,7 @@
   max-height: 500px;
   object-fit: contain;
   display: block;
-  transform: translateY(-90px);
+  transform: translateY(-24px);
 }
 
 .feature-detail-image {
@@ -92,9 +93,17 @@
 }
 
 @media (max-width: 1599px) and (min-width: 1201px) {
+  .bg-page-2 {
+    height: auto;
+    min-height: clamp(680px, 54vw, 860px);
+    background-size: cover;
+    background-position: center top;
+  }
+
   #game-guide .section-content {
     width: min(96vw, 1280px);
     padding-top: 24px;
+    padding-bottom: 0;
   }
 
   .feature-title-image {
@@ -129,9 +138,9 @@
   }
 
   .feature-portrait img {
-    width: min(100%, 430px);
+    width: min(100%, 420px);
     max-height: 560px;
-    transform: translateY(-88px);
+    transform: translate(-10px, -24px);
   }
 
   .feature-detail-image img {
@@ -143,11 +152,12 @@
   .bg-page-2 {
     min-height: 0;
     background-size: cover;
-    background-position: center;
+    background-position: center top;
   }
 
   #game-guide .section-content {
     padding-top: 20px;
+    padding-bottom: 0;
   }
 
   .feature-title-image {
@@ -183,7 +193,7 @@
   .feature-portrait img {
     width: min(100%, 340px);
     max-height: 430px;
-    transform: translateY(-60px);
+    transform: translate(-8px, -16px);
   }
 
   .feature-detail-image img {
@@ -237,7 +247,7 @@
   .feature-portrait img {
     width: min(100%, 600px);
     max-height: 740px;
-    transform: translateY(-130px);
+    transform: translateY(-40px);
   }
 
   .feature-detail-image {
@@ -250,9 +260,14 @@
 }
 
 @media (max-width: 900px) {
+  .bg-page-2 {
+    background-size: cover;
+    background-position: center top;
+  }
+
   #game-guide .section-content {
     padding-top: 22px;
-    padding-bottom: 26px;
+    padding-bottom: 18px;
   }
 
   .feature-title-image {
