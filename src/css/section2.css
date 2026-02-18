@@ -201,6 +201,12 @@
   }
 }
 
+@media (max-width: 1400px) and (min-width: 901px) {
+  .feature-detail-image {
+    margin-bottom: clamp(14px, 1.8vw, 26px);
+  }
+}
+
 @media (min-width: 1600px) {
   #game-guide .section-content {
     padding-top: 30px;
