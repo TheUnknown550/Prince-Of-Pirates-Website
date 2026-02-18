@@ -199,6 +199,16 @@
   z-index: 13;
 }
 
+.hero-title-image {
+  margin: 0 0 10px;
+}
+
+.hero-title-image img {
+  width: min(100%, 651px);
+  display: block;
+  margin: 0 auto;
+}
+
 .hero-thai-title {
   margin: 0;
   font-weight: 800;
@@ -373,6 +383,10 @@
     transform: translateX(-72px);
   }
 
+  .hero-title-image img {
+    width: min(100%, 760px);
+  }
+
   .hero-thai-title {
     font-size: 40px;
     line-height: 1.04;
@@ -474,6 +488,14 @@
     max-width: 540px;
     margin: 0 auto 18px;
     padding: 0 4px;
+  }
+
+  .hero-title-image {
+    margin-bottom: 8px;
+  }
+
+  .hero-title-image img {
+    width: min(95vw, 620px);
   }
 
   .hero-thai-title {
