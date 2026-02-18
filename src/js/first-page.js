@@ -44,6 +44,12 @@
     },
     "character-nami": function () {
       setCharacterTab("character-nami");
+    },
+    "character-prev": function () {
+      cycleCharacter(-1);
+    },
+    "character-next": function () {
+      cycleCharacter(1);
     }
   };
 
@@ -56,10 +62,25 @@
   }
 
   function setCharacterTab(activeAction) {
-    const tabs = document.querySelectorAll(".char-tab");
+    const tabs = document.querySelectorAll(".char-tab-image");
     tabs.forEach(function (tab) {
       tab.classList.toggle("is-active", tab.dataset.action === activeAction);
     });
+  }
+
+  function cycleCharacter(direction) {
+    const actions = ["character-luffy", "character-zoro", "character-nami"];
+    const tabs = document.querySelectorAll(".char-tab-image");
+    let activeIndex = 0;
+
+    tabs.forEach(function (tab, index) {
+      if (tab.classList.contains("is-active")) {
+        activeIndex = index;
+      }
+    });
+
+    const nextIndex = (activeIndex + direction + actions.length) % actions.length;
+    setCharacterTab(actions[nextIndex]);
   }
 
   function onActionClick(event) {
