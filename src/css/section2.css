@@ -2,12 +2,15 @@
   padding-top: 32px;
 }
 
-#game-guide .section-title {
-  margin-top: 25px;
-  font-size: clamp(62px, 6.2vw, 98px);
-  line-height: 0.9;
+.feature-title-image {
+  margin: 25px 0 0;
   text-align: left;
+}
+
+.feature-title-image img {
+  width: min(100%, 760px);
   margin-left: clamp(20px, 8vw, 170px);
+  display: block;
 }
 
 .feature-stage {
@@ -79,22 +82,13 @@
   transform: translateY(-90px);
 }
 
-.feature-caption {
-  margin: 18px 0 0;
-  font-size: clamp(60px, 5.8vw, 84px);
-  font-weight: 900;
-  color: #111;
-  text-shadow: 2px 2px 0 #fff;
-  line-height: 1.02;
-  text-align: center;
+.feature-detail-image {
+  margin-top: 18px;
 }
 
-.feature-subcaption {
-  margin: 0;
-  font-size: clamp(22px, 2.25vw, 36px);
-  font-weight: 800;
-  line-height: 1.08;
-  text-align: center;
+.feature-detail-image img {
+  width: min(100%, 620px);
+  display: block;
 }
 
 @media (min-width: 1600px) {
@@ -102,8 +96,8 @@
     padding-top: 30px;
   }
 
-  #game-guide .section-title {
-    font-size: 112px;
+  .feature-title-image img {
+    width: min(100%, 960px);
   }
 
   .feature-stage {
@@ -146,17 +140,12 @@
     transform: translateY(-130px);
   }
 
-  .feature-caption {
+  .feature-detail-image {
     margin-top: 24px;
-    font-size: 70px;
-
-    color: white;                     /* text color */
-    -webkit-text-stroke: 4px black;   /* outline thickness + color */
-    font-weight: 1000;
   }
 
-  .feature-subcaption {
-    font-size: 35px;
+  .feature-detail-image img {
+    width: min(100%, 860px);
   }
 }
 
@@ -166,10 +155,15 @@
     padding-bottom: 26px;
   }
 
-  #game-guide .section-title {
-    font-size: clamp(56px, 11vw, 84px);
+  .feature-title-image {
     text-align: center;
-    margin-left: 0;
+    margin-top: 16px;
+  }
+
+  .feature-title-image img {
+    width: min(96vw, 680px);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .feature-stage {
@@ -202,7 +196,12 @@
     transform: none;
   }
 
-  .feature-caption {
+  .feature-detail-image {
     margin-top: 14px;
+  }
+
+  .feature-detail-image img {
+    width: min(96vw, 520px);
+    margin: 0 auto;
   }
 }
