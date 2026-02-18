@@ -93,6 +93,7 @@
 
 @media (max-width: 1599px) and (min-width: 1201px) {
   #game-guide .section-content {
+    width: min(96vw, 1280px);
     padding-top: 24px;
   }
 
@@ -106,13 +107,14 @@
   }
 
   .feature-stage {
-    width: min(95vw, 1280px);
+    width: 100%;
     margin-top: 20px;
     gap: 8px;
   }
 
   .feature-main {
-    flex: 0 0 68%;
+    flex: 0 0 69%;
+    min-width: 0;
   }
 
   .feature-screen-inner {
@@ -120,12 +122,14 @@
   }
 
   .feature-portrait {
-    flex: 0 0 32%;
+    flex: 0 0 31%;
+    min-width: 0;
     min-height: 430px;
+    justify-content: center;
   }
 
   .feature-portrait img {
-    width: min(100%, 470px);
+    width: min(100%, 430px);
     max-height: 560px;
     transform: translateY(-88px);
   }
@@ -156,13 +160,14 @@
   }
 
   .feature-stage {
-    width: min(95vw, 1100px);
+    width: 100%;
     margin-top: 18px;
     gap: 6px;
   }
 
   .feature-main {
     flex: 0 0 68%;
+    min-width: 0;
   }
 
   .feature-screen-inner {
@@ -171,6 +176,8 @@
 
   .feature-portrait {
     flex: 0 0 32%;
+    min-width: 0;
+    justify-content: center;
   }
 
   .feature-portrait img {
