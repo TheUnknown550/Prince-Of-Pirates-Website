@@ -568,7 +568,7 @@
 
 @media (max-width: 900px) {
   #main {
-    --ace-overlap: clamp(24px, 5.8vw, 42px);
+    --ace-overlap: clamp(24px, 8.571vw - 1.714px, 54px);
   }
 
   .bg-page-1 {
