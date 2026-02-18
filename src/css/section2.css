@@ -91,7 +91,57 @@
   display: block;
 }
 
+@media (max-width: 1599px) and (min-width: 1201px) {
+  #game-guide .section-content {
+    padding-top: 24px;
+  }
+
+  .feature-title-image {
+    margin-top: 20px;
+  }
+
+  .feature-title-image img {
+    width: min(100%, 820px);
+    margin-left: clamp(18px, 5vw, 90px);
+  }
+
+  .feature-stage {
+    width: min(95vw, 1280px);
+    margin-top: 20px;
+    gap: 8px;
+  }
+
+  .feature-main {
+    flex: 0 0 68%;
+  }
+
+  .feature-screen-inner {
+    min-height: 340px;
+  }
+
+  .feature-portrait {
+    flex: 0 0 32%;
+    min-height: 430px;
+  }
+
+  .feature-portrait img {
+    width: min(100%, 470px);
+    max-height: 560px;
+    transform: translateY(-88px);
+  }
+
+  .feature-detail-image img {
+    width: min(100%, 690px);
+  }
+}
+
 @media (max-width: 1200px) and (min-width: 901px) {
+  .bg-page-2 {
+    min-height: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
   #game-guide .section-content {
     padding-top: 20px;
   }

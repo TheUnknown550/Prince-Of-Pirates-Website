@@ -110,6 +110,20 @@ img {
   }
 }
 
+@media (max-width: 1599px) and (min-width: 1201px) {
+  .bg-page-1 {
+    height: clamp(920px, 64vw, 1030px);
+  }
+
+  .bg-page-2 {
+    height: clamp(930px, 66vw, 1030px);
+  }
+
+  .bg-page-3 {
+    height: clamp(940px, 67vw, 1040px);
+  }
+}
+
 @media (max-width: 1200px) {
   .bg-page-1,
   .bg-page-2,

@@ -178,6 +178,7 @@
   position: relative;
   flex: 0 0 61%;
   height: 100%;
+  min-width: 0;
 }
 
 .hero-character {
@@ -197,6 +198,7 @@
   margin-right: 10px;
   text-align: center;
   z-index: 13;
+  min-width: 0;
 }
 
 .hero-title-image {
@@ -297,53 +299,150 @@
   width: clamp(110px, 11.8vw, 142px);
 }
 
-@media (max-width: 1200px) and (min-width: 901px) {
+@media (max-width: 1599px) and (min-width: 1201px) {
   .first-page-header {
     top: 10px;
-    width: min(92vw, 980px);
+    width: min(94vw, 1360px);
+  }
+
+  .header-center-block {
+    gap: 16px;
+  }
+
+  .logo-button img {
+    width: clamp(220px, 17vw, 300px);
   }
 
   .header-nav {
-    gap: clamp(4px, 0.6vw, 10px);
+    gap: clamp(8px, 0.9vw, 14px);
     margin-top: 14px;
   }
 
   .header-nav-button {
-    padding: 6px 5px;
+    padding: 8px 6px;
   }
 
   .header-nav-button .en {
-    font-size: clamp(14px, 1.35vw, 20px);
+    font-size: clamp(15px, 1.2vw, 22px);
   }
 
   .header-nav-button .th {
-    font-size: clamp(8px, 0.66vw, 11px);
+    font-size: clamp(8px, 0.62vw, 11px);
   }
 
   .hero-layout {
-    width: min(96vw, 1150px);
+    width: min(95vw, 1320px);
     padding-top: 96px;
   }
 
   .hero-character {
-    left: -90px;
-    bottom: -70px;
-    width: min(72vw, 680px);
+    left: -108px;
+    bottom: -92px;
+    width: min(74vw, 1120px);
   }
 
   .hero-cta {
-    flex: 0 0 40%;
-    max-width: 450px;
-    margin-top: 42px;
+    flex: 0 0 41%;
+    max-width: 720px;
+    margin-top: 96px;
     margin-right: 0;
+    transform: translateX(-52px);
+  }
+
+  .hero-title-image img {
+    width: min(100%, 730px);
+  }
+
+  .hero-detail-image img {
+    width: min(100%, 510px);
   }
 
   .play-btn {
-    width: clamp(250px, 26vw, 320px);
+    width: clamp(320px, 27vw, 470px);
   }
 
   .action-btn {
-    width: clamp(100px, 10.8vw, 130px);
+    width: clamp(126px, 10.6vw, 180px);
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 901px) {
+  .bg-page-1 {
+    min-height: 0;
+  }
+
+  .first-page-header {
+    top: 10px;
+    width: min(95vw, 1120px);
+  }
+
+  .header-center-block {
+    align-items: center;
+  }
+
+  .header-nav {
+    gap: clamp(5px, 0.72vw, 11px);
+    margin-top: 14px;
+  }
+
+  .header-nav-button {
+    padding: 6px 6px;
+  }
+
+  .header-nav-button .en {
+    font-size: clamp(14px, 1.2vw, 18px);
+  }
+
+  .header-nav-button .th {
+    font-size: clamp(8px, 0.62vw, 10px);
+  }
+
+  .hero-layout {
+    width: min(96vw, 1200px);
+    height: auto;
+    padding-top: 92px;
+  }
+
+  .hero-character-wrap {
+    flex: 0 0 59%;
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero-character {
+    position: relative;
+    left: -18px;
+    bottom: 0;
+    width: min(100%, 860px);
+  }
+
+  .hero-cta {
+    flex: 0 0 41%;
+    max-width: 540px;
+    margin-top: 56px;
+    margin-right: 0;
+    transform: translateX(-6px);
+  }
+
+  .hero-title-image img {
+    width: min(100%, 620px);
+  }
+
+  .hero-detail-image img {
+    width: min(100%, 450px);
+  }
+
+  .store-buttons {
+    margin-top: -4px;
+  }
+
+  .play-btn {
+    width: clamp(275px, 26vw, 360px);
+  }
+
+  .action-btn {
+    width: clamp(108px, 10.2vw, 145px);
   }
 }
 

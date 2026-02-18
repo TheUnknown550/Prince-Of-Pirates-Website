@@ -112,7 +112,73 @@
   display: block;
 }
 
+@media (max-width: 1599px) and (min-width: 1201px) {
+  #character .section-content {
+    width: min(96vw, 1320px);
+    padding-top: 16px;
+  }
+
+  .character-left {
+    flex: 0 0 60%;
+    padding-left: 16px;
+    padding-bottom: 14px;
+  }
+
+  .character-title-image img {
+    width: min(100%, 980px);
+  }
+
+  .character-nameplate img {
+    width: clamp(360px, 33vw, 560px);
+  }
+
+  .character-copy {
+    max-width: 500px;
+    font-size: clamp(16px, 1.02vw, 20px);
+  }
+
+  .character-tabs {
+    margin-top: 18px;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .luffy-tab img {
+    width: clamp(162px, 11.6vw, 198px);
+  }
+
+  .solo-tab img {
+    width: clamp(176px, 12.4vw, 214px);
+  }
+
+  .nami-tab img {
+    width: clamp(160px, 11.3vw, 196px);
+  }
+
+  .char-arrow-btn img {
+    width: clamp(24px, 1.8vw, 34px);
+  }
+
+  .char-arrow-btn {
+    transform: translateY(clamp(12px, 1.2vw, 20px));
+  }
+
+  .character-right {
+    flex: 0 0 40%;
+  }
+
+  .character-silhouette {
+    width: min(100%, 620px);
+  }
+}
+
 @media (max-width: 1200px) and (min-width: 901px) {
+  .bg-page-3 {
+    min-height: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
   #character .section-content {
     width: min(96vw, 1040px);
     padding-top: 12px;
@@ -238,7 +304,7 @@
 @media (max-width: 900px) {
   #character .section-content {
     padding-top: 24px;
-    padding-bottom: 22px;
+    padding-bottom: 0;
   }
 
   .character-layout {
@@ -303,6 +369,7 @@
     width: min(94vw, 520px);
     flex: none;
     justify-content: center;
+    margin-bottom: 0;
   }
 
   .character-silhouette {
