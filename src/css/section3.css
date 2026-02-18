@@ -199,15 +199,15 @@
 
 @media (max-width: 1200px) and (min-width: 901px) {
   .bg-page-3 {
-    height: clamp(700px, 75vw, 820px);
+    height: clamp(640px, 68vw, 760px);
     min-height: 0;
     background-size: cover;
-    background-position: 62% center;
+    background-position: 60% center;
   }
 
   #character .section-content {
     width: min(96vw, 1040px);
-    padding-top: 12px;
+    padding-top: 6px;
     padding-bottom: 0;
   }
 
@@ -218,7 +218,7 @@
   }
 
   .character-title-image {
-    margin-top: 10px;
+    margin-top: 4px;
   }
 
   .character-title-image img {
@@ -235,7 +235,7 @@
   }
 
   .character-tabs {
-    margin-top: 16px;
+    margin-top: 10px;
     gap: 6px;
   }
 
@@ -261,11 +261,15 @@
 
   .character-right {
     flex: 0 0 42%;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: 0;
   }
 
   .character-silhouette {
-    width: min(100%, 470px);
+    width: min(112%, 500px);
+    max-width: none;
+    max-height: calc(100% - 4px);
+    margin: 0 -4px -2px auto;
   }
 }
 
