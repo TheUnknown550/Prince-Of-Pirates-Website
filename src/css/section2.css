@@ -1,5 +1,5 @@
 #game-guide .section-content {
-  padding-top: 56px;
+  padding-top: 32px;
 }
 
 #game-guide .section-title {
@@ -10,7 +10,7 @@
 }
 
 .feature-stage {
-  margin: 12px auto 0;
+  margin: -54px auto 0;
   width: min(94vw, 960px);
   display: flex;
   align-items: flex-end;
@@ -19,7 +19,7 @@
 }
 
 .feature-screen {
-  flex: 0 0 71%;
+  flex: 0 0 68%;
   background: transparent;
   padding: 8px 8px 11px;
   position: relative;
@@ -57,15 +57,15 @@
 }
 
 .feature-portrait {
-  flex: 0 0 29%;
+  flex: 0 0 32%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
 }
 
 .feature-portrait img {
-  width: min(100%, 390px);
-  max-height: 480px;
+  width: min(100%, 420px);
+  max-height: 520px;
   object-fit: contain;
   display: block;
 }
@@ -88,7 +88,7 @@
 
 @media (min-width: 1600px) {
   #game-guide .section-content {
-    padding-top: 62px;
+    padding-top: 30px;
   }
 
   #game-guide .section-title {
@@ -97,12 +97,12 @@
 
   .feature-stage {
     width: min(94vw, 1700px);
-    margin-top: 20px;
+    margin-top: -92px;
     gap: 0;
   }
 
   .feature-screen {
-    flex: 0 0 66%;
+    flex: 0 0 63%;
     padding: 12px 12px 15px;
   }
 
@@ -122,13 +122,13 @@
   }
 
   .feature-portrait {
-    flex: 0 0 34%;
+    flex: 0 0 37%;
     min-height: 600px;
   }
 
   .feature-portrait img {
-    width: min(100%, 590px);
-    max-height: 740px;
+    width: min(100%, 640px);
+    max-height: 780px;
   }
 
   .feature-caption {
@@ -154,6 +154,7 @@
   }
 
   .feature-stage {
+    margin-top: 0;
     width: min(94vw, 680px);
     flex-direction: column;
     align-items: center;
