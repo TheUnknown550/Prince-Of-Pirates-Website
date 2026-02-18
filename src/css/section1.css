@@ -9,6 +9,7 @@
 
 #main {
   font-family: "Prompt", "Segoe UI", Tahoma, sans-serif;
+  --ace-overlap: clamp(48px, 4.2vw, 70px);
 }
 
 .header-center-block {
@@ -179,12 +180,13 @@
   flex: 0 0 61%;
   height: 100%;
   min-width: 0;
+  overflow: visible;
 }
 
 .hero-character {
   position: absolute;
   left: -130px;
-  bottom: -112px;
+  bottom: calc(-1 * var(--ace-overlap));
   width: min(79vw, 800px);
   max-width: none;
   z-index: 12;
@@ -300,6 +302,10 @@
 }
 
 @media (max-width: 1599px) and (min-width: 1201px) {
+  #main {
+    --ace-overlap: clamp(70px, 5.6vw, 88px);
+  }
+
   .first-page-header {
     top: 10px;
     width: min(94vw, 1360px);
@@ -337,7 +343,7 @@
 
   .hero-character {
     left: -108px;
-    bottom: -92px;
+    bottom: calc(-1 * var(--ace-overlap));
     width: min(74vw, 1120px);
   }
 
@@ -367,6 +373,14 @@
 }
 
 @media (max-width: 1200px) and (min-width: 901px) {
+  #main {
+    --ace-overlap: clamp(
+      60px,
+      calc(60px + (100vw - 900px) * (6 / 300)),
+      66px
+    );
+  }
+
   .bg-page-1 {
     min-height: 0;
   }
@@ -405,16 +419,16 @@
 
   .hero-character-wrap {
     flex: 0 0 59%;
-    height: auto;
-    display: flex;
-    align-items: flex-end;
+    height: 100%;
+    min-height: clamp(470px, 49vw, 620px);
+    display: block;
   }
 
   .hero-character {
-    position: relative;
-    left: -18px;
-    bottom: 0;
-    width: min(100%, 860px);
+    position: absolute;
+    left: -34px;
+    bottom: calc(-1 * var(--ace-overlap));
+    width: min(86vw, 860px);
   }
 
   .hero-cta {
@@ -446,7 +460,18 @@
   }
 }
 
+@media (max-width: 1070px) and (min-width: 901px) {
+  .hero-character {
+    left: -22px;
+    width: min(78vw, 760px);
+  }
+}
+
 @media (min-width: 1600px) {
+  #main {
+    --ace-overlap: 90px;
+  }
+
   .first-page-header {
     top: 14px;
     width: min(90vw, 1460px);
@@ -483,7 +508,7 @@
 
   .hero-character {
     left: -95px;
-    bottom: -90px;
+    bottom: calc(-1 * var(--ace-overlap));
     width: 1180px;
   }
 
@@ -542,6 +567,10 @@
 }
 
 @media (max-width: 900px) {
+  #main {
+    --ace-overlap: clamp(24px, 5.8vw, 42px);
+  }
+
   .bg-page-1 {
     min-height: clamp(680px, 140vw, 840px);
   }
@@ -587,16 +616,18 @@
     order: 2;
     width: 100%;
     flex: none;
-    display: flex;
-    justify-content: center;
+    position: relative;
+    display: block;
     height: auto;
+    min-height: clamp(340px, 70vw, 540px);
   }
 
   .hero-character {
-    position: relative;
-    left: 0;
-    bottom: 0;
-    width: min(96vw, 680px);
+    position: absolute;
+    left: 50%;
+    bottom: calc(-1 * var(--ace-overlap));
+    width: min(100vw, 690px);
+    transform: translateX(-56%);
   }
 
   .hero-cta {
