@@ -20,7 +20,7 @@
 }
 
 .feature-main {
-  flex: 0 0 68%;
+  flex: 0 0 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,15 +65,15 @@
 }
 
 .feature-portrait {
-  flex: 0 0 32%;
+  flex: 0 0 30%;
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .feature-portrait img {
-  width: min(100%, 420px);
-  max-height: 520px;
+  width: min(100%, 400px);
+  max-height: 500px;
   object-fit: contain;
   display: block;
   transform: translateY(-90px);
@@ -113,7 +113,7 @@
   }
 
   .feature-main {
-    flex: 0 0 63%;
+    flex: 0 0 65%;
   }
 
   .feature-screen {
@@ -136,13 +136,13 @@
   }
 
   .feature-portrait {
-    flex: 0 0 37%;
+    flex: 0 0 35%;
     min-height: 600px;
   }
 
   .feature-portrait img {
-    width: min(100%, 640px);
-    max-height: 780px;
+    width: min(100%, 600px);
+    max-height: 740px;
     transform: translateY(-130px);
   }
 
