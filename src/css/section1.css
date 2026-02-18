@@ -32,7 +32,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   gap: clamp(8px, 1vw, 16px);
-  margin-top: 2px;
+  margin-top: 20px;
   flex-wrap: nowrap;
 }
 
@@ -41,7 +41,7 @@
   background: transparent;
   color: #18214f;
   cursor: pointer;
-  padding: 0;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,7 +53,7 @@
 }
 
 .header-nav-button .en {
-  font-size: clamp(22px, 1.45vw, 27px);
+  font-size: clamp(20px, 1.45vw, 27px);
   font-weight: 800;
   line-height: 1.06;
 }
@@ -181,27 +181,27 @@
 @media (min-width: 1600px) {
   .first-page-header {
     top: 14px;
-    width: min(88vw, 1320px);
+    width: min(90vw, 1460px);
   }
 
   .header-center-block {
-    gap: 20px;
+    gap: 26px;
   }
 
   .logo-button img {
-    width: 300px;
+    width: 370px;
   }
 
   .header-nav {
-    gap: 22px;
+    gap: 26px;
   }
 
   .header-nav-button .en {
-    font-size: 24px;
+    font-size: 32px;
   }
 
   .header-nav-button .th {
-    font-size: 10px;
+    font-size: 16px;
   }
 
   .hero-layout {
@@ -215,7 +215,7 @@
 
   .hero-character {
     left: -95px;
-    bottom: -132px;
+    bottom: -90px;
     width: 1180px;
   }
 
@@ -337,5 +337,4 @@
     white-space: normal;
   }
 }
-
 

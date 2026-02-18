@@ -18,23 +18,23 @@
 .feature-screen {
   flex: 0 0 70%;
   background: transparent;
-  border: 10px solid #ffd734;
+  /* border: 10px solid #ffd734;
   border-radius: 6px;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25); */
   padding: 8px 8px 11px;
   position: relative;
 }
 
 .feature-screen-inner {
   min-height: 300px;
-  border: 3px solid #0d1530;
+  /* border: 3px solid #0d1530;
   border-radius: 4px;
-  background: transparent;
+  background: transparent; */
   overflow: hidden;
 }
 
 .feature-screen-inner img {
-  width: 100%;
+  width: 85%;
   height: 100%;
   object-fit: cover;
   display: block;
@@ -61,7 +61,7 @@
 
 .feature-portrait {
   flex: 0 0 30%;
-  min-height: 390px;
+  /* min-height: 390px; */
   display: flex;
   align-items: flex-end;
   justify-content: center;
