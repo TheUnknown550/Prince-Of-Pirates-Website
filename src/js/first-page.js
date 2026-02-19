@@ -296,12 +296,17 @@
 
     requestAnimationFrame(function () {
       currentImage.classList.add("is-sliding");
-      currentImage.classList.add(
-        direction > 0 ? "is-leave-to-right" : "is-leave-to-left"
-      );
-
       incomingImage.classList.add("is-sliding");
-      incomingImage.classList.remove("is-enter-from-right", "is-enter-from-left");
+
+      requestAnimationFrame(function () {
+        currentImage.classList.add(
+          direction > 0 ? "is-leave-to-right" : "is-leave-to-left"
+        );
+        incomingImage.classList.remove(
+          "is-enter-from-right",
+          "is-enter-from-left"
+        );
+      });
     });
 
     clearFeatureTransitionTimers();
@@ -377,17 +382,19 @@
     }
 
     featureAutoTimer = setInterval(function () {
-      setFeatureSlide(featureSlideIndex + 1, { direction: 1 });
+      shiftFeatureSlide(1, { restartTimer: false });
     }, FEATURE_SLIDE_INTERVAL_MS);
   }
 
-  function shiftFeatureSlide(step) {
+  function shiftFeatureSlide(step, options) {
     if (!featureImageElement || FEATURE_SLIDES.length < 2) {
       return;
     }
     const direction = step >= 0 ? 1 : -1;
     setFeatureSlide(featureSlideIndex + step, { direction: direction });
-    startFeatureAutoTimer();
+    if (!options || options.restartTimer !== false) {
+      startFeatureAutoTimer();
+    }
   }
 
   function onDocumentVisibilityChange() {
