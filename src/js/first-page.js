@@ -1,16 +1,20 @@
 (function () {
   const MOBILE_BREAKPOINT = 900;
-  const SNAP_LOCK_MS = 900;
-  const WHEEL_THRESHOLD = 20;
-  const SWIPE_THRESHOLD = 48;
+  const SNAP_LOCK_MS = 680;
+  const SNAP_ANCHOR_LOCK_MS = 320;
+  const WHEEL_THRESHOLD = 16;
+  const SWIPE_THRESHOLD = 42;
   const SNAP_EDGE_TOLERANCE = 10;
   const SNAP_SETTLE_TOLERANCE = 2;
+  const SNAP_QUEUE_DELAY_MS = 220;
   const mobileMenu = document.getElementById("mobile-nav-overlay");
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
   let sectionSteps = [];
   let isSnapLocked = false;
   let touchStartY = null;
   let snapUnlockTimer = null;
+  let snapLockStartedAt = 0;
+  let queuedSnapDirection = 0;
   let isMobileMenuOpen = false;
 
   const actionHandlers = {
@@ -268,14 +272,38 @@
     window.scrollTo({ top: top, behavior: "smooth" });
   }
 
-  function lockSnapScroll() {
+  function lockSnapScroll(duration) {
     isSnapLocked = true;
+    snapLockStartedAt = Date.now();
     if (snapUnlockTimer) {
       clearTimeout(snapUnlockTimer);
     }
+    const lockDuration = typeof duration === "number" ? duration : SNAP_LOCK_MS;
     snapUnlockTimer = setTimeout(function () {
       isSnapLocked = false;
-    }, SNAP_LOCK_MS);
+      if (!queuedSnapDirection) {
+        return;
+      }
+      const direction = queuedSnapDirection;
+      queuedSnapDirection = 0;
+      moveBySection(direction);
+    }, lockDuration);
+  }
+
+  function requestSectionMove(direction) {
+    if (!direction) {
+      return;
+    }
+
+    if (isSnapLocked) {
+      if (Date.now() - snapLockStartedAt < SNAP_QUEUE_DELAY_MS) {
+        return;
+      }
+      queuedSnapDirection = direction;
+      return;
+    }
+
+    moveBySection(direction);
   }
 
   function scrollToSectionIndex(index) {
@@ -306,7 +334,7 @@
 
     if (direction > 0) {
       if (currentY < anchors.bottom - SNAP_EDGE_TOLERANCE) {
-        lockSnapScroll();
+        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
         scrollToPosition(anchors.bottom);
         return;
       }
@@ -319,7 +347,7 @@
       }
 
       if (Math.abs(currentY - anchors.bottom) > SNAP_SETTLE_TOLERANCE) {
-        lockSnapScroll();
+        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
         scrollToPosition(anchors.bottom);
       }
       return;
@@ -327,7 +355,7 @@
 
     if (direction < 0) {
       if (currentY > anchors.top + SNAP_EDGE_TOLERANCE) {
-        lockSnapScroll();
+        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
         scrollToPosition(anchors.top);
         return;
       }
@@ -340,7 +368,7 @@
       }
 
       if (Math.abs(currentY - anchors.top) > SNAP_SETTLE_TOLERANCE) {
-        lockSnapScroll();
+        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
         scrollToPosition(anchors.top);
       }
       return;
@@ -357,12 +385,8 @@
     }
 
     event.preventDefault();
-    if (isSnapLocked) {
-      return;
-    }
-
     const direction = event.deltaY > 0 ? 1 : -1;
-    moveBySection(direction);
+    requestSectionMove(direction);
   }
 
   function onSnapKeyDown(event) {
@@ -377,7 +401,7 @@
 
     if (isDownIntent) {
       event.preventDefault();
-      moveBySection(1);
+      requestSectionMove(1);
       return;
     }
 
@@ -388,7 +412,7 @@
 
     if (isUpIntent) {
       event.preventDefault();
-      moveBySection(-1);
+      requestSectionMove(-1);
       return;
     }
 
@@ -428,7 +452,7 @@
     }
 
     const direction = deltaY > 0 ? 1 : -1;
-    moveBySection(direction);
+    requestSectionMove(direction);
   }
 
   function onSnapResize() {
