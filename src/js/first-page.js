@@ -18,6 +18,9 @@
   let isMobileMenuOpen = false;
 
   const actionHandlers = {
+    "reload-page": function () {
+      window.location.reload();
+    },
     main: function () {
       scrollToSection("main");
     },
