@@ -1,0 +1,302 @@
+.register-modal[hidden] {
+  display: none !important;
+}
+
+.register-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3200;
+  padding: clamp(10px, 3vw, 28px);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+.register-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.register-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 16, 33, 0.74);
+  backdrop-filter: blur(1.5px);
+}
+
+.register-modal-stage {
+  position: relative;
+  width: min(94vw, 1167px);
+  padding-top: clamp(68px, 7vw, 108px);
+  transform: translateY(18px) scale(0.965);
+  transition: transform 240ms ease;
+}
+
+.register-modal.is-open .register-modal-stage {
+  transform: translateY(0) scale(1);
+}
+
+.register-modal-paper {
+  position: relative;
+  min-height: clamp(420px, 59vw, 692px);
+}
+
+.register-modal-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  user-select: none;
+}
+
+.register-modal-logo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(330px, 58vw, 656px);
+  transform: translate(-50%, -17%);
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+}
+
+.register-modal-close {
+  position: absolute;
+  top: clamp(26px, 3.2vw, 44px);
+  right: clamp(22px, 2.8vw, 38px);
+  width: clamp(34px, 4.2vw, 67px);
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 170ms ease, filter 170ms ease;
+}
+
+.register-modal-close:hover,
+.register-modal-close:focus-visible {
+  transform: scale(1.08);
+  filter: drop-shadow(0 6px 10px rgba(73, 5, 5, 0.25));
+  outline: none;
+}
+
+.register-modal-close img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.register-modal-chopper {
+  position: absolute;
+  left: clamp(-146px, -9vw, -42px);
+  bottom: clamp(-32px, -2vw, -12px);
+  width: clamp(190px, 37vw, 469px);
+  pointer-events: none;
+  z-index: 4;
+  user-select: none;
+}
+
+.register-modal-content {
+  position: absolute;
+  left: 42%;
+  right: 7.5%;
+  top: 31%;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Prompt", sans-serif;
+  color: #121212;
+}
+
+.register-modal-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-modal-label {
+  margin: 0 0 8px;
+  font-size: clamp(24px, 2.2vw, 39px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: #0f0f0f;
+}
+
+.register-modal-field {
+  width: min(100%, 583px);
+  height: clamp(56px, 7.2vw, 89px);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 14px;
+  padding: 0 clamp(14px, 2vw, 40px);
+}
+
+.register-modal-field-username {
+  background-image: url("../../assests/modals/login/Username_Text_Field.png");
+}
+
+.register-modal-field-password {
+  background-image: url("../../assests/modals/login/Password_Text_Field.png");
+}
+
+.register-modal-input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font-family: "Prompt", sans-serif;
+  font-size: clamp(20px, 1.9vw, 34px);
+  font-weight: 500;
+  text-align: center;
+  color: #7e7e7e;
+  outline: none;
+  letter-spacing: 0.025em;
+}
+
+.register-modal-input::placeholder {
+  color: #bababa;
+  opacity: 1;
+  text-transform: uppercase;
+}
+
+.register-modal-login-btn {
+  width: clamp(210px, 26vw, 315px);
+  margin-top: clamp(18px, 2.2vw, 28px);
+}
+
+.register-modal-login-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.register-modal-links {
+  margin-top: clamp(12px, 1.6vw, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2vw, 34px);
+}
+
+.register-modal-link {
+  border: 0;
+  background: transparent;
+  font-family: "Prompt", sans-serif;
+  font-size: clamp(18px, 1.55vw, 30px);
+  font-weight: 600;
+  line-height: 1;
+  color: #0f0f0f;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+
+.register-modal-link:hover,
+.register-modal-link:focus-visible {
+  color: #ff8f1f;
+  outline: none;
+}
+
+.register-modal-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+body.register-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .register-modal-content {
+    left: 40%;
+    right: 6%;
+    top: 30%;
+  }
+}
+
+@media (max-width: 900px) {
+  .register-modal-stage {
+    width: min(96vw, 860px);
+    padding-top: clamp(54px, 8vw, 78px);
+  }
+
+  .register-modal-paper {
+    min-height: clamp(390px, 76vw, 640px);
+  }
+
+  .register-modal-logo {
+    width: min(76vw, 480px);
+    transform: translate(-50%, -15%);
+  }
+
+  .register-modal-chopper {
+    width: clamp(148px, 38vw, 300px);
+    left: clamp(-56px, -5vw, -14px);
+    bottom: -6px;
+  }
+
+  .register-modal-content {
+    left: 33%;
+    right: 5%;
+    top: 27%;
+  }
+
+  .register-modal-label {
+    margin-bottom: 4px;
+  }
+
+  .register-modal-field {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .register-modal-paper {
+    min-height: clamp(430px, 90vw, 560px);
+  }
+
+  .register-modal-chopper {
+    display: none;
+  }
+
+  .register-modal-content {
+    left: 7%;
+    right: 7%;
+    top: 27%;
+  }
+
+  .register-modal-label {
+    font-size: clamp(20px, 5.6vw, 30px);
+  }
+
+  .register-modal-input {
+    font-size: clamp(17px, 4.6vw, 26px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .register-modal,
+  .register-modal-stage {
+    transition: none !important;
+  }
+}

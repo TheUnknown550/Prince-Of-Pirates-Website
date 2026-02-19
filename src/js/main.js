@@ -16,4 +16,7 @@
   if (typeof app.initScrollAnimations === "function") {
     app.initScrollAnimations();
   }
+  if (typeof app.initRegisterModal === "function") {
+    app.initRegisterModal();
+  }
 })(window);

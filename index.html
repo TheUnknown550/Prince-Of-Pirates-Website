@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prince Of Pirates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="src/css/base.css">
     <link rel="stylesheet" href="src/css/section1.css">
     <link rel="stylesheet" href="src/css/section2.css">
     <link rel="stylesheet" href="src/css/section3.css">
+    <link rel="stylesheet" href="src/css/modal-login.css">
     <link rel="stylesheet" href="src/css/footer.css">
 </head>
 
@@ -222,11 +227,59 @@
         <img class="site-footer-logo" src="assests/main_web/footer/logoFooter.png" alt="Prince Of Pirates footer logo">
     </footer>
 
+    <div class="register-modal" id="register-modal" hidden aria-hidden="true">
+        <div class="register-modal-backdrop" data-register-modal-close="true" aria-hidden="true"></div>
+        <div class="register-modal-stage register-modal-panel" role="dialog" aria-modal="true"
+            aria-labelledby="register-modal-title">
+            <img class="register-modal-logo" src="assests/modals/login/logo.png" alt="Prince Of Pirate logo">
+            <div class="register-modal-paper">
+                <img class="register-modal-frame" src="assests/modals/login/bg_frame.png" alt="" aria-hidden="true">
+
+                <button class="register-modal-close" type="button" data-register-modal-close="true"
+                    aria-label="Close register modal">
+                    <img src="assests/modals/login/Exit_Button.png" alt="" aria-hidden="true">
+                </button>
+
+                <img class="register-modal-chopper" src="assests/modals/login/Chopper_Character.png" alt=""
+                    aria-hidden="true">
+
+                <div class="register-modal-content">
+                    <h2 id="register-modal-title" class="register-modal-sr-only">Register Login Modal</h2>
+
+                    <form class="register-modal-form" novalidate>
+                        <label class="register-modal-label" for="register-username">ชื่อผู้ใช้</label>
+                        <div class="register-modal-field register-modal-field-username">
+                            <input id="register-username" class="register-modal-input" type="text" name="username"
+                                autocomplete="username" placeholder="USERNAME" aria-label="Username">
+                        </div>
+
+                        <label class="register-modal-label" for="register-password">รหัสผ่าน</label>
+                        <div class="register-modal-field register-modal-field-password">
+                            <input id="register-password" class="register-modal-input" type="password" name="password"
+                                autocomplete="current-password" placeholder="PASSWORD" aria-label="Password">
+                        </div>
+
+                        <button type="submit" class="image-button register-modal-login-btn" data-modal-action="login"
+                            aria-label="Login">
+                            <img src="assests/modals/login/Login%20Button.png" alt="LOGIN!">
+                        </button>
+                    </form>
+
+                    <div class="register-modal-links">
+                        <button type="button" class="register-modal-link" data-modal-action="signup">ลงทะเบียน</button>
+                        <button type="button" class="register-modal-link" data-modal-action="forgot">ลืมรหัสผ่าน</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="src/js/navigation.js"></script>
     <script src="src/js/character-tabs.js"></script>
     <script src="src/js/feature-carousel.js"></script>
     <script src="src/js/section-snap.js"></script>
     <script src="src/js/scroll-animations.js"></script>
+    <script src="src/js/register-modal.js"></script>
     <script src="src/js/main.js"></script>
 </body>
 

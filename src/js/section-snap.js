@@ -16,7 +16,10 @@
   let isInitialized = false;
 
   function isMenuOpen() {
-    return document.body.classList.contains("menu-open");
+    return (
+      document.body.classList.contains("menu-open") ||
+      document.body.classList.contains("register-modal-open")
+    );
   }
 
   function collectSectionSteps() {

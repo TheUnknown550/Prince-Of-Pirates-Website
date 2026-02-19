@@ -55,8 +55,12 @@
     main: function () {
       scrollToSection("main");
     },
-    register: function () {
-      alert("Register page link not added yet.");
+    register: function (triggerButton) {
+      if (app.registerModal && typeof app.registerModal.open === "function") {
+        app.registerModal.open(triggerButton);
+        return;
+      }
+      alert("Register modal is not available yet.");
     },
     topup: function () {
       alert("Topup page link not added yet.");
@@ -101,13 +105,14 @@
     const action = button.dataset.action;
     const handler = actionHandlers[action];
     if (typeof handler === "function") {
-      handler();
+      handler(button);
     }
 
     if (
       button.closest(".mobile-menu-overlay") &&
       action !== "toggle-mobile-menu" &&
-      action !== "close-mobile-menu"
+      action !== "close-mobile-menu" &&
+      action !== "register"
     ) {
       closeMobileMenu();
     }
