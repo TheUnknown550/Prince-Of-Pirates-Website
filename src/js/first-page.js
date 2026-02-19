@@ -1,8 +1,9 @@
 (function () {
   const MOBILE_BREAKPOINT = 900;
-  const SNAP_LOCK_MS = 760;
+  const SNAP_LOCK_MS = 900;
   const WHEEL_THRESHOLD = 20;
   const SWIPE_THRESHOLD = 48;
+  const SNAP_SETTLE_TOLERANCE = 2;
   const mobileMenu = document.getElementById("mobile-nav-overlay");
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
   let sectionSteps = [];
@@ -251,7 +252,7 @@
     if (!target) {
       return;
     }
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
   }
 
   function moveBySection(direction) {
@@ -266,6 +267,11 @@
     );
 
     if (nextIndex === currentIndex) {
+      const currentTop = sectionSteps[currentIndex].offsetTop;
+      if (Math.abs(window.scrollY - currentTop) > SNAP_SETTLE_TOLERANCE) {
+        lockSnapScroll();
+        scrollToSectionIndex(currentIndex);
+      }
       return;
     }
 
@@ -274,7 +280,13 @@
   }
 
   function onSnapWheel(event) {
-    if (isMobileMenuOpen || isSnapLocked) {
+    if (isMobileMenuOpen) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (isSnapLocked) {
       return;
     }
 
@@ -282,7 +294,6 @@
       return;
     }
 
-    event.preventDefault();
     moveBySection(event.deltaY > 0 ? 1 : -1);
   }
 
@@ -359,6 +370,7 @@
       return;
     }
 
+    document.documentElement.classList.add("section-snap-enabled");
     document.body.classList.add("section-snap-enabled");
 
     window.addEventListener("wheel", onSnapWheel, { passive: false });
