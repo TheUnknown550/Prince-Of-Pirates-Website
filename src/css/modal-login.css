@@ -175,6 +175,18 @@
   letter-spacing: 0.025em;
 }
 
+.register-modal-input:-webkit-autofill,
+.register-modal-input:-webkit-autofill:hover,
+.register-modal-input:-webkit-autofill:focus,
+.register-modal-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #0f0f0f;
+  caret-color: #0f0f0f;
+  background-color: transparent !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 .register-modal-input::placeholder {
   color: #bababa;
   opacity: 1;
