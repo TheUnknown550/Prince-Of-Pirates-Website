@@ -624,10 +624,10 @@
 
   .hero-character {
     position: absolute;
-    left: 50%;
+    left: 47%;
     bottom: calc(-1 * var(--ace-overlap));
-    width: min(100vw, 690px);
-    transform: translateX(-56%);
+    width: min(96vw, 670px);
+    transform: translateX(-57%);
   }
 
   .hero-cta {

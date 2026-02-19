@@ -16,6 +16,11 @@ body {
   font-family: "Kodchasan", "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
 }
 
+:root {
+  --reveal-duration: 780ms;
+  --reveal-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
 body.menu-open {
   overflow: hidden;
 }
@@ -92,6 +97,81 @@ img {
   color: #ffb320;
 }
 
+.reveal-on-scroll {
+  --reveal-delay: 0ms;
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.985);
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease) var(--reveal-delay),
+    transform var(--reveal-duration) var(--reveal-ease) var(--reveal-delay);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.reveal-left {
+  transform: translate3d(-34px, 0, 0);
+}
+
+.reveal-on-scroll.reveal-right {
+  transform: translate3d(34px, 0, 0);
+}
+
+.reveal-on-scroll.reveal-pop {
+  transform: translate3d(0, 18px, 0) scale(0.94);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.image-button,
+.header-nav-button,
+.char-tab-image {
+  transition: transform 220ms ease, filter 220ms ease, opacity 220ms ease;
+}
+
+.image-button:hover,
+.header-nav-button:hover,
+.char-tab-image:hover {
+  transform: translateY(-3px) scale(1.01);
+  filter: drop-shadow(0 10px 18px rgba(19, 27, 66, 0.18));
+}
+
+.image-button:active,
+.header-nav-button:active,
+.char-tab-image:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.play-btn {
+  animation: play-btn-pulse 3.2s ease-in-out infinite;
+}
+
+.char-tab-image.is-active img {
+  animation: tab-float 2.4s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes play-btn-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+  }
+  50% {
+    filter: drop-shadow(0 8px 18px rgba(30, 58, 138, 0.26));
+  }
+}
+
+@keyframes tab-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
 @media (min-width: 1600px) {
   .bg-page-1 {
     height: 960px;
@@ -157,5 +237,24 @@ img {
   .section-content {
     width: min(96vw, 960px);
     height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .play-btn,
+  .char-tab-image.is-active img {
+    animation: none !important;
+  }
+
+  .image-button,
+  .header-nav-button,
+  .char-tab-image {
+    transition: none !important;
   }
 }
