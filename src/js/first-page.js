@@ -29,6 +29,7 @@
   let featureTransitionTimer = null;
   let featurePendingSlideIndex = null;
   let featurePendingDirection = 1;
+  let featureIndicatorDots = [];
   let isFeatureAnimating = false;
   let isMobileMenuOpen = false;
 
@@ -181,6 +182,34 @@
     const slide = FEATURE_SLIDES[featureSlideIndex];
     featureImageElement.src = slide.src;
     featureImageElement.alt = slide.alt;
+    updateFeatureSlideIndicator();
+  }
+
+  function updateFeatureSlideIndicator() {
+    if (!featureIndicatorDots.length) {
+      return;
+    }
+
+    featureIndicatorDots.forEach(function (dot, index) {
+      dot.classList.toggle("is-active", index === featureSlideIndex);
+    });
+  }
+
+  function initFeatureSlideIndicator() {
+    const indicator = document.querySelector(".feature-slide-indicator");
+    if (!indicator) {
+      featureIndicatorDots = [];
+      return;
+    }
+
+    indicator.textContent = "";
+    featureIndicatorDots = FEATURE_SLIDES.map(function (_slide, index) {
+      const dot = document.createElement("span");
+      dot.className = "feature-slide-dot";
+      dot.dataset.slideIndex = String(index);
+      indicator.appendChild(dot);
+      return dot;
+    });
   }
 
   function removeFeatureIncomingImages() {
@@ -380,6 +409,7 @@
       preloadImage.src = slide.src;
     });
 
+    initFeatureSlideIndicator();
     setFeatureSlide(0, { instant: true, force: true });
     startFeatureAutoTimer();
     document.addEventListener("visibilitychange", onDocumentVisibilityChange);
