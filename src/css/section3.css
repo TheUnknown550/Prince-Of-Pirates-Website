@@ -372,7 +372,9 @@
 
   .character-tabs {
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: clamp(2px, 1vw, 8px);
+    width: 100%;
   }
 
   .character-nameplate img {
@@ -380,19 +382,19 @@
   }
 
   .luffy-tab img {
-    width: 170px;
+    width: clamp(82px, 22vw, 170px);
   }
 
   .solo-tab img {
-    width: 180px;
+    width: clamp(88px, 23vw, 180px);
   }
 
   .nami-tab img {
-    width: 168px;
+    width: clamp(82px, 22vw, 168px);
   }
 
   .char-arrow-btn img {
-    width: 28px;
+    width: clamp(16px, 4.8vw, 28px);
   }
 
   .char-arrow-btn {
@@ -419,22 +421,22 @@
 
 @media (max-width: 620px) {
   .character-tabs {
-    gap: 6px;
+    gap: clamp(2px, 0.9vw, 6px);
   }
 
   .luffy-tab img {
-    width: min(30vw, 130px);
+    width: clamp(72px, 21vw, 130px);
   }
 
   .solo-tab img {
-    width: min(32vw, 138px);
+    width: clamp(76px, 22vw, 138px);
   }
 
   .nami-tab img {
-    width: min(29vw, 126px);
+    width: clamp(70px, 20.5vw, 126px);
   }
 
   .char-arrow-btn img {
-    width: min(5vw, 22px);
+    width: clamp(14px, 4.5vw, 22px);
   }
 }
