@@ -3,6 +3,7 @@
   const SNAP_LOCK_MS = 900;
   const WHEEL_THRESHOLD = 20;
   const SWIPE_THRESHOLD = 48;
+  const SNAP_EDGE_TOLERANCE = 10;
   const SNAP_SETTLE_TOLERANCE = 2;
   const mobileMenu = document.getElementById("mobile-nav-overlay");
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
@@ -233,6 +234,40 @@
     return bestIndex;
   }
 
+  function getScrollSectionIndex() {
+    if (!sectionSteps.length) {
+      return 0;
+    }
+
+    const y = window.scrollY + SNAP_SETTLE_TOLERANCE;
+    for (let i = sectionSteps.length - 1; i >= 0; i -= 1) {
+      if (y >= sectionSteps[i].offsetTop - SNAP_SETTLE_TOLERANCE) {
+        return i;
+      }
+    }
+
+    return 0;
+  }
+
+  function getSectionAnchors(index) {
+    if (index < 0 || index >= sectionSteps.length) {
+      return null;
+    }
+
+    const section = sectionSteps[index];
+    if (!section) {
+      return null;
+    }
+
+    const top = section.offsetTop;
+    const bottom = Math.max(top, top + section.offsetHeight - window.innerHeight);
+    return { top: top, bottom: bottom };
+  }
+
+  function scrollToPosition(top) {
+    window.scrollTo({ top: top, behavior: "smooth" });
+  }
+
   function lockSnapScroll() {
     isSnapLocked = true;
     if (snapUnlockTimer) {
@@ -252,7 +287,7 @@
     if (!target) {
       return;
     }
-    window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
+    scrollToPosition(target.offsetTop);
   }
 
   function moveBySection(direction) {
@@ -260,23 +295,56 @@
       return;
     }
 
-    const currentIndex = getClosestSectionIndex();
-    const nextIndex = Math.max(
-      0,
-      Math.min(currentIndex + direction, sectionSteps.length - 1)
-    );
+    const currentIndex = getScrollSectionIndex();
+    const anchors = getSectionAnchors(currentIndex);
+    if (!anchors) {
+      return;
+    }
 
-    if (nextIndex === currentIndex) {
-      const currentTop = sectionSteps[currentIndex].offsetTop;
-      if (Math.abs(window.scrollY - currentTop) > SNAP_SETTLE_TOLERANCE) {
+    const currentY = window.scrollY;
+    const lastIndex = sectionSteps.length - 1;
+
+    if (direction > 0) {
+      if (currentY < anchors.bottom - SNAP_EDGE_TOLERANCE) {
         lockSnapScroll();
-        scrollToSectionIndex(currentIndex);
+        scrollToPosition(anchors.bottom);
+        return;
+      }
+
+      const nextIndex = Math.min(currentIndex + 1, lastIndex);
+      if (nextIndex !== currentIndex) {
+        lockSnapScroll();
+        scrollToSectionIndex(nextIndex);
+        return;
+      }
+
+      if (Math.abs(currentY - anchors.bottom) > SNAP_SETTLE_TOLERANCE) {
+        lockSnapScroll();
+        scrollToPosition(anchors.bottom);
       }
       return;
     }
 
-    lockSnapScroll();
-    scrollToSectionIndex(nextIndex);
+    if (direction < 0) {
+      if (currentY > anchors.top + SNAP_EDGE_TOLERANCE) {
+        lockSnapScroll();
+        scrollToPosition(anchors.top);
+        return;
+      }
+
+      const prevIndex = Math.max(currentIndex - 1, 0);
+      if (prevIndex !== currentIndex) {
+        lockSnapScroll();
+        scrollToSectionIndex(prevIndex);
+        return;
+      }
+
+      if (Math.abs(currentY - anchors.top) > SNAP_SETTLE_TOLERANCE) {
+        lockSnapScroll();
+        scrollToPosition(anchors.top);
+      }
+      return;
+    }
   }
 
   function onSnapWheel(event) {
@@ -284,17 +352,17 @@
       return;
     }
 
-    event.preventDefault();
-
-    if (isSnapLocked) {
-      return;
-    }
-
     if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) {
       return;
     }
 
-    moveBySection(event.deltaY > 0 ? 1 : -1);
+    event.preventDefault();
+    if (isSnapLocked) {
+      return;
+    }
+
+    const direction = event.deltaY > 0 ? 1 : -1;
+    moveBySection(direction);
   }
 
   function onSnapKeyDown(event) {
@@ -302,21 +370,23 @@
       return;
     }
 
-    if (
+    const isDownIntent =
       event.key === "ArrowDown" ||
       event.key === "PageDown" ||
-      (event.key === " " && !event.shiftKey)
-    ) {
+      (event.key === " " && !event.shiftKey);
+
+    if (isDownIntent) {
       event.preventDefault();
       moveBySection(1);
       return;
     }
 
-    if (
+    const isUpIntent =
       event.key === "ArrowUp" ||
       event.key === "PageUp" ||
-      (event.key === " " && event.shiftKey)
-    ) {
+      (event.key === " " && event.shiftKey);
+
+    if (isUpIntent) {
       event.preventDefault();
       moveBySection(-1);
       return;
@@ -357,7 +427,8 @@
       return;
     }
 
-    moveBySection(deltaY > 0 ? 1 : -1);
+    const direction = deltaY > 0 ? 1 : -1;
+    moveBySection(direction);
   }
 
   function onSnapResize() {
