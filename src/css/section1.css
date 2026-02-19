@@ -152,16 +152,18 @@
 }
 
 .header-nav-button .en {
-  font-size: clamp(20px, 1.45vw, 27px);
+  font-size: clamp(24px, 1.85vw, 34px);
   font-weight: 800;
   line-height: 1.06;
+  letter-spacing: 0.02em;
 }
 
 .header-nav-button .th {
-  font-size: clamp(10px, 0.7vw, 13px);
+  font-size: clamp(12px, 0.94vw, 17px);
   font-weight: 700;
   line-height: 1.05;
   margin-top: 1px;
+  letter-spacing: 0.04em;
 }
 
 .hero-layout {
@@ -331,11 +333,11 @@
   }
 
   .header-nav-button .en {
-    font-size: clamp(21px, 1.5vw, 29px);
+    font-size: clamp(30px, 2.24vw, 42px);
   }
 
   .header-nav-button .th {
-    font-size: clamp(10px, 0.8vw, 14px);
+    font-size: clamp(14px, 1.22vw, 20px);
   }
 
   .hero-layout {
@@ -406,11 +408,11 @@
   }
 
   .header-nav-button .en {
-    font-size: clamp(19px, 1.55vw, 25px);
+    font-size: clamp(27px, 2.2vw, 36px);
   }
 
   .header-nav-button .th {
-    font-size: clamp(10px, 0.84vw, 13px);
+    font-size: clamp(14px, 1.28vw, 18px);
   }
 
   .hero-layout {
@@ -492,11 +494,11 @@
   }
 
   .header-nav-button .en {
-    font-size: 32px;
+    font-size: 40px;
   }
 
   .header-nav-button .th {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .hero-layout {
