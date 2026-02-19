@@ -8,6 +8,7 @@
   const SNAP_SETTLE_TOLERANCE = 2;
   const SNAP_QUEUE_DELAY_MS = 220;
   const FEATURE_SLIDE_INTERVAL_MS = 5000;
+  const FEATURE_TRANSITION_MS = 420;
   const FEATURE_SLIDES = [
     { src: "assests/main_web/page2/Game/Game.png", alt: "Gameplay preview 1" },
     { src: "assests/main_web/page2/Game/Game%20copy.png", alt: "Gameplay preview 2" },
@@ -25,6 +26,10 @@
   let featureImageElement = null;
   let featureSlideIndex = 0;
   let featureAutoTimer = null;
+  let featureTransitionTimer = null;
+  let featurePendingSlideIndex = null;
+  let featurePendingDirection = 1;
+  let isFeatureAnimating = false;
   let isMobileMenuOpen = false;
 
   const actionHandlers = {
@@ -167,7 +172,7 @@
     return (index + FEATURE_SLIDES.length) % FEATURE_SLIDES.length;
   }
 
-  function setFeatureSlide(index) {
+  function applyFeatureSlide(index) {
     if (!featureImageElement || !FEATURE_SLIDES.length) {
       return;
     }
@@ -176,6 +181,156 @@
     const slide = FEATURE_SLIDES[featureSlideIndex];
     featureImageElement.src = slide.src;
     featureImageElement.alt = slide.alt;
+  }
+
+  function removeFeatureIncomingImages() {
+    if (!featureImageElement || !featureImageElement.parentElement) {
+      return;
+    }
+    const incomingImages = featureImageElement.parentElement.querySelectorAll(
+      ".feature-screen-image.is-feature-incoming"
+    );
+    incomingImages.forEach(function (image) {
+      image.remove();
+    });
+  }
+
+  function clearFeatureTransitionTimers() {
+    if (featureTransitionTimer) {
+      clearTimeout(featureTransitionTimer);
+      featureTransitionTimer = null;
+    }
+  }
+
+  function resetFeatureImageClasses() {
+    if (!featureImageElement) {
+      return;
+    }
+
+    featureImageElement.classList.remove(
+      "is-sliding",
+      "is-feature-incoming",
+      "is-enter-from-right",
+      "is-enter-from-left",
+      "is-leave-to-left",
+      "is-leave-to-right"
+    );
+  }
+
+  function getFeatureSlideDirection(currentIndex, targetIndex, explicitDirection) {
+    if (explicitDirection === 1 || explicitDirection === -1) {
+      return explicitDirection;
+    }
+    if (targetIndex === currentIndex) {
+      return 0;
+    }
+    return targetIndex > currentIndex ? 1 : -1;
+  }
+
+  function finishFeatureAnimation() {
+    isFeatureAnimating = false;
+    if (
+      featurePendingSlideIndex === null ||
+      featurePendingSlideIndex === featureSlideIndex
+    ) {
+      featurePendingSlideIndex = null;
+      featurePendingDirection = 1;
+      return;
+    }
+
+    const pendingIndex = featurePendingSlideIndex;
+    const pendingDirection = featurePendingDirection;
+    featurePendingSlideIndex = null;
+    featurePendingDirection = 1;
+    setFeatureSlide(pendingIndex, { direction: pendingDirection, force: true });
+  }
+
+  function runFeatureSlideTransition(targetIndex, direction) {
+    if (!featureImageElement || !featureImageElement.parentElement) {
+      applyFeatureSlide(targetIndex);
+      finishFeatureAnimation();
+      return;
+    }
+
+    const container = featureImageElement.parentElement;
+    const currentImage = featureImageElement;
+    const targetSlide = FEATURE_SLIDES[targetIndex];
+    const incomingImage = currentImage.cloneNode(false);
+
+    incomingImage.src = targetSlide.src;
+    incomingImage.alt = targetSlide.alt;
+    incomingImage.classList.add("is-feature-incoming");
+    incomingImage.classList.add(
+      direction > 0 ? "is-enter-from-left" : "is-enter-from-right"
+    );
+    container.insertBefore(incomingImage, currentImage.nextSibling);
+
+    requestAnimationFrame(function () {
+      currentImage.classList.add("is-sliding");
+      currentImage.classList.add(
+        direction > 0 ? "is-leave-to-right" : "is-leave-to-left"
+      );
+
+      incomingImage.classList.add("is-sliding");
+      incomingImage.classList.remove("is-enter-from-right", "is-enter-from-left");
+    });
+
+    clearFeatureTransitionTimers();
+    featureTransitionTimer = setTimeout(function () {
+      applyFeatureSlide(targetIndex);
+      resetFeatureImageClasses();
+      removeFeatureIncomingImages();
+      clearFeatureTransitionTimers();
+      finishFeatureAnimation();
+    }, FEATURE_TRANSITION_MS);
+  }
+
+  function setFeatureSlide(index, options) {
+    if (!featureImageElement || !FEATURE_SLIDES.length) {
+      return;
+    }
+
+    const normalizedIndex = normalizeFeatureSlideIndex(index);
+    const instant = options && options.instant;
+    const force = options && options.force;
+    const direction = getFeatureSlideDirection(
+      featureSlideIndex,
+      normalizedIndex,
+      options && options.direction
+    );
+
+    if (!force && normalizedIndex === featureSlideIndex && !isFeatureAnimating) {
+      return;
+    }
+
+    if (instant) {
+      clearFeatureTransitionTimers();
+      resetFeatureImageClasses();
+      removeFeatureIncomingImages();
+      isFeatureAnimating = false;
+      featurePendingSlideIndex = null;
+      featurePendingDirection = 1;
+      applyFeatureSlide(normalizedIndex);
+      return;
+    }
+
+    if (isFeatureAnimating) {
+      featurePendingSlideIndex = normalizedIndex;
+      if (direction === 1 || direction === -1) {
+        featurePendingDirection = direction;
+      }
+      return;
+    }
+
+    if (!force && direction === 0) {
+      return;
+    }
+
+    isFeatureAnimating = true;
+    featurePendingSlideIndex = null;
+    featurePendingDirection = 1;
+    clearFeatureTransitionTimers();
+    runFeatureSlideTransition(normalizedIndex, direction || 1);
   }
 
   function clearFeatureAutoTimer() {
@@ -193,7 +348,7 @@
     }
 
     featureAutoTimer = setInterval(function () {
-      setFeatureSlide(featureSlideIndex + 1);
+      setFeatureSlide(featureSlideIndex + 1, { direction: 1 });
     }, FEATURE_SLIDE_INTERVAL_MS);
   }
 
@@ -201,7 +356,8 @@
     if (!featureImageElement || FEATURE_SLIDES.length < 2) {
       return;
     }
-    setFeatureSlide(featureSlideIndex + step);
+    const direction = step >= 0 ? 1 : -1;
+    setFeatureSlide(featureSlideIndex + step, { direction: direction });
     startFeatureAutoTimer();
   }
 
@@ -219,7 +375,12 @@
       return;
     }
 
-    setFeatureSlide(0);
+    FEATURE_SLIDES.forEach(function (slide) {
+      const preloadImage = new Image();
+      preloadImage.src = slide.src;
+    });
+
+    setFeatureSlide(0, { instant: true, force: true });
     startFeatureAutoTimer();
     document.addEventListener("visibilitychange", onDocumentVisibilityChange);
   }
