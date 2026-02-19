@@ -240,6 +240,21 @@ img {
   }
 }
 
+body.section-snap-enabled {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body.section-snap-enabled .bg-frame {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+body.section-snap-enabled .site-footer {
+  scroll-snap-align: start;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal-on-scroll {
     opacity: 1 !important;

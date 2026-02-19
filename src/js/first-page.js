@@ -1,7 +1,14 @@
 (function () {
   const MOBILE_BREAKPOINT = 900;
+  const SNAP_LOCK_MS = 760;
+  const WHEEL_THRESHOLD = 20;
+  const SWIPE_THRESHOLD = 48;
   const mobileMenu = document.getElementById("mobile-nav-overlay");
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+  let sectionSteps = [];
+  let isSnapLocked = false;
+  let touchStartY = null;
+  let snapUnlockTimer = null;
   let isMobileMenuOpen = false;
 
   const actionHandlers = {
@@ -183,12 +190,190 @@
     }
   }
 
+  function collectSectionSteps() {
+    return Array.prototype.slice.call(
+      document.querySelectorAll(".bg-frame, .site-footer")
+    );
+  }
+
+  function isEditableTarget(target) {
+    if (!target) {
+      return false;
+    }
+    const tag = target.tagName ? target.tagName.toLowerCase() : "";
+    return (
+      tag === "input" ||
+      tag === "textarea" ||
+      tag === "select" ||
+      tag === "button" ||
+      tag === "a" ||
+      target.isContentEditable
+    );
+  }
+
+  function getClosestSectionIndex() {
+    if (!sectionSteps.length) {
+      return 0;
+    }
+
+    const viewportMid = window.scrollY + window.innerHeight / 2;
+    let bestIndex = 0;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    sectionSteps.forEach(function (section, index) {
+      const sectionMid = section.offsetTop + section.offsetHeight / 2;
+      const distance = Math.abs(sectionMid - viewportMid);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestIndex = index;
+      }
+    });
+
+    return bestIndex;
+  }
+
+  function lockSnapScroll() {
+    isSnapLocked = true;
+    if (snapUnlockTimer) {
+      clearTimeout(snapUnlockTimer);
+    }
+    snapUnlockTimer = setTimeout(function () {
+      isSnapLocked = false;
+    }, SNAP_LOCK_MS);
+  }
+
+  function scrollToSectionIndex(index) {
+    if (!sectionSteps.length) {
+      return;
+    }
+    const clampedIndex = Math.max(0, Math.min(index, sectionSteps.length - 1));
+    const target = sectionSteps[clampedIndex];
+    if (!target) {
+      return;
+    }
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function moveBySection(direction) {
+    if (isMobileMenuOpen || isSnapLocked || !sectionSteps.length) {
+      return;
+    }
+
+    const currentIndex = getClosestSectionIndex();
+    const nextIndex = Math.max(
+      0,
+      Math.min(currentIndex + direction, sectionSteps.length - 1)
+    );
+
+    if (nextIndex === currentIndex) {
+      return;
+    }
+
+    lockSnapScroll();
+    scrollToSectionIndex(nextIndex);
+  }
+
+  function onSnapWheel(event) {
+    if (isMobileMenuOpen || isSnapLocked) {
+      return;
+    }
+
+    if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) {
+      return;
+    }
+
+    event.preventDefault();
+    moveBySection(event.deltaY > 0 ? 1 : -1);
+  }
+
+  function onSnapKeyDown(event) {
+    if (isMobileMenuOpen || isEditableTarget(event.target)) {
+      return;
+    }
+
+    if (
+      event.key === "ArrowDown" ||
+      event.key === "PageDown" ||
+      (event.key === " " && !event.shiftKey)
+    ) {
+      event.preventDefault();
+      moveBySection(1);
+      return;
+    }
+
+    if (
+      event.key === "ArrowUp" ||
+      event.key === "PageUp" ||
+      (event.key === " " && event.shiftKey)
+    ) {
+      event.preventDefault();
+      moveBySection(-1);
+      return;
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      lockSnapScroll();
+      scrollToSectionIndex(0);
+      return;
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      lockSnapScroll();
+      scrollToSectionIndex(sectionSteps.length - 1);
+    }
+  }
+
+  function onSnapTouchStart(event) {
+    if (!event.touches || !event.touches.length) {
+      return;
+    }
+    touchStartY = event.touches[0].clientY;
+  }
+
+  function onSnapTouchEnd(event) {
+    if (touchStartY === null || !event.changedTouches || !event.changedTouches.length) {
+      touchStartY = null;
+      return;
+    }
+
+    const touchEndY = event.changedTouches[0].clientY;
+    const deltaY = touchStartY - touchEndY;
+    touchStartY = null;
+
+    if (Math.abs(deltaY) < SWIPE_THRESHOLD) {
+      return;
+    }
+
+    moveBySection(deltaY > 0 ? 1 : -1);
+  }
+
+  function onSnapResize() {
+    sectionSteps = collectSectionSteps();
+  }
+
+  function initSectionSnapScroll() {
+    sectionSteps = collectSectionSteps();
+    if (sectionSteps.length < 2) {
+      return;
+    }
+
+    document.body.classList.add("section-snap-enabled");
+
+    window.addEventListener("wheel", onSnapWheel, { passive: false });
+    window.addEventListener("touchstart", onSnapTouchStart, { passive: true });
+    window.addEventListener("touchend", onSnapTouchEnd, { passive: true });
+    window.addEventListener("keydown", onSnapKeyDown);
+    window.addEventListener("resize", onSnapResize);
+  }
+
   function initScrollAnimations() {
     const revealGroups = [
       { selector: ".logo-button, .header-nav-button", animation: "reveal-pop", step: 45, startDelay: 0 },
       { selector: ".hero-title-image, .hero-detail-image", animation: "reveal-left", step: 90, startDelay: 80 },
       { selector: ".store-buttons .image-button, .play-btn, .action-buttons .image-button", animation: "reveal-pop", step: 70, startDelay: 120 },
-      { selector: ".hero-character-wrap", animation: "reveal-right", step: 0, startDelay: 140 },
+      { selector: ".hero-character-wrap", animation: "reveal-pop", step: 0, startDelay: 140 },
       { selector: ".feature-title-image, .feature-screen, .feature-detail-image", animation: "reveal-left", step: 110, startDelay: 60 },
       { selector: ".feature-portrait", animation: "reveal-right", step: 0, startDelay: 120 },
       { selector: ".character-title-image, .character-nameplate, .character-copy, .character-tabs", animation: "reveal-left", step: 85, startDelay: 60 },
@@ -257,5 +442,6 @@
 
   bindActionButtons();
   bindMobileMenuEvents();
+  initSectionSnapScroll();
   initScrollAnimations();
 })();
