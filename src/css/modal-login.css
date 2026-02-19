@@ -29,7 +29,12 @@
 .register-modal-stage {
   position: relative;
   width: min(94vw, 1167px);
-  padding-top: clamp(68px, 7vw, 108px);
+  --modal-stage-pad-top: clamp(68px, 7vw, 108px);
+  --modal-logo-width: clamp(330px, 58vw, 656px);
+  --modal-content-gap: clamp(10px, 1.8vw, 24px);
+  --modal-content-max-width: clamp(390px, 50vw, 500px);
+  --modal-field-max-width: clamp(320px, 46vw, 460px);
+  padding-top: var(--modal-stage-pad-top);
   transform: translateY(18px) scale(0.965);
   transition: transform 240ms ease;
 }
@@ -57,7 +62,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  width: clamp(330px, 58vw, 656px);
+  width: var(--modal-logo-width);
   transform: translate(-50%, -17%);
   z-index: 3;
   pointer-events: none;
@@ -103,9 +108,15 @@
 
 .register-modal-content {
   position: absolute;
-  left: 42%;
-  right: 7.5%;
-  top: 31%;
+  left: 50%;
+  right: auto;
+  top: clamp(
+    82px,
+    calc(var(--modal-logo-width) * 0.44 - var(--modal-stage-pad-top) + var(--modal-content-gap)),
+    230px
+  );
+  transform: translateX(-50%);
+  width: min(90%, var(--modal-content-max-width));
   z-index: 4;
   display: flex;
   flex-direction: column;
@@ -122,8 +133,8 @@
 }
 
 .register-modal-label {
-  margin: 0 0 8px;
-  font-size: clamp(24px, 2.2vw, 39px);
+  margin: 0 0 6px;
+  font-size: clamp(20px, 1.8vw, 34px);
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -131,8 +142,8 @@
 }
 
 .register-modal-field {
-  width: min(100%, 583px);
-  height: clamp(56px, 7.2vw, 89px);
+  width: min(100%, var(--modal-field-max-width));
+  height: clamp(54px, 6.9vw, 86px);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
@@ -156,7 +167,7 @@
   border: 0;
   background: transparent;
   font-family: "Prompt", sans-serif;
-  font-size: clamp(20px, 1.9vw, 34px);
+  font-size: clamp(18px, 1.55vw, 30px);
   font-weight: 500;
   text-align: center;
   color: #7e7e7e;
@@ -172,7 +183,7 @@
 
 .register-modal-login-btn {
   width: clamp(210px, 26vw, 315px);
-  margin-top: clamp(18px, 2.2vw, 28px);
+  margin-top: clamp(12px, 1.6vw, 20px);
 }
 
 .register-modal-login-btn img {
@@ -182,7 +193,7 @@
 }
 
 .register-modal-links {
-  margin-top: clamp(12px, 1.6vw, 24px);
+  margin-top: clamp(8px, 1.2vw, 16px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,7 +204,7 @@
   border: 0;
   background: transparent;
   font-family: "Prompt", sans-serif;
-  font-size: clamp(18px, 1.55vw, 30px);
+  font-size: clamp(16px, 1.35vw, 26px);
   font-weight: 600;
   line-height: 1;
   color: #0f0f0f;
@@ -227,17 +238,22 @@ body.register-modal-open {
 }
 
 @media (max-width: 1200px) {
-  .register-modal-content {
-    left: 40%;
-    right: 6%;
-    top: 30%;
+  .register-modal-stage {
+    --modal-content-gap: clamp(12px, 1.7vw, 20px);
+    --modal-content-max-width: clamp(340px, 44vw, 440px);
+    --modal-field-max-width: clamp(280px, 40vw, 400px);
   }
 }
 
 @media (max-width: 900px) {
   .register-modal-stage {
     width: min(96vw, 860px);
-    padding-top: clamp(54px, 8vw, 78px);
+    --modal-stage-pad-top: clamp(54px, 8vw, 78px);
+    --modal-logo-width: min(76vw, 480px);
+    --modal-content-gap: clamp(8px, 1.5vw, 14px);
+    --modal-content-max-width: clamp(300px, 60vw, 390px);
+    --modal-field-max-width: clamp(250px, 56vw, 360px);
+    padding-top: var(--modal-stage-pad-top);
   }
 
   .register-modal-paper {
@@ -245,20 +261,13 @@ body.register-modal-open {
   }
 
   .register-modal-logo {
-    width: min(76vw, 480px);
     transform: translate(-50%, -15%);
   }
 
   .register-modal-chopper {
     width: clamp(148px, 38vw, 300px);
-    left: clamp(-56px, -5vw, -14px);
+    left: clamp(-72px, -7vw, -20px);
     bottom: -6px;
-  }
-
-  .register-modal-content {
-    left: 33%;
-    right: 5%;
-    top: 27%;
   }
 
   .register-modal-label {
@@ -271,6 +280,13 @@ body.register-modal-open {
 }
 
 @media (max-width: 700px) {
+  .register-modal-stage {
+    --modal-logo-width: min(82vw, 430px);
+    --modal-content-gap: clamp(8px, 2vw, 12px);
+    --modal-content-max-width: clamp(260px, 80vw, 360px);
+    --modal-field-max-width: clamp(230px, 76vw, 330px);
+  }
+
   .register-modal-paper {
     min-height: clamp(430px, 90vw, 560px);
   }
@@ -279,18 +295,16 @@ body.register-modal-open {
     display: none;
   }
 
-  .register-modal-content {
-    left: 7%;
-    right: 7%;
-    top: 27%;
-  }
-
   .register-modal-label {
-    font-size: clamp(20px, 5.6vw, 30px);
+    font-size: clamp(17px, 4.2vw, 24px);
   }
 
   .register-modal-input {
-    font-size: clamp(17px, 4.6vw, 26px);
+    font-size: clamp(15px, 3.8vw, 20px);
+  }
+
+  .register-modal-links {
+    gap: clamp(10px, 2.8vw, 18px);
   }
 }
 
