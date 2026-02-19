@@ -7,6 +7,13 @@
   const SNAP_EDGE_TOLERANCE = 10;
   const SNAP_SETTLE_TOLERANCE = 2;
   const SNAP_QUEUE_DELAY_MS = 220;
+  const FEATURE_SLIDE_INTERVAL_MS = 5000;
+  const FEATURE_SLIDES = [
+    { src: "assests/main_web/page2/Game/Game.png", alt: "Gameplay preview 1" },
+    { src: "assests/main_web/page2/Game/Game%20copy.png", alt: "Gameplay preview 2" },
+    { src: "assests/main_web/page2/Game/Game%20copy%202.png", alt: "Gameplay preview 3" },
+    { src: "assests/main_web/page2/Game/Game%20copy%203.png", alt: "Gameplay preview 4" }
+  ];
   const mobileMenu = document.getElementById("mobile-nav-overlay");
   const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
   let sectionSteps = [];
@@ -15,6 +22,9 @@
   let snapUnlockTimer = null;
   let snapLockStartedAt = 0;
   let queuedSnapDirection = 0;
+  let featureImageElement = null;
+  let featureSlideIndex = 0;
+  let featureAutoTimer = null;
   let isMobileMenuOpen = false;
 
   const actionHandlers = {
@@ -47,6 +57,12 @@
     },
     "google-play-games": function () {
       alert("Google Play Games link not added yet.");
+    },
+    "feature-prev": function () {
+      shiftFeatureSlide(-1);
+    },
+    "feature-next": function () {
+      shiftFeatureSlide(1);
     },
     "play-game": function () {
       alert("Play Game action not added yet.");
@@ -142,6 +158,70 @@
 
     const nextIndex = (activeIndex + direction + actions.length) % actions.length;
     setCharacterTab(actions[nextIndex]);
+  }
+
+  function normalizeFeatureSlideIndex(index) {
+    if (!FEATURE_SLIDES.length) {
+      return 0;
+    }
+    return (index + FEATURE_SLIDES.length) % FEATURE_SLIDES.length;
+  }
+
+  function setFeatureSlide(index) {
+    if (!featureImageElement || !FEATURE_SLIDES.length) {
+      return;
+    }
+
+    featureSlideIndex = normalizeFeatureSlideIndex(index);
+    const slide = FEATURE_SLIDES[featureSlideIndex];
+    featureImageElement.src = slide.src;
+    featureImageElement.alt = slide.alt;
+  }
+
+  function clearFeatureAutoTimer() {
+    if (!featureAutoTimer) {
+      return;
+    }
+    clearInterval(featureAutoTimer);
+    featureAutoTimer = null;
+  }
+
+  function startFeatureAutoTimer() {
+    clearFeatureAutoTimer();
+    if (!featureImageElement || FEATURE_SLIDES.length < 2) {
+      return;
+    }
+
+    featureAutoTimer = setInterval(function () {
+      setFeatureSlide(featureSlideIndex + 1);
+    }, FEATURE_SLIDE_INTERVAL_MS);
+  }
+
+  function shiftFeatureSlide(step) {
+    if (!featureImageElement || FEATURE_SLIDES.length < 2) {
+      return;
+    }
+    setFeatureSlide(featureSlideIndex + step);
+    startFeatureAutoTimer();
+  }
+
+  function onDocumentVisibilityChange() {
+    if (document.hidden) {
+      clearFeatureAutoTimer();
+      return;
+    }
+    startFeatureAutoTimer();
+  }
+
+  function initFeatureCarousel() {
+    featureImageElement = document.querySelector(".feature-screen-image");
+    if (!featureImageElement) {
+      return;
+    }
+
+    setFeatureSlide(0);
+    startFeatureAutoTimer();
+    document.addEventListener("visibilitychange", onDocumentVisibilityChange);
   }
 
   function onActionClick(event) {
@@ -575,6 +655,7 @@
 
   bindActionButtons();
   bindMobileMenuEvents();
+  initFeatureCarousel();
   initSectionSnapScroll();
   initScrollAnimations();
 })();
