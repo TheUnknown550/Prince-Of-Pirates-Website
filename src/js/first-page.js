@@ -9,6 +9,7 @@
   const SNAP_QUEUE_DELAY_MS = 220;
   const FEATURE_SLIDE_INTERVAL_MS = 5000;
   const FEATURE_TRANSITION_MS = 420;
+  const FEATURE_TRANSITION_SETTLE_MS = 48;
   const FEATURE_SLIDES = [
     { src: "assests/main_web/page2/Game/Game.png", alt: "Gameplay preview 1" },
     { src: "assests/main_web/page2/Game/Game%20copy.png", alt: "Gameplay preview 2" },
@@ -316,7 +317,7 @@
       removeFeatureIncomingImages();
       clearFeatureTransitionTimers();
       finishFeatureAnimation();
-    }, FEATURE_TRANSITION_MS);
+    }, FEATURE_TRANSITION_MS + FEATURE_TRANSITION_SETTLE_MS);
   }
 
   function setFeatureSlide(index, options) {
