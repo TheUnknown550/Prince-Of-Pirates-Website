@@ -1,4 +1,12 @@
-﻿* {
+﻿@font-face {
+  font-family: "JK JING THAYKHRAW";
+  src: url("../../assests/fonts/JK_JING-THAYKHRAW.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+* {
   box-sizing: border-box;
 }
 
@@ -6,14 +14,14 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+  font-family: "JK JING THAYKHRAW", sans-serif;
   color: #1c1c1c;
 }
 
 body {
   overflow-x: hidden;
   background: #fff;
-  font-family: "Kodchasan", "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+  font-family: "JK JING THAYKHRAW", sans-serif;
 }
 
 :root {
@@ -266,3 +274,4 @@ body.section-snap-enabled {
     transition: none !important;
   }
 }
+
