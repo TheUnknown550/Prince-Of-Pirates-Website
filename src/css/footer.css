@@ -146,3 +146,24 @@
   }
 }
 
+/* Footer text readability override */
+.site-footer {
+  font-size: clamp(18px, 1.35vw, 26px);
+}
+
+.site-footer p {
+  line-height: 1.24;
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    font-size: clamp(17px, 3.6vw, 22px);
+  }
+}
+
+@media (max-width: 700px) {
+  .site-footer {
+    font-size: clamp(16px, 4.2vw, 20px);
+  }
+}
+

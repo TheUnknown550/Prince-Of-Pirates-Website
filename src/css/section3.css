@@ -1045,7 +1045,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 820px);
+    width: min(100%, 700px);
   }
 
   .character-nameplate img {
@@ -1116,7 +1116,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 980px);
+    width: min(100%, 800px);
   }
 
   .character-nameplate img {
