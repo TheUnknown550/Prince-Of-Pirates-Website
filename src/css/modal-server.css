@@ -1,0 +1,405 @@
+/* Modal visibility gate */
+.server-modal[hidden] {
+  display: none !important;
+}
+
+/* Full-screen modal shell */
+.server-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 3300;
+  padding: clamp(10px, 2.8vw, 28px);
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+.server-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.server-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 16, 33, 0.74);
+  backdrop-filter: blur(1.5px);
+}
+
+.server-modal-stage {
+  position: relative;
+  width: min(95vw, 1167px);
+  min-height: clamp(470px, 59vw, 692px);
+  margin: auto;
+  transform: translateY(18px) scale(0.965);
+  transition: transform 240ms ease;
+}
+
+.server-modal.is-open .server-modal-stage {
+  transform: translateY(0) scale(1);
+}
+
+.server-modal-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  user-select: none;
+}
+
+.server-modal-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding:
+    clamp(44px, 4.2vw, 56px)
+    clamp(48px, 4.8vw, 62px)
+    clamp(0px, 0.2vw, 2px);
+}
+
+.server-modal-close {
+  position: absolute;
+  top: clamp(30px, 3.3vw, 46px);
+  right: clamp(52px, 5.4vw, 72px);
+  width: clamp(32px, 4vw, 69px);
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 170ms ease, filter 170ms ease;
+}
+
+.server-modal-close:hover,
+.server-modal-close:focus-visible {
+  transform: scale(1.08);
+  filter: drop-shadow(0 6px 10px rgba(73, 5, 5, 0.25));
+  outline: none;
+}
+
+.server-modal-close img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.server-modal-group + .server-modal-group {
+  margin-top: clamp(6px, 0.7vw, 10px);
+}
+
+.server-modal-group-title {
+  display: block;
+  width: clamp(210px, 27vw, 303px);
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+.server-modal-row {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(8px, 1.1vw, 16px);
+}
+
+.server-modal-row-latest-primary {
+  margin-top: clamp(4px, 0.55vw, 7px);
+}
+
+.server-modal-row-latest-secondary {
+  margin-top: clamp(2px, 0.3vw, 4px);
+}
+
+.server-modal-row-all-primary {
+  margin-top: clamp(4px, 0.55vw, 7px);
+}
+
+.server-modal-row-all-secondary {
+  margin-top: clamp(2px, 0.3vw, 4px);
+}
+
+.server-option {
+  --server-card-width: clamp(146px, 18.7vw, 232px);
+  position: relative;
+  width: var(--server-card-width);
+  aspect-ratio: 273 / 104;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  flex: 0 0 auto;
+  display: block;
+  transition: transform 170ms ease, filter 170ms ease;
+}
+
+.server-option:hover,
+.server-option:focus-visible {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 8px 12px rgba(21, 29, 57, 0.18));
+  outline: none;
+}
+
+.server-option:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.server-option-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  transition: opacity 170ms ease;
+}
+
+.server-option-bg-selected {
+  opacity: 0;
+}
+
+.server-option.is-selected .server-option-bg-selected {
+  opacity: 1;
+}
+
+.server-option.is-selected .server-option-bg-unselected {
+  opacity: 0;
+}
+
+.server-option-copy {
+  position: absolute;
+  left: clamp(24px, 2.2vw, 34px);
+  top: 50%;
+  transform: translateY(-42%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 62%;
+  pointer-events: none;
+}
+
+.server-option-name {
+  margin: 0;
+  font-family: "Prompt", sans-serif;
+  font-size: clamp(16px, 1.85vw, 28px);
+  font-weight: 900;
+  line-height: 0.94;
+  letter-spacing: 0.01em;
+  color: #050505;
+  white-space: nowrap;
+  text-shadow:
+    1px 1px 0 #fff,
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff;
+}
+
+.server-option-subtitle {
+  margin-top: 3px;
+  font-family: "Prompt", sans-serif;
+  font-size: clamp(8px, 0.68vw, 10px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #070707;
+  white-space: nowrap;
+}
+
+.server-option-character {
+  position: absolute;
+  right: 0%;
+  bottom: -8%;
+  height: clamp(56px, 6.8vw, 88px);
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+  user-select: none;
+  pointer-events: none;
+}
+
+.server-option-new {
+  position: absolute;
+  left: clamp(4px, 0.6vw, 8px);
+  top: clamp(-14px, -1.2vw, -8px);
+  width: clamp(40px, 5vw, 60px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.server-modal-join-btn {
+  width: clamp(260px, 37vw, 424px);
+  margin: auto auto 0;
+  position: relative;
+  z-index: 3;
+  transform: translateY(30%);
+}
+
+.server-modal-join-btn:hover,
+.server-modal-join-btn:focus-visible {
+  transform: translateY(calc(30% - 1px)) scale(1.003);
+  filter: drop-shadow(0 6px 10px rgba(19, 27, 66, 0.16));
+  outline: none;
+}
+
+.server-modal-join-btn:active {
+  transform: translateY(30%) scale(0.998);
+}
+
+.server-modal-join-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.server-modal-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* Lock body scroll while modal is open */
+body.server-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .server-modal-stage {
+    width: min(96vw, 1060px);
+  }
+
+  .server-modal-content {
+    padding:
+      clamp(40px, 4.8vw, 52px)
+      clamp(34px, 4vw, 52px)
+      clamp(0px, 0.2vw, 2px);
+  }
+
+  .server-option {
+    --server-card-width: clamp(132px, 17vw, 210px);
+  }
+}
+
+@media (max-width: 900px) {
+  .server-modal-stage {
+    width: min(96vw, 860px);
+    min-height: clamp(640px, 110vw, 820px);
+  }
+
+  .server-modal-close {
+    top: clamp(24px, 3.8vw, 36px);
+    right: clamp(36px, 5.8vw, 56px);
+    width: clamp(28px, 3.8vw, 56px);
+  }
+
+  .server-modal-content {
+    padding:
+      clamp(50px, 6.8vw, 66px)
+      clamp(20px, 3.8vw, 32px)
+      clamp(0px, 0.2vw, 2px);
+  }
+
+  .server-modal-row {
+    gap: clamp(9px, 1.8vw, 16px);
+  }
+
+  .server-option {
+    --server-card-width: clamp(130px, 19vw, 180px);
+  }
+
+  .server-option-name {
+    font-size: clamp(14px, 2.1vw, 22px);
+  }
+
+  .server-option-character {
+    height: clamp(50px, 7.5vw, 78px);
+  }
+
+  .server-modal-join-btn {
+    transform: translateY(30%);
+  }
+}
+
+@media (max-width: 760px) {
+  .server-modal-stage {
+    width: min(96vw, 620px);
+    min-height: clamp(860px, 190vw, 1040px);
+  }
+
+  .server-modal-content {
+    padding:
+      clamp(56px, 9vw, 72px)
+      clamp(16px, 3.5vw, 24px)
+      clamp(0px, 0.2vw, 2px);
+  }
+
+  .server-modal-group-title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .server-modal-row {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(8px, 2vw, 14px);
+  }
+
+  .server-option {
+    --server-card-width: clamp(138px, 36vw, 220px);
+  }
+
+  .server-option-name {
+    font-size: clamp(15px, 4vw, 24px);
+  }
+
+  .server-option-subtitle {
+    font-size: clamp(8px, 1.5vw, 9px);
+  }
+
+  .server-option-character {
+    height: clamp(48px, 11vw, 72px);
+    width: auto;
+  }
+
+  .server-modal-join-btn {
+    transform: translateY(30%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .server-modal,
+  .server-modal-stage,
+  .server-option,
+  .server-option-bg,
+  .server-modal-close {
+    transition: none !important;
+  }
+}
+
+/* On short screens, start modal at top so content can scroll to the bottom */
+@media (max-height: 860px) {
+  .server-modal {
+    place-items: start center;
+  }
+
+  .server-modal-stage {
+    margin: 0 auto;
+  }
+}

@@ -20,4 +20,7 @@
   if (typeof app.initRegisterModal === "function") {
     app.initRegisterModal();
   }
+  if (typeof app.initServerModal === "function") {
+    app.initServerModal();
+  }
 })(window);

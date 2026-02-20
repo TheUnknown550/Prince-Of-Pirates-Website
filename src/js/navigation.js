@@ -92,9 +92,13 @@
       // Placeholder button action: replace with Google Play Games link.
       alert("Google Play Games link not added yet.");
     },
-    "play-game": function () {
-      // Placeholder button action: replace with game launch/login flow.
-      alert("Play Game action not added yet.");
+    "play-game": function (triggerButton) {
+      if (app.serverModal && typeof app.serverModal.open === "function") {
+        app.serverModal.open(triggerButton);
+        return;
+      }
+      // Placeholder: server modal integration fallback.
+      alert("Server modal is not available yet.");
     },
     download: function () {
       // Placeholder button action: replace with game download flow.

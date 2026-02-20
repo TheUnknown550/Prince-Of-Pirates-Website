@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="src/css/section2.css">
     <link rel="stylesheet" href="src/css/section3.css">
     <link rel="stylesheet" href="src/css/modal-login.css">
+    <link rel="stylesheet" href="src/css/modal-server.css">
     <link rel="stylesheet" href="src/css/footer.css">
 </head>
 
@@ -286,6 +287,206 @@
         </div>
     </div>
 
+    <!-- Server select modal -->
+    <div class="server-modal" id="server-modal" hidden aria-hidden="true">
+        <div class="server-modal-backdrop" data-server-modal-close="true" aria-hidden="true"></div>
+        <div class="server-modal-stage server-modal-panel" role="dialog" aria-modal="true"
+            aria-labelledby="server-modal-title">
+            <img class="server-modal-frame" src="assests/modals/server/frame.png" alt="" aria-hidden="true">
+
+            <button class="server-modal-close" type="button" data-server-modal-close="true"
+                aria-label="Close server modal">
+                <img src="assests/modals/server/exit.png" alt="" aria-hidden="true">
+            </button>
+
+            <div class="server-modal-content">
+                <h2 id="server-modal-title" class="server-modal-sr-only">Select Server</h2>
+
+                <section class="server-modal-group server-modal-group-latest" aria-label="Latest servers">
+                    <img class="server-modal-group-title" src="assests/modals/server/NewServer.png"
+                        alt="เซิร์ฟเวอร์ล่าสุด">
+
+                    <div class="server-modal-row server-modal-row-latest-primary">
+                        <button type="button" class="server-option" data-server-id="1" aria-label="Select server 1"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 1</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 1</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/zoro.png" alt=""
+                                aria-hidden="true">
+                        </button>
+                    </div>
+
+                    <div class="server-modal-row server-modal-row-latest-secondary">
+                        <button type="button" class="server-option server-option-has-new" data-server-id="5"
+                            aria-label="Select server 5" aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <img class="server-option-new" src="assests/modals/server/New_Marker.png" alt=""
+                                aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 5</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 5</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/nami.png" alt=""
+                                aria-hidden="true">
+                        </button>
+
+                        <button type="button" class="server-option server-option-has-new" data-server-id="6"
+                            aria-label="Select server 6" aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <img class="server-option-new" src="assests/modals/server/New_Marker.png" alt=""
+                                aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 6</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 6</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/sanji.png" alt=""
+                                aria-hidden="true">
+                        </button>
+
+                        <button type="button" class="server-option server-option-has-new" data-server-id="7"
+                            aria-label="Select server 7" aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <img class="server-option-new" src="assests/modals/server/New_Marker.png" alt=""
+                                aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 7</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 7</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/usopp.png" alt=""
+                                aria-hidden="true">
+                        </button>
+                    </div>
+                </section>
+
+                <section class="server-modal-group server-modal-group-all" aria-label="All servers">
+                    <img class="server-modal-group-title" src="assests/modals/server/AllServer.png" alt="เซิร์ฟเวอร์ทั้งหมด">
+
+                    <div class="server-modal-row server-modal-row-all-primary">
+                        <button type="button" class="server-option" data-server-id="1" aria-label="Select server 1"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 1</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 1</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/zoro.png" alt=""
+                                aria-hidden="true">
+                        </button>
+
+                        <button type="button" class="server-option" data-server-id="2" aria-label="Select server 2"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 2</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 2</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/chopper.png" alt=""
+                                aria-hidden="true">
+                        </button>
+
+                        <button type="button" class="server-option" data-server-id="3" aria-label="Select server 3"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 3</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 3</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/luffy.png" alt=""
+                                aria-hidden="true">
+                        </button>
+
+                        <button type="button" class="server-option" data-server-id="4" aria-label="Select server 4"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 4</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 4</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/mihawk.png" alt=""
+                                aria-hidden="true">
+                        </button>
+                    </div>
+
+                    <div class="server-modal-row server-modal-row-all-secondary">
+                        <button type="button" class="server-option" data-server-id="5" aria-label="Select server 5"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 5</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 5</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/nami.png" alt=""
+                                aria-hidden="true">
+                        </button>
+
+                        <button type="button" class="server-option" data-server-id="6" aria-label="Select server 6"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 6</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 6</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/sanji.png" alt=""
+                                aria-hidden="true">
+                        </button>
+
+                        <button type="button" class="server-option" data-server-id="7" aria-label="Select server 7"
+                            aria-pressed="false">
+                            <img class="server-option-bg server-option-bg-unselected"
+                                src="assests/modals/server/Unselected.png" alt="" aria-hidden="true">
+                            <img class="server-option-bg server-option-bg-selected" src="assests/modals/server/Selected.png"
+                                alt="" aria-hidden="true">
+                            <span class="server-option-copy" aria-hidden="true">
+                                <span class="server-option-name">SERVER 7</span>
+                                <span class="server-option-subtitle">PIRATE-TH SERVER 7</span>
+                            </span>
+                            <img class="server-option-character" src="assests/modals/server/Character/usopp.png" alt=""
+                                aria-hidden="true">
+                        </button>
+                    </div>
+                </section>
+
+                <button type="button" class="image-button server-modal-join-btn" data-server-modal-join="true"
+                    aria-label="Join selected server">
+                    <img src="assests/modals/server/JoinServer.png" alt="JOIN SERVER!">
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Script load order: features first, bootstrap last -->
     <script src="src/js/navigation.js"></script>
     <script src="src/js/character-tabs.js"></script>
@@ -293,6 +494,7 @@
     <script src="src/js/section-snap.js"></script>
     <script src="src/js/scroll-animations.js"></script>
     <script src="src/js/register-modal.js"></script>
+    <script src="src/js/server-modal.js"></script>
     <script src="src/js/main.js"></script>
 </body>
 
