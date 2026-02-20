@@ -30,6 +30,25 @@ body {
   /* Shared scroll-reveal motion variables */
   --reveal-duration: 780ms;
   --reveal-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --compact-ui: 0.78;
+  --compact-type: 0.82;
+  --compact-space: 0.86;
+  --compact-height: 0.82;
+  --section-screen-height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --section-screen-height: 100dvh;
+  }
+}
+
+@supports (height: 100svh) {
+  @media (max-width: 900px) {
+    :root {
+      --section-screen-height: 100svh;
+    }
+  }
 }
 
 body.menu-open {
@@ -59,19 +78,31 @@ img {
   background-image: url("../../assests/main_web/page1/bg_page.jpg");
   overflow: visible;
   z-index: 3;
-  height: clamp(520px, 56vw, 960px);
+  height: clamp(
+    calc(520px * var(--compact-height)),
+    calc(56vw * var(--compact-height)),
+    calc(960px * var(--compact-height))
+  );
 }
 
 .bg-page-2 {
   background-image: url("../../assests/main_web/page2/bg_page.jpg");
   z-index: 2;
-  height: clamp(540px, 58vw, 980px);
+  height: clamp(
+    calc(540px * var(--compact-height)),
+    calc(58vw * var(--compact-height)),
+    calc(980px * var(--compact-height))
+  );
 }
 
 .bg-page-3 {
   background-image: url("../../assests/main_web/page3/bg_page.jpg");
   z-index: 1;
-  height: clamp(560px, 60vw, 1000px);
+  height: clamp(
+    calc(560px * var(--compact-height)),
+    calc(60vw * var(--compact-height)),
+    calc(1000px * var(--compact-height))
+  );
 }
 
 /* Generic image-button primitive */
@@ -190,15 +221,15 @@ img {
 /* Large desktop adjustments */
 @media (min-width: 1600px) {
   .bg-page-1 {
-    height: 960px;
+    height: calc(960px * var(--compact-height));
   }
 
   .bg-page-2 {
-    height: 980px;
+    height: calc(980px * var(--compact-height));
   }
 
   .bg-page-3 {
-    height: 1000px;
+    height: calc(1000px * var(--compact-height));
   }
 
   .section-content {
@@ -209,15 +240,27 @@ img {
 /* Mid-to-large desktop adjustments */
 @media (max-width: 1599px) and (min-width: 1201px) {
   .bg-page-1 {
-    height: clamp(700px, 57vw, 920px);
+    height: clamp(
+      calc(700px * var(--compact-height)),
+      calc(57vw * var(--compact-height)),
+      calc(920px * var(--compact-height))
+    );
   }
 
   .bg-page-2 {
-    height: clamp(720px, 58vw, 940px);
+    height: clamp(
+      calc(720px * var(--compact-height)),
+      calc(58vw * var(--compact-height)),
+      calc(940px * var(--compact-height))
+    );
   }
 
   .bg-page-3 {
-    height: clamp(730px, 59vw, 960px);
+    height: clamp(
+      calc(730px * var(--compact-height)),
+      calc(59vw * var(--compact-height)),
+      calc(960px * var(--compact-height))
+    );
   }
 }
 
@@ -225,17 +268,29 @@ img {
 @media (max-width: 1200px) {
   .bg-page-1 {
     height: auto;
-    min-height: clamp(560px, 78vw, 760px);
+    min-height: clamp(
+      calc(560px * var(--compact-height)),
+      calc(78vw * var(--compact-height)),
+      calc(760px * var(--compact-height))
+    );
   }
 
   .bg-page-2 {
     height: auto;
-    min-height: clamp(580px, 82vw, 800px);
+    min-height: clamp(
+      calc(580px * var(--compact-height)),
+      calc(82vw * var(--compact-height)),
+      calc(800px * var(--compact-height))
+    );
   }
 
   .bg-page-3 {
     height: auto;
-    min-height: clamp(600px, 86vw, 840px);
+    min-height: clamp(
+      calc(600px * var(--compact-height)),
+      calc(86vw * var(--compact-height)),
+      calc(840px * var(--compact-height))
+    );
   }
 
   .section-content {
@@ -246,16 +301,42 @@ img {
 
 /* Mobile adjustments */
 @media (max-width: 900px) {
-  .bg-page-1,
-  .bg-page-2,
-  .bg-page-3 {
-    height: auto;
-    min-height: 0;
-  }
-
   .section-content {
     width: min(96vw, 960px);
     height: auto;
+  }
+}
+
+/* Viewport-based section sizing */
+.bg-page-1,
+.bg-page-2,
+.bg-page-3 {
+  height: var(--section-screen-height);
+  min-height: var(--section-screen-height);
+}
+
+/* Tighten compact tokens on short screens so content fits strict full-height sections */
+@media (max-height: 900px) {
+  :root {
+    --compact-ui: 0.74;
+    --compact-type: 0.78;
+    --compact-space: 0.82;
+  }
+}
+
+@media (max-height: 780px) {
+  :root {
+    --compact-ui: 0.70;
+    --compact-type: 0.74;
+    --compact-space: 0.78;
+  }
+}
+
+@media (max-height: 680px) {
+  :root {
+    --compact-ui: 0.64;
+    --compact-type: 0.68;
+    --compact-space: 0.72;
   }
 }
 

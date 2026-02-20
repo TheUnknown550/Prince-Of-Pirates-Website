@@ -229,8 +229,6 @@
 /* Mid-to-large desktop refinements */
 @media (max-width: 1599px) and (min-width: 1201px) {
   .bg-page-2 {
-    height: auto;
-    min-height: clamp(680px, 54vw, 860px);
     background-size: cover;
     background-position: center top;
   }
@@ -282,7 +280,6 @@
 /* Tablet refinements */
 @media (max-width: 1200px) and (min-width: 901px) {
   .bg-page-2 {
-    min-height: 0;
     background-size: cover;
     background-position: center top;
   }
@@ -450,4 +447,225 @@
   }
 }
 
+/* Main-site compact pass: Section 2 */
+#game-guide .section-content {
+  padding-top: calc(32px * var(--compact-space));
+}
 
+.feature-title-image {
+  margin-top: calc(25px * var(--compact-space));
+}
+
+.feature-title-image img {
+  width: min(100%, calc(760px * var(--compact-ui)));
+  margin-left: clamp(
+    calc(20px * var(--compact-space)),
+    calc(8vw * var(--compact-space)),
+    calc(170px * var(--compact-space))
+  );
+}
+
+.feature-stage {
+  margin-top: calc(30px * var(--compact-space));
+  width: min(calc(94vw * var(--compact-ui)), calc(960px * var(--compact-ui)));
+  gap: calc(8px * var(--compact-space));
+}
+
+.feature-screen {
+  padding: calc(8px * var(--compact-space))
+    calc(8px * var(--compact-space))
+    calc(11px * var(--compact-space));
+}
+
+.feature-screen-arrow {
+  width: clamp(
+    calc(36px * var(--compact-ui)),
+    calc(5.8vw * var(--compact-ui)),
+    calc(72px * var(--compact-ui))
+  );
+}
+
+.feature-screen-arrow span {
+  font-size: clamp(
+    calc(34px * var(--compact-type)),
+    calc(3.2vw * var(--compact-type)),
+    calc(54px * var(--compact-type))
+  );
+}
+
+.feature-screen-arrow-left {
+  padding-left: clamp(
+    calc(4px * var(--compact-space)),
+    calc(0.7vw * var(--compact-space)),
+    calc(10px * var(--compact-space))
+  );
+}
+
+.feature-screen-arrow-right {
+  padding-right: clamp(
+    calc(4px * var(--compact-space)),
+    calc(0.7vw * var(--compact-space)),
+    calc(10px * var(--compact-space))
+  );
+}
+
+.feature-slide-dot {
+  width: calc(100% * 50 / 95);
+  height: calc(100% * 50 / 95);
+}
+
+.feature-portrait img {
+  width: min(100%, calc(400px * var(--compact-ui)));
+  max-height: calc(500px * var(--compact-ui));
+  transform: translateY(calc(-24px * var(--compact-space)));
+}
+
+.feature-detail-image {
+  margin-top: calc(18px * var(--compact-space));
+}
+
+.feature-detail-image img {
+  width: min(100%, calc(620px * var(--compact-ui)));
+}
+
+@media (max-width: 1599px) and (min-width: 1201px) {
+  #game-guide .section-content {
+    width: min(calc(96vw * var(--compact-ui)), calc(1280px * var(--compact-ui)));
+    padding-top: calc(24px * var(--compact-space));
+  }
+
+  .feature-title-image {
+    margin-top: calc(20px * var(--compact-space));
+  }
+
+  .feature-title-image img {
+    width: min(100%, calc(820px * var(--compact-ui)));
+    margin-left: clamp(
+      calc(18px * var(--compact-space)),
+      calc(5vw * var(--compact-space)),
+      calc(90px * var(--compact-space))
+    );
+  }
+
+  .feature-stage {
+    margin-top: calc(20px * var(--compact-space));
+    gap: calc(8px * var(--compact-space));
+  }
+
+  .feature-portrait img {
+    width: min(100%, calc(420px * var(--compact-ui)));
+    max-height: calc(560px * var(--compact-ui));
+    transform: translate(
+      calc(-10px * var(--compact-space)),
+      calc(-24px * var(--compact-space))
+    );
+  }
+
+  .feature-detail-image img {
+    width: min(100%, calc(690px * var(--compact-ui)));
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 901px) {
+  #game-guide .section-content {
+    padding-top: calc(20px * var(--compact-space));
+  }
+
+  .feature-title-image {
+    margin-top: calc(18px * var(--compact-space));
+  }
+
+  .feature-title-image img {
+    width: min(100%, calc(680px * var(--compact-ui)));
+    margin-left: clamp(
+      calc(10px * var(--compact-space)),
+      calc(4vw * var(--compact-space)),
+      calc(80px * var(--compact-space))
+    );
+  }
+
+  .feature-stage {
+    margin-top: calc(18px * var(--compact-space));
+    gap: calc(6px * var(--compact-space));
+  }
+
+  .feature-portrait img {
+    width: min(100%, calc(340px * var(--compact-ui)));
+    max-height: calc(430px * var(--compact-ui));
+    transform: translate(
+      calc(-8px * var(--compact-space)),
+      calc(-16px * var(--compact-space))
+    );
+  }
+
+  .feature-detail-image img {
+    width: min(100%, calc(560px * var(--compact-ui)));
+  }
+}
+
+@media (min-width: 1600px) {
+  #game-guide .section-content {
+    padding-top: calc(30px * var(--compact-space));
+  }
+
+  .feature-title-image img {
+    width: min(100%, calc(960px * var(--compact-ui)));
+  }
+
+  .feature-stage {
+    width: min(calc(94vw * var(--compact-ui)), calc(1700px * var(--compact-ui)));
+    margin-top: calc(22px * var(--compact-space));
+  }
+
+  .feature-screen {
+    padding: calc(12px * var(--compact-space))
+      calc(12px * var(--compact-space))
+      calc(15px * var(--compact-space));
+  }
+
+  .feature-portrait img {
+    width: min(100%, calc(600px * var(--compact-ui)));
+    max-height: calc(740px * var(--compact-ui));
+    transform: translateY(calc(-40px * var(--compact-space)));
+  }
+
+  .feature-detail-image {
+    margin-top: calc(24px * var(--compact-space));
+  }
+
+  .feature-detail-image img {
+    width: min(100%, calc(860px * var(--compact-ui)));
+  }
+}
+
+@media (max-width: 900px) {
+  #game-guide .section-content {
+    padding-top: calc(22px * var(--compact-space));
+    padding-bottom: calc(18px * var(--compact-space));
+  }
+
+  .feature-title-image {
+    margin-top: calc(16px * var(--compact-space));
+  }
+
+  .feature-title-image img {
+    width: min(calc(96vw * var(--compact-ui)), calc(680px * var(--compact-ui)));
+  }
+
+  .feature-stage {
+    width: min(calc(94vw * var(--compact-ui)), calc(680px * var(--compact-ui)));
+    gap: calc(10px * var(--compact-space));
+  }
+
+  .feature-portrait {
+    width: min(calc(72vw * var(--compact-ui)), calc(320px * var(--compact-ui)));
+  }
+
+  .feature-detail-image {
+    margin-top: calc(14px * var(--compact-space));
+  }
+
+  .feature-detail-image img {
+    width: min(calc(96vw * var(--compact-ui)), calc(520px * var(--compact-ui)));
+  }
+}

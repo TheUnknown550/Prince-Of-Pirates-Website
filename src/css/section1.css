@@ -392,10 +392,6 @@
     );
   }
 
-  .bg-page-1 {
-    min-height: 0;
-  }
-
   .first-page-header {
     top: 4px;
     width: min(95vw, 1120px);
@@ -585,10 +581,6 @@
     --ace-overlap: clamp(24px, 8.571vw - 1.714px, 54px);
   }
 
-  .bg-page-1 {
-    min-height: clamp(680px, 140vw, 840px);
-  }
-
   .first-page-header {
     position: relative;
     top: auto;
@@ -746,6 +738,470 @@
 
   .mobile-menu-link {
     padding: 11px 14px;
+  }
+}
+
+/* Main-site compact pass: Section 1 */
+#main {
+  --ace-overlap: clamp(
+    calc(48px * var(--compact-space)),
+    calc(4.2vw * var(--compact-space)),
+    calc(70px * var(--compact-space))
+  );
+}
+
+.first-page-header {
+  top: calc(14px * var(--compact-space));
+  width: min(calc(74vw * var(--compact-ui)), calc(780px * var(--compact-ui)));
+}
+
+.logo-button img {
+  width: clamp(
+    calc(214px * var(--compact-ui)),
+    calc(22vw * var(--compact-ui)),
+    calc(270px * var(--compact-ui))
+  );
+}
+
+.header-nav {
+  gap: clamp(
+    calc(8px * var(--compact-space)),
+    calc(1vw * var(--compact-space)),
+    calc(16px * var(--compact-space))
+  );
+  margin-top: calc(20px * var(--compact-space));
+}
+
+.header-nav-button {
+  padding: calc(10px * var(--compact-space));
+}
+
+.header-nav-button .en {
+  font-size: clamp(
+    calc(24px * var(--compact-type)),
+    calc(1.85vw * var(--compact-type)),
+    calc(34px * var(--compact-type))
+  );
+}
+
+.header-nav-button .th {
+  font-size: clamp(
+    calc(12px * var(--compact-type)),
+    calc(0.94vw * var(--compact-type)),
+    calc(17px * var(--compact-type))
+  );
+}
+
+.hero-layout {
+  width: min(calc(100vw * var(--compact-ui)), calc(960px * var(--compact-ui)));
+  padding-top: calc(96px * var(--compact-space));
+}
+
+.hero-character {
+  left: calc(-130px * var(--compact-ui));
+  width: min(calc(79vw * var(--compact-ui)), calc(800px * var(--compact-ui)));
+}
+
+.hero-cta {
+  max-width: calc(402px * var(--compact-ui));
+  margin-top: calc(54px * var(--compact-space));
+  margin-right: calc(10px * var(--compact-space));
+}
+
+.hero-title-image img {
+  width: min(100%, calc(651px * var(--compact-ui)));
+}
+
+.hero-detail-image img {
+  width: min(100%, calc(441px * var(--compact-ui)));
+}
+
+.store-buttons {
+  gap: calc(7px * var(--compact-space));
+  margin-top: calc(-8px * var(--compact-space));
+  margin-bottom: calc(8px * var(--compact-space));
+}
+
+.app-store-btn {
+  width: clamp(
+    calc(62px * var(--compact-ui)),
+    calc(6.8vw * var(--compact-ui)),
+    calc(84px * var(--compact-ui))
+  );
+}
+
+.google-play-btn {
+  width: clamp(
+    calc(72px * var(--compact-ui)),
+    calc(7.8vw * var(--compact-ui)),
+    calc(96px * var(--compact-ui))
+  );
+}
+
+.google-play-games-btn {
+  width: clamp(
+    calc(102px * var(--compact-ui)),
+    calc(11vw * var(--compact-ui)),
+    calc(136px * var(--compact-ui))
+  );
+}
+
+.play-btn {
+  width: clamp(
+    calc(278px * var(--compact-ui)),
+    calc(29vw * var(--compact-ui)),
+    calc(350px * var(--compact-ui))
+  );
+}
+
+.action-buttons {
+  margin-top: calc(7px * var(--compact-space));
+  gap: calc(8px * var(--compact-space));
+}
+
+.action-btn {
+  width: clamp(
+    calc(110px * var(--compact-ui)),
+    calc(11.8vw * var(--compact-ui)),
+    calc(142px * var(--compact-ui))
+  );
+}
+
+@media (max-width: 1599px) and (min-width: 1201px) {
+  #main {
+    --ace-overlap: clamp(
+      calc(70px * var(--compact-space)),
+      calc(5.6vw * var(--compact-space)),
+      calc(88px * var(--compact-space))
+    );
+  }
+
+  .first-page-header {
+    top: calc(10px * var(--compact-space));
+    width: min(calc(94vw * var(--compact-ui)), calc(1360px * var(--compact-ui)));
+  }
+
+  .header-center-block {
+    gap: calc(16px * var(--compact-space));
+  }
+
+  .logo-button img {
+    width: clamp(
+      calc(220px * var(--compact-ui)),
+      calc(17vw * var(--compact-ui)),
+      calc(300px * var(--compact-ui))
+    );
+  }
+
+  .header-nav {
+    gap: clamp(
+      calc(10px * var(--compact-space)),
+      calc(1.1vw * var(--compact-space)),
+      calc(18px * var(--compact-space))
+    );
+    margin-top: calc(14px * var(--compact-space));
+  }
+
+  .header-nav-button {
+    padding: calc(10px * var(--compact-space)) calc(8px * var(--compact-space));
+  }
+
+  .header-nav-button .en {
+    font-size: clamp(
+      calc(30px * var(--compact-type)),
+      calc(2.24vw * var(--compact-type)),
+      calc(42px * var(--compact-type))
+    );
+  }
+
+  .header-nav-button .th {
+    font-size: clamp(
+      calc(14px * var(--compact-type)),
+      calc(1.22vw * var(--compact-type)),
+      calc(20px * var(--compact-type))
+    );
+  }
+
+  .hero-layout {
+    width: min(calc(95vw * var(--compact-ui)), calc(1320px * var(--compact-ui)));
+    padding-top: calc(84px * var(--compact-space));
+  }
+
+  .hero-character {
+    left: calc(-108px * var(--compact-ui));
+    width: min(calc(74vw * var(--compact-ui)), calc(1120px * var(--compact-ui)));
+  }
+
+  .hero-cta {
+    max-width: calc(720px * var(--compact-ui));
+    margin-top: calc(82px * var(--compact-space));
+    transform: translateX(calc(-52px * var(--compact-ui)));
+  }
+
+  .hero-title-image img {
+    width: min(100%, calc(730px * var(--compact-ui)));
+  }
+
+  .hero-detail-image img {
+    width: min(100%, calc(510px * var(--compact-ui)));
+  }
+
+  .play-btn {
+    width: clamp(
+      calc(320px * var(--compact-ui)),
+      calc(27vw * var(--compact-ui)),
+      calc(470px * var(--compact-ui))
+    );
+  }
+
+  .action-btn {
+    width: clamp(
+      calc(126px * var(--compact-ui)),
+      calc(10.6vw * var(--compact-ui)),
+      calc(180px * var(--compact-ui))
+    );
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 901px) {
+  #main {
+    --ace-overlap: clamp(
+      calc(60px * var(--compact-space)),
+      calc((60px + (100vw - 900px) * (6 / 300)) * var(--compact-space)),
+      calc(66px * var(--compact-space))
+    );
+  }
+
+  .first-page-header {
+    top: calc(4px * var(--compact-space));
+    width: min(calc(95vw * var(--compact-ui)), calc(1120px * var(--compact-ui)));
+  }
+
+  .header-nav {
+    gap: clamp(
+      calc(7px * var(--compact-space)),
+      calc(0.95vw * var(--compact-space)),
+      calc(13px * var(--compact-space))
+    );
+    margin-top: calc(8px * var(--compact-space));
+  }
+
+  .header-nav-button {
+    padding: calc(8px * var(--compact-space));
+  }
+
+  .header-nav-button .en {
+    font-size: clamp(
+      calc(27px * var(--compact-type)),
+      calc(2.2vw * var(--compact-type)),
+      calc(36px * var(--compact-type))
+    );
+  }
+
+  .header-nav-button .th {
+    font-size: clamp(
+      calc(14px * var(--compact-type)),
+      calc(1.28vw * var(--compact-type)),
+      calc(18px * var(--compact-type))
+    );
+  }
+
+  .hero-layout {
+    width: min(calc(96vw * var(--compact-ui)), calc(1200px * var(--compact-ui)));
+    padding-top: calc(78px * var(--compact-space));
+  }
+
+  .hero-character {
+    left: calc(-34px * var(--compact-ui));
+    width: min(calc(86vw * var(--compact-ui)), calc(860px * var(--compact-ui)));
+  }
+
+  .hero-cta {
+    max-width: calc(540px * var(--compact-ui));
+    margin-top: calc(44px * var(--compact-space));
+    transform: translateX(calc(-6px * var(--compact-ui)));
+  }
+
+  .hero-title-image img {
+    width: min(100%, calc(620px * var(--compact-ui)));
+  }
+
+  .hero-detail-image img {
+    width: min(100%, calc(450px * var(--compact-ui)));
+  }
+
+  .play-btn {
+    width: clamp(
+      calc(275px * var(--compact-ui)),
+      calc(26vw * var(--compact-ui)),
+      calc(360px * var(--compact-ui))
+    );
+  }
+
+  .action-btn {
+    width: clamp(
+      calc(108px * var(--compact-ui)),
+      calc(10.2vw * var(--compact-ui)),
+      calc(145px * var(--compact-ui))
+    );
+  }
+}
+
+@media (min-width: 1600px) {
+  #main {
+    --ace-overlap: calc(90px * var(--compact-space));
+  }
+
+  .first-page-header {
+    top: calc(14px * var(--compact-space));
+    width: min(calc(90vw * var(--compact-ui)), calc(1460px * var(--compact-ui)));
+  }
+
+  .header-center-block {
+    gap: calc(26px * var(--compact-space));
+  }
+
+  .logo-button img {
+    width: calc(370px * var(--compact-ui));
+  }
+
+  .header-nav {
+    gap: calc(26px * var(--compact-space));
+  }
+
+  .header-nav-button .en {
+    font-size: calc(40px * var(--compact-type));
+  }
+
+  .header-nav-button .th {
+    font-size: calc(20px * var(--compact-type));
+  }
+
+  .hero-layout {
+    width: min(calc(96vw * var(--compact-ui)), calc(1760px * var(--compact-ui)));
+    padding-top: calc(118px * var(--compact-space));
+  }
+
+  .hero-character {
+    left: calc(-95px * var(--compact-ui));
+    width: calc(1180px * var(--compact-ui));
+  }
+
+  .hero-cta {
+    max-width: calc(820px * var(--compact-ui));
+    margin-top: calc(106px * var(--compact-space));
+    transform: translateX(calc(-72px * var(--compact-ui)));
+  }
+
+  .hero-title-image img {
+    width: min(100%, calc(760px * var(--compact-ui)));
+  }
+
+  .hero-detail-image img {
+    width: min(100%, calc(520px * var(--compact-ui)));
+  }
+
+  .app-store-btn {
+    width: calc(118px * var(--compact-ui));
+  }
+
+  .google-play-btn {
+    width: calc(130px * var(--compact-ui));
+  }
+
+  .google-play-games-btn {
+    width: calc(190px * var(--compact-ui));
+  }
+
+  .play-btn {
+    width: calc(510px * var(--compact-ui));
+  }
+
+  .action-btn {
+    width: calc(198px * var(--compact-ui));
+  }
+}
+
+@media (max-width: 900px) {
+  #main {
+    --ace-overlap: clamp(
+      calc(24px * var(--compact-space)),
+      calc((8.571vw - 1.714px) * var(--compact-space)),
+      calc(54px * var(--compact-space))
+    );
+  }
+
+  .first-page-header {
+    width: min(calc(96vw * var(--compact-ui)), calc(960px * var(--compact-ui)));
+    padding-top: calc(8px * var(--compact-space));
+    padding-left: calc(8px * var(--compact-space));
+    padding-right: calc(8px * var(--compact-space));
+  }
+
+  .logo-button img {
+    width: clamp(
+      calc(165px * var(--compact-ui)),
+      calc(44vw * var(--compact-ui)),
+      calc(240px * var(--compact-ui))
+    );
+  }
+
+  .hero-layout {
+    width: min(calc(96vw * var(--compact-ui)), calc(780px * var(--compact-ui)));
+    padding-top: calc(14px * var(--compact-space));
+    gap: calc(6px * var(--compact-space));
+  }
+
+  .hero-character {
+    width: min(calc(96vw * var(--compact-ui)), calc(670px * var(--compact-ui)));
+  }
+
+  .hero-cta {
+    width: min(calc(94vw * var(--compact-ui)), calc(540px * var(--compact-ui)));
+    max-width: calc(540px * var(--compact-ui));
+    margin-bottom: calc(18px * var(--compact-space));
+    padding-left: calc(4px * var(--compact-space));
+    padding-right: calc(4px * var(--compact-space));
+  }
+
+  .hero-title-image img {
+    width: min(calc(95vw * var(--compact-ui)), calc(620px * var(--compact-ui)));
+  }
+
+  .hero-detail-image img {
+    width: min(calc(92vw * var(--compact-ui)), calc(430px * var(--compact-ui)));
+  }
+
+  .app-store-btn {
+    width: clamp(
+      calc(58px * var(--compact-ui)),
+      calc(15vw * var(--compact-ui)),
+      calc(84px * var(--compact-ui))
+    );
+  }
+
+  .google-play-btn {
+    width: clamp(
+      calc(68px * var(--compact-ui)),
+      calc(17vw * var(--compact-ui)),
+      calc(96px * var(--compact-ui))
+    );
+  }
+
+  .google-play-games-btn {
+    width: clamp(
+      calc(96px * var(--compact-ui)),
+      calc(24vw * var(--compact-ui)),
+      calc(136px * var(--compact-ui))
+    );
+  }
+
+  .play-btn {
+    width: min(calc(82vw * var(--compact-ui)), calc(360px * var(--compact-ui)));
+  }
+
+  .action-btn {
+    width: min(calc(36vw * var(--compact-ui)), calc(145px * var(--compact-ui)));
   }
 }
 
