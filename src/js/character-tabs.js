@@ -169,23 +169,74 @@
     track.style.columnGap = gapPx + "px";
   }
 
-  function setViewportWidthForNodes(nodes) {
+  function clearNodeInlineWidth(node) {
+    if (!node) {
+      return;
+    }
+
+    node.style.width = "";
+    const image = node.querySelector("img");
+    if (image) {
+      image.style.width = "";
+    }
+  }
+
+  function clearNodesInlineWidth(nodes) {
+    nodes.forEach(function (node) {
+      clearNodeInlineWidth(node);
+    });
+  }
+
+  function getNodesTotalWidth(nodes) {
+    return nodes.reduce(function (sum, node) {
+      return sum + node.getBoundingClientRect().width;
+    }, 0);
+  }
+
+  function applyScaleToNodes(nodes, ratio) {
+    nodes.forEach(function (node) {
+      const baseWidth = node.getBoundingClientRect().width;
+      const scaledWidth = Math.max(1, baseWidth * ratio);
+      const image = node.querySelector("img");
+
+      if (image) {
+        image.style.width = scaledWidth.toFixed(2) + "px";
+        return;
+      }
+
+      node.style.width = scaledWidth.toFixed(2) + "px";
+    });
+  }
+
+  function setViewportWidthForNodes(nodes, scaleTargets) {
     if (!viewport || !tabsContainer || nodes.length === 0) {
       return;
     }
 
+    const nodesToScale =
+      Array.isArray(scaleTargets) && scaleTargets.length ? scaleTargets : nodes;
+    clearNodesInlineWidth(nodesToScale);
+
     const trackGap = getTrackGapPx();
-    const cardsWidth = nodes.reduce(function (sum, node) {
-      return sum + node.getBoundingClientRect().width;
-    }, 0);
-    const desiredWidth = cardsWidth + trackGap * Math.max(0, nodes.length - 1);
+    const gapTotal = trackGap * Math.max(0, nodes.length - 1);
+    let cardsWidth = getNodesTotalWidth(nodes);
+    let desiredWidth = cardsWidth + gapTotal;
 
     const containerGap = getContainerGapPx();
     const arrowsWidth = prevArrow.getBoundingClientRect().width + nextArrow.getBoundingClientRect().width;
     const maxAvailable = tabsContainer.clientWidth - arrowsWidth - containerGap * 2;
+
+    if (maxAvailable > 0 && desiredWidth > maxAvailable && cardsWidth > 0) {
+      const availableCardsWidth = Math.max(0, maxAvailable - gapTotal);
+      const fitRatio = Math.max(0, Math.min(1, availableCardsWidth / cardsWidth));
+      applyScaleToNodes(nodesToScale, fitRatio);
+      cardsWidth = getNodesTotalWidth(nodes);
+      desiredWidth = cardsWidth + gapTotal;
+    }
+
     const finalWidth = maxAvailable > 0 ? Math.min(desiredWidth, maxAvailable) : desiredWidth;
 
-    viewport.style.width = Math.max(0, Math.round(finalWidth)) + "px";
+    viewport.style.width = Math.max(0, Math.floor(finalWidth)) + "px";
   }
 
   function renderVisibleTabs() {
@@ -208,7 +259,7 @@
     });
 
     applyActiveState();
-    setViewportWidthForNodes(visibleNodes);
+    setViewportWidthForNodes(visibleNodes, visibleNodes);
     track.style.transform = "translateX(0px)";
   }
 
@@ -242,14 +293,100 @@
     rotateCharacterOrder(nextDirection);
   }
 
+  function finishSimpleReorder() {
+    activeTrackAnimation = null;
+    isAnimating = false;
+    flushQueuedDirection();
+  }
+
+  function runSimpleReorderAnimation(direction, nextStartIndex) {
+    if (!track) {
+      windowStartIndex = nextStartIndex;
+      renderVisibleTabs();
+      flushQueuedDirection();
+      return;
+    }
+
+    if (shouldReduceMotion() || typeof track.animate !== "function") {
+      windowStartIndex = nextStartIndex;
+      renderVisibleTabs();
+      flushQueuedDirection();
+      return;
+    }
+
+    const baseWidth = viewport ? viewport.clientWidth : track.clientWidth;
+    const distance = Math.max(18, Math.round(baseWidth * 0.06));
+    const outX = direction > 0 ? distance : -distance;
+    const outDuration = Math.round(ANIM_MS * 0.45);
+    const inDuration = Math.round(ANIM_MS * 0.55);
+
+    clearActiveTrackAnimation();
+    isAnimating = true;
+
+    const outAnimation = track.animate(
+      [
+        { transform: "translateX(0px)", opacity: 1 },
+        { transform: "translateX(" + outX + "px)", opacity: 0.72 }
+      ],
+      {
+        duration: outDuration,
+        easing: EASING,
+        fill: "forwards"
+      }
+    );
+
+    activeTrackAnimation = outAnimation;
+
+    outAnimation.onfinish = function () {
+      windowStartIndex = nextStartIndex;
+      renderVisibleTabs();
+
+      const inAnimation = track.animate(
+        [
+          { transform: "translateX(" + -outX + "px)", opacity: 0.72 },
+          { transform: "translateX(0px)", opacity: 1 }
+        ],
+        {
+          duration: inDuration,
+          easing: EASING,
+          fill: "forwards"
+        }
+      );
+
+      activeTrackAnimation = inAnimation;
+
+      inAnimation.onfinish = function () {
+        finishSimpleReorder();
+      };
+
+      inAnimation.oncancel = function () {
+        renderVisibleTabs();
+        finishSimpleReorder();
+      };
+    };
+
+    outAnimation.oncancel = function () {
+      renderVisibleTabs();
+      finishSimpleReorder();
+    };
+  }
+
   function startSlide(direction) {
     const visibleCount = getVisibleCount();
     if (!track || visibleCount < 1) {
       return;
     }
 
-    const currentVisible = getVisibleActions(windowStartIndex);
     const nextStartIndex = modIndex(windowStartIndex + (direction > 0 ? -1 : 1));
+
+    // When all tabs are already visible (current setup), rotating order directly
+    // is more reliable than building a 4-card strip animation.
+    if (allActions.length <= visibleCount) {
+      runSimpleReorderAnimation(direction, nextStartIndex);
+      return;
+    }
+
+    const currentVisible = getVisibleActions(windowStartIndex);
     const nextVisible = getVisibleActions(nextStartIndex);
 
     let stripActions;
@@ -285,7 +422,7 @@
       })
       .filter(Boolean);
 
-    setViewportWidthForNodes(viewportMeasureNodes);
+    setViewportWidthForNodes(viewportMeasureNodes, stripNodes);
 
     const leadingWidth = stripNodes[0] ? stripNodes[0].getBoundingClientRect().width : 0;
     const offset = leadingWidth + getTrackGapPx();

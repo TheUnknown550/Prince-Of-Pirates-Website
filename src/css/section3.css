@@ -1141,5 +1141,33 @@
   }
 }
 
+/* Carousel control reliability: keep arrows above cards so both stay clickable */
+.character-tabs {
+  position: relative;
+  isolation: isolate;
+}
+
+.character-tab-viewport {
+  position: relative;
+  z-index: 1;
+}
+
+.char-arrow-btn {
+  position: relative;
+  z-index: 5;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .character-tabs {
+    gap: clamp(8px, 2vw, 16px);
+  }
+
+  .char-arrow-btn {
+    min-width: clamp(24px, 7.2vw, 38px);
+    min-height: clamp(30px, 8.8vw, 44px);
+  }
+}
+
 
 
