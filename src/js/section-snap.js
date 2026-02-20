@@ -1,20 +1,34 @@
 (function (window, document) {
-  // Implements section-by-section snap scrolling for wheel, keyboard, and touch.
-  const SNAP_LOCK_MS = 680;
-  const SNAP_ANCHOR_LOCK_MS = 320;
-  const WHEEL_THRESHOLD = 16;
+  // Implements smooth section-by-section snap scrolling for wheel, keyboard, and touch.
+  const WHEEL_THRESHOLD = 22;
   const SWIPE_THRESHOLD = 42;
   const SNAP_EDGE_TOLERANCE = 10;
   const SNAP_SETTLE_TOLERANCE = 2;
-  const SNAP_QUEUE_DELAY_MS = 220;
+  const TWEEN_DURATION_MIN = 720;
+  const TWEEN_DURATION_MAX = 2240;
+  const TWEEN_DURATION_FACTOR = 1.84;
+  const HYBRID_CHAIN_WINDOW_MS = 260;
   const app = (window.PrinceSite = window.PrinceSite || {});
+
   let sectionSteps = [];
-  let isSnapLocked = false;
   let touchStartY = null;
-  let snapUnlockTimer = null;
-  let snapLockStartedAt = 0;
+  let wheelAccumulator = 0;
   let queuedSnapDirection = 0;
+  let queuedSnapAt = 0;
+  let activeTweenId = null;
+  let activeFromY = 0;
+  let activeToY = 0;
+  let activeStartedAt = 0;
+  let activeDurationMs = 0;
+  let activeDirection = 0;
+  let activeTargetIndex = -1;
+  let activeMoveKind = "none";
+  let isAnimating = false;
   let isInitialized = false;
+
+  const reduceMotionQuery = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)")
+    : { matches: false };
 
   function isMenuOpen() {
     // Suspend snap behavior while overlays are active.
@@ -36,6 +50,7 @@
     if (!target) {
       return false;
     }
+
     const tag = target.tagName ? target.tagName.toLowerCase() : "";
     return (
       tag === "input" ||
@@ -45,6 +60,31 @@
       tag === "a" ||
       target.isContentEditable
     );
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function getMaxScrollTop() {
+    return Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+  }
+
+  function normalizeScrollTop(top) {
+    return clamp(top, 0, getMaxScrollTop());
+  }
+
+  function easeInOutCubic(progress) {
+    return progress < 0.5
+      ? 4 * progress * progress * progress
+      : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+  }
+
+  function refreshSectionSteps() {
+    sectionSteps = collectSectionSteps();
   }
 
   function getScrollSectionIndex() {
@@ -77,60 +117,43 @@
     return { top: top, bottom: bottom };
   }
 
-  function scrollToPosition(top) {
-    window.scrollTo({ top: top, behavior: "smooth" });
+  function clearQueuedSnap() {
+    queuedSnapDirection = 0;
+    queuedSnapAt = 0;
   }
 
-  function lockSnapScroll(duration) {
-    // Guard against repeated input while smooth scrolling is settling.
-    isSnapLocked = true;
-    snapLockStartedAt = Date.now();
-    if (snapUnlockTimer) {
-      clearTimeout(snapUnlockTimer);
+  function stopAnimation(options) {
+    const shouldClearQueue = options && options.clearQueue;
+    if (activeTweenId !== null) {
+      window.cancelAnimationFrame(activeTweenId);
     }
-    const lockDuration = typeof duration === "number" ? duration : SNAP_LOCK_MS;
-    snapUnlockTimer = setTimeout(function () {
-      isSnapLocked = false;
-      if (!queuedSnapDirection) {
-        return;
-      }
-      const direction = queuedSnapDirection;
-      queuedSnapDirection = 0;
-      moveBySection(direction);
-    }, lockDuration);
+
+    activeTweenId = null;
+    isAnimating = false;
+    activeFromY = window.scrollY;
+    activeToY = window.scrollY;
+    activeStartedAt = 0;
+    activeDurationMs = 0;
+    activeDirection = 0;
+    activeTargetIndex = -1;
+    activeMoveKind = "none";
+    wheelAccumulator = 0;
+
+    if (shouldClearQueue) {
+      clearQueuedSnap();
+    }
   }
 
-  function requestSectionMove(direction) {
-    if (!direction) {
-      return;
-    }
-
-    if (isSnapLocked) {
-      // Queue one move to run after lock release if user keeps scrolling.
-      if (Date.now() - snapLockStartedAt < SNAP_QUEUE_DELAY_MS) {
-        return;
-      }
-      queuedSnapDirection = direction;
-      return;
-    }
-
-    moveBySection(direction);
-  }
-
-  function scrollToSectionIndex(index) {
-    if (!sectionSteps.length) {
-      return;
-    }
-    const clampedIndex = Math.max(0, Math.min(index, sectionSteps.length - 1));
-    const target = sectionSteps[clampedIndex];
-    if (!target) {
-      return;
-    }
-    scrollToPosition(target.offsetTop);
+  function resolveTweenDuration(distance) {
+    return clamp(
+      distance * TWEEN_DURATION_FACTOR,
+      TWEEN_DURATION_MIN,
+      TWEEN_DURATION_MAX
+    );
   }
 
   function moveBySection(direction) {
-    if (isMenuOpen() || isSnapLocked || !sectionSteps.length) {
+    if (isMenuOpen() || isAnimating || !sectionSteps.length || !direction) {
       return;
     }
 
@@ -140,51 +163,223 @@
       return;
     }
 
-    const currentY = window.scrollY;
     const lastIndex = sectionSteps.length - 1;
+    const currentY = window.scrollY;
 
     if (direction > 0) {
-      // Downward intent: snap to current section bottom first, then next section.
       if (currentY < anchors.bottom - SNAP_EDGE_TOLERANCE) {
-        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
-        scrollToPosition(anchors.bottom);
+        animateTo(anchors.bottom, {
+          direction: 1,
+          targetIndex: currentIndex,
+          moveKind: "boundary"
+        });
         return;
       }
 
       const nextIndex = Math.min(currentIndex + 1, lastIndex);
       if (nextIndex !== currentIndex) {
-        lockSnapScroll();
-        scrollToSectionIndex(nextIndex);
+        animateTo(sectionSteps[nextIndex].offsetTop, {
+          direction: 1,
+          targetIndex: nextIndex,
+          moveKind: "section"
+        });
         return;
       }
 
       if (Math.abs(currentY - anchors.bottom) > SNAP_SETTLE_TOLERANCE) {
-        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
-        scrollToPosition(anchors.bottom);
+        animateTo(anchors.bottom, {
+          direction: 1,
+          targetIndex: currentIndex,
+          moveKind: "boundary"
+        });
       }
       return;
     }
 
     if (direction < 0) {
-      // Upward intent: snap to current section top first, then previous section.
       if (currentY > anchors.top + SNAP_EDGE_TOLERANCE) {
-        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
-        scrollToPosition(anchors.top);
+        animateTo(anchors.top, {
+          direction: -1,
+          targetIndex: currentIndex,
+          moveKind: "boundary"
+        });
         return;
       }
 
       const prevIndex = Math.max(currentIndex - 1, 0);
       if (prevIndex !== currentIndex) {
-        lockSnapScroll();
-        scrollToSectionIndex(prevIndex);
+        animateTo(sectionSteps[prevIndex].offsetTop, {
+          direction: -1,
+          targetIndex: prevIndex,
+          moveKind: "section"
+        });
         return;
       }
 
       if (Math.abs(currentY - anchors.top) > SNAP_SETTLE_TOLERANCE) {
-        lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
-        scrollToPosition(anchors.top);
+        animateTo(anchors.top, {
+          direction: -1,
+          targetIndex: currentIndex,
+          moveKind: "boundary"
+        });
       }
     }
+  }
+
+  function maybeChainQueuedSnap(completedMoveKind, completedDirection) {
+    if (completedMoveKind !== "boundary") {
+      clearQueuedSnap();
+      return;
+    }
+
+    if (!queuedSnapDirection || queuedSnapDirection !== completedDirection) {
+      clearQueuedSnap();
+      return;
+    }
+
+    if (Date.now() - queuedSnapAt > HYBRID_CHAIN_WINDOW_MS) {
+      clearQueuedSnap();
+      return;
+    }
+
+    const direction = queuedSnapDirection;
+    clearQueuedSnap();
+    moveBySection(direction);
+  }
+
+  function animateTo(top, options) {
+    const targetTop = normalizeScrollTop(top);
+    const distance = Math.abs(window.scrollY - targetTop);
+
+    if (distance <= SNAP_SETTLE_TOLERANCE) {
+      window.scrollTo({ top: targetTop, behavior: "auto" });
+      return;
+    }
+
+    if (reduceMotionQuery.matches) {
+      stopAnimation({ clearQueue: true });
+      window.scrollTo({ top: targetTop, behavior: "auto" });
+      return;
+    }
+
+    const nextDirection =
+      options && typeof options.direction === "number"
+        ? options.direction > 0
+          ? 1
+          : options.direction < 0
+          ? -1
+          : 0
+        : 0;
+    const nextTargetIndex =
+      options && typeof options.targetIndex === "number"
+        ? options.targetIndex
+        : -1;
+    const nextMoveKind =
+      options && options.moveKind === "boundary" ? "boundary" : "section";
+
+    stopAnimation({ clearQueue: false });
+    isAnimating = true;
+    activeFromY = window.scrollY;
+    activeToY = targetTop;
+    activeStartedAt = performance.now();
+    activeDurationMs = resolveTweenDuration(distance);
+    activeDirection = nextDirection;
+    activeTargetIndex = nextTargetIndex;
+    activeMoveKind = nextMoveKind;
+
+    function step(now) {
+      if (!isAnimating) {
+        return;
+      }
+
+      if (isMenuOpen()) {
+        stopAnimation({ clearQueue: true });
+        return;
+      }
+
+      const elapsed = now - activeStartedAt;
+      const progress = clamp(elapsed / activeDurationMs, 0, 1);
+      const easedProgress = easeInOutCubic(progress);
+      const nextTop = activeFromY + (activeToY - activeFromY) * easedProgress;
+      window.scrollTo({ top: nextTop, behavior: "auto" });
+
+      if (progress < 1) {
+        activeTweenId = window.requestAnimationFrame(step);
+        return;
+      }
+
+      const completedDirection = activeDirection;
+      const completedMoveKind = activeMoveKind;
+      window.scrollTo({ top: activeToY, behavior: "auto" });
+      stopAnimation({ clearQueue: false });
+      maybeChainQueuedSnap(completedMoveKind, completedDirection);
+    }
+
+    activeTweenId = window.requestAnimationFrame(step);
+  }
+
+  function requestSectionMove(direction) {
+    if (!direction || isMenuOpen()) {
+      return;
+    }
+
+    refreshSectionSteps();
+    if (!sectionSteps.length) {
+      return;
+    }
+
+    const normalizedDirection = direction > 0 ? 1 : -1;
+
+    if (isAnimating) {
+      if (normalizedDirection === activeDirection) {
+        queuedSnapDirection = normalizedDirection;
+        queuedSnapAt = Date.now();
+        return;
+      }
+
+      stopAnimation({ clearQueue: true });
+      moveBySection(normalizedDirection);
+      return;
+    }
+
+    moveBySection(normalizedDirection);
+  }
+
+  function scrollToSectionIndex(index) {
+    if (!sectionSteps.length) {
+      return;
+    }
+
+    const clampedIndex = Math.max(0, Math.min(index, sectionSteps.length - 1));
+    const target = sectionSteps[clampedIndex];
+    if (!target) {
+      return;
+    }
+
+    animateTo(target.offsetTop, {
+      direction: 0,
+      targetIndex: clampedIndex,
+      moveKind: "section"
+    });
+  }
+
+  function scrollToSectionById(sectionId) {
+    if (!sectionId) {
+      return;
+    }
+
+    refreshSectionSteps();
+    const section = document.getElementById(sectionId);
+    if (!section) {
+      return;
+    }
+
+    const targetIndex = sectionSteps.indexOf(section);
+    animateTo(section.offsetTop, {
+      direction: 0,
+      targetIndex: targetIndex,
+      moveKind: "section"
+    });
   }
 
   function onSnapWheel(event) {
@@ -192,12 +387,15 @@
       return;
     }
 
-    if (Math.abs(event.deltaY) < WHEEL_THRESHOLD) {
+    event.preventDefault();
+    wheelAccumulator += event.deltaY;
+
+    if (Math.abs(wheelAccumulator) < WHEEL_THRESHOLD) {
       return;
     }
 
-    event.preventDefault();
-    const direction = event.deltaY > 0 ? 1 : -1;
+    const direction = wheelAccumulator > 0 ? 1 : -1;
+    wheelAccumulator = 0;
     requestSectionMove(direction);
   }
 
@@ -230,14 +428,12 @@
 
     if (event.key === "Home") {
       event.preventDefault();
-      lockSnapScroll();
       scrollToSectionIndex(0);
       return;
     }
 
     if (event.key === "End") {
       event.preventDefault();
-      lockSnapScroll();
       scrollToSectionIndex(sectionSteps.length - 1);
     }
   }
@@ -268,7 +464,8 @@
   }
 
   function onSnapResize() {
-    sectionSteps = collectSectionSteps();
+    stopAnimation({ clearQueue: true });
+    refreshSectionSteps();
   }
 
   function initSectionSnapScroll() {
@@ -277,7 +474,7 @@
     }
     isInitialized = true;
 
-    sectionSteps = collectSectionSteps();
+    refreshSectionSteps();
     if (sectionSteps.length < 2) {
       return;
     }
@@ -292,6 +489,20 @@
     window.addEventListener("keydown", onSnapKeyDown);
     window.addEventListener("resize", onSnapResize);
   }
+
+  app.sectionSnap = {
+    scrollToSectionById: scrollToSectionById,
+    move: function (direction) {
+      const normalizedDirection = direction > 0 ? 1 : direction < 0 ? -1 : 0;
+      requestSectionMove(normalizedDirection);
+    },
+    cancel: function () {
+      stopAnimation({ clearQueue: true });
+    },
+    refresh: function () {
+      refreshSectionSteps();
+    }
+  };
 
   app.initSectionSnapScroll = initSectionSnapScroll;
 })(window, document);

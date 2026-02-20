@@ -43,6 +43,14 @@
   }
 
   function scrollToSection(sectionId) {
+    if (
+      app.sectionSnap &&
+      typeof app.sectionSnap.scrollToSectionById === "function"
+    ) {
+      app.sectionSnap.scrollToSectionById(sectionId);
+      return;
+    }
+
     const section = document.getElementById(sectionId);
     if (!section) {
       return;

@@ -261,7 +261,7 @@ img {
 
 /* Section snap classes toggled by JS */
 html.section-snap-enabled {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body.section-snap-enabled {
