@@ -413,14 +413,14 @@
 
   .feature-stage {
     margin-top: 0;
-    width: min(94vw, 680px);
+    width: min(95vw, 520px);
     flex-direction: column;
     align-items: center;
     gap: 10px;
   }
 
   .feature-main {
-    width: 100%;
+    width: min(100%, 520px);
     flex: none;
   }
 
@@ -431,6 +431,7 @@
   .feature-portrait {
     min-height: 0;
     width: min(72vw, 320px);
+    margin-top: clamp(18px, 4vw, 30px);
   }
 
   .feature-portrait img {
@@ -718,8 +719,12 @@
   }
 
   .feature-stage {
-    width: min(calc(94vw * var(--compact-ui)), calc(680px * var(--compact-ui)));
+    width: min(95vw, 520px);
     gap: calc(10px * var(--compact-space));
+  }
+
+  .feature-main {
+    width: min(100%, 520px);
   }
 
   .feature-portrait {
