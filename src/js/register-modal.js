@@ -1,4 +1,5 @@
 (function (window, document) {
+  // Controls register/login modal open-close state, focus trap, and placeholder actions.
   const app = (window.PrinceSite = window.PrinceSite || {});
   const MODAL_OPEN_CLASS = "is-open";
   const BODY_LOCK_CLASS = "register-modal-open";
@@ -26,6 +27,7 @@
       return [];
     }
 
+    // Keep keyboard navigation inside the modal while open.
     const nodes = modalRoot.querySelectorAll(
       'button:not([disabled]), input:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
     );
@@ -94,6 +96,7 @@
         if (!isOpenState || !usernameInput) {
           return;
         }
+        // Move focus into the form after the open animation starts.
         usernameInput.focus({ preventScroll: true });
       }, 90);
       return;
@@ -180,20 +183,24 @@
   function onModalActionClick(event) {
     const action = event.currentTarget.dataset.modalAction;
     if (action === "signup") {
+      // Placeholder button action: replace with signup flow.
       alert("Register action not added yet.");
       return;
     }
     if (action === "forgot") {
+      // Placeholder button action: replace with forgot-password flow.
       alert("Forgot password action not added yet.");
       return;
     }
     if (action === "login") {
+      // Placeholder button action: replace with login API request.
       alert("Login action not added yet.");
     }
   }
 
   function onRegisterSubmit(event) {
     event.preventDefault();
+    // Placeholder form submit action: replace with real authentication logic.
     alert("Login action not added yet.");
   }
 

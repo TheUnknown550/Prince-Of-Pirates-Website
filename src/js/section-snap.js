@@ -1,4 +1,5 @@
 (function (window, document) {
+  // Implements section-by-section snap scrolling for wheel, keyboard, and touch.
   const SNAP_LOCK_MS = 680;
   const SNAP_ANCHOR_LOCK_MS = 320;
   const WHEEL_THRESHOLD = 16;
@@ -16,6 +17,7 @@
   let isInitialized = false;
 
   function isMenuOpen() {
+    // Suspend snap behavior while overlays are active.
     return (
       document.body.classList.contains("menu-open") ||
       document.body.classList.contains("register-modal-open")
@@ -23,6 +25,7 @@
   }
 
   function collectSectionSteps() {
+    // Snap targets include all full-page sections and the footer.
     return Array.prototype.slice.call(
       document.querySelectorAll(".bg-frame, .site-footer")
     );
@@ -78,6 +81,7 @@
   }
 
   function lockSnapScroll(duration) {
+    // Guard against repeated input while smooth scrolling is settling.
     isSnapLocked = true;
     snapLockStartedAt = Date.now();
     if (snapUnlockTimer) {
@@ -101,6 +105,7 @@
     }
 
     if (isSnapLocked) {
+      // Queue one move to run after lock release if user keeps scrolling.
       if (Date.now() - snapLockStartedAt < SNAP_QUEUE_DELAY_MS) {
         return;
       }
@@ -138,6 +143,7 @@
     const lastIndex = sectionSteps.length - 1;
 
     if (direction > 0) {
+      // Downward intent: snap to current section bottom first, then next section.
       if (currentY < anchors.bottom - SNAP_EDGE_TOLERANCE) {
         lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
         scrollToPosition(anchors.bottom);
@@ -159,6 +165,7 @@
     }
 
     if (direction < 0) {
+      // Upward intent: snap to current section top first, then previous section.
       if (currentY > anchors.top + SNAP_EDGE_TOLERANCE) {
         lockSnapScroll(SNAP_ANCHOR_LOCK_MS);
         scrollToPosition(anchors.top);
@@ -277,6 +284,7 @@
     document.documentElement.classList.add("section-snap-enabled");
     document.body.classList.add("section-snap-enabled");
 
+    // Wheel listener must be non-passive so we can prevent default scrolling.
     window.addEventListener("wheel", onSnapWheel, { passive: false });
     window.addEventListener("touchstart", onSnapTouchStart, { passive: true });
     window.addEventListener("touchend", onSnapTouchEnd, { passive: true });

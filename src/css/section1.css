@@ -1,4 +1,5 @@
-﻿.first-page-header {
+﻿/* Section 1 header/navigation shell */
+.first-page-header {
   position: absolute;
   top: 14px;
   left: 50%;
@@ -7,6 +8,7 @@
   z-index: 15;
 }
 
+/* Hero section root variable(s) */
 #main {
   font-family: "JK JING THAYKHRAW", sans-serif;
   --ace-overlap: clamp(48px, 4.2vw, 70px);
@@ -32,6 +34,7 @@
   display: block;
 }
 
+/* Mobile navigation overlay */
 .mobile-menu-toggle {
   display: none;
   width: 52px;
@@ -124,6 +127,7 @@
   font-weight: 600;
 }
 
+/* Desktop navigation links */
 .header-nav {
   display: flex;
   align-items: flex-start;
@@ -166,6 +170,7 @@
   letter-spacing: 0.04em;
 }
 
+/* Hero layout and art composition */
 .hero-layout {
   position: relative;
   width: min(100vw, 960px);
@@ -305,6 +310,7 @@
   width: clamp(110px, 11.8vw, 142px);
 }
 
+/* Mid-to-large desktop refinements */
 @media (max-width: 1599px) and (min-width: 1201px) {
   #main {
     --ace-overlap: clamp(70px, 5.6vw, 88px);
@@ -376,6 +382,7 @@
   }
 }
 
+/* Tablet refinements */
 @media (max-width: 1200px) and (min-width: 901px) {
   #main {
     --ace-overlap: clamp(
@@ -464,6 +471,7 @@
   }
 }
 
+/* Narrow tablet edge-case */
 @media (max-width: 1070px) and (min-width: 901px) {
   .hero-character {
     left: -22px;
@@ -471,6 +479,7 @@
   }
 }
 
+/* Large desktop refinements */
 @media (min-width: 1600px) {
   #main {
     --ace-overlap: 90px;
@@ -570,6 +579,7 @@
   }
 }
 
+/* Mobile layout */
 @media (max-width: 900px) {
   #main {
     --ace-overlap: clamp(24px, 8.571vw - 1.714px, 54px);
@@ -714,6 +724,7 @@
   }
 }
 
+/* Small phone tweaks */
 @media (max-width: 520px) {
   .mobile-menu-toggle {
     width: 46px;
@@ -737,3 +748,5 @@
     padding: 11px 14px;
   }
 }
+
+

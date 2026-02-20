@@ -1,4 +1,5 @@
 (function (window) {
+  // Boots each feature module after scripts are loaded.
   const app = window.PrinceSite || {};
 
   if (typeof app.initNavigation === "function") {

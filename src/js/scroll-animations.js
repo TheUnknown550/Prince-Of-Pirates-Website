@@ -1,4 +1,5 @@
 (function (window, document) {
+  // Adds reveal-on-scroll classes and triggers visibility with IntersectionObserver.
   const app = (window.PrinceSite = window.PrinceSite || {});
   let isInitialized = false;
 
@@ -9,6 +10,7 @@
     isInitialized = true;
 
     const revealGroups = [
+      // Header and hero call-to-action groupings.
       {
         selector: ".logo-button, .header-nav-button",
         animation: "reveal-pop",
@@ -83,6 +85,7 @@
     }
 
     function revealTogether(selector) {
+      // Some paired elements should appear as a single visual unit.
       const groupItems = document.querySelectorAll(selector);
       groupItems.forEach(function (item) {
         item.classList.add("is-visible");

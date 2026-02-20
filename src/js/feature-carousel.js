@@ -1,4 +1,5 @@
 (function (window, document) {
+  // Drives gameplay preview carousel: auto-rotate, arrows, and slide transitions.
   const FEATURE_SLIDE_INTERVAL_MS = 5000;
   const FEATURE_TRANSITION_MS = 420;
   const FEATURE_TRANSITION_SETTLE_MS = 48;
@@ -148,10 +149,12 @@
     container.insertBefore(incomingImage, currentImage.nextSibling);
 
     requestAnimationFrame(function () {
+      // First frame: mark both images as transition participants.
       currentImage.classList.add("is-sliding");
       incomingImage.classList.add("is-sliding");
 
       requestAnimationFrame(function () {
+        // Second frame: trigger opposite-direction movement classes.
         currentImage.classList.add(
           direction > 0 ? "is-leave-to-right" : "is-leave-to-left"
         );
@@ -202,6 +205,7 @@
     }
 
     if (isFeatureAnimating) {
+      // Keep only the latest requested slide during an active transition.
       featurePendingSlideIndex = normalizedIndex;
       if (direction === 1 || direction === -1) {
         featurePendingDirection = direction;
@@ -235,6 +239,7 @@
     }
 
     featureAutoTimer = setInterval(function () {
+      // Auto-advance continues unless user interaction restarts timing.
       shiftFeatureSlide(1, { restartTimer: false });
     }, FEATURE_SLIDE_INTERVAL_MS);
   }

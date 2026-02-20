@@ -1,8 +1,10 @@
+﻿/* Section 3 root layout */
 #character {
   display: flex;
   align-items: stretch;
 }
 
+/* Content frame sizing for character section */
 #character .section-content {
   width: min(96vw, 1180px);
   height: 100%;
@@ -11,6 +13,7 @@
   padding-bottom: 0;
 }
 
+/* Two-column character composition */
 .character-layout {
   text-align: left;
   display: flex;
@@ -47,6 +50,7 @@
   display: block;
 }
 
+/* Character description and tab controls */
 .character-copy {
   max-width: min(92%, 560px);
   font-size: clamp(22px, 1.85vw, 31px);
@@ -109,6 +113,7 @@
   opacity: 1;
 }
 
+/* Right-side hero character image */
 .character-right {
   flex: 0 0 38%;
   display: flex;
@@ -130,6 +135,7 @@
   margin: 0 auto -2px;
 }
 
+/* Mid-to-large desktop refinements */
 @media (max-width: 1599px) and (min-width: 1201px) {
   .bg-page-3 {
     height: clamp(680px, 55vw, 860px);
@@ -199,6 +205,7 @@
   }
 }
 
+/* Tablet refinements */
 @media (max-width: 1200px) and (min-width: 901px) {
   .bg-page-3 {
     height: clamp(640px, 68vw, 760px);
@@ -275,6 +282,7 @@
   }
 }
 
+/* Large desktop refinements */
 @media (min-width: 1600px) {
   #character .section-content {
     width: min(96vw, 1800px);
@@ -336,6 +344,7 @@
   }
 }
 
+/* Mobile layout */
 @media (max-width: 900px) {
   #character .section-content {
     padding-top: 24px;
@@ -422,6 +431,7 @@
   }
 }
 
+/* Small phone tab scaling */
 @media (max-width: 620px) {
   .character-copy {
     font-size: clamp(17px, 5vw, 22px);
@@ -448,3 +458,5 @@
     width: clamp(14px, 4.5vw, 22px);
   }
 }
+
+

@@ -1,8 +1,10 @@
+﻿/* Section 2 container spacing */
 #game-guide .section-content {
   padding-top: 32px;
   padding-bottom: 0;
 }
 
+/* Section title art placement */
 .feature-title-image {
   margin: 25px 0 0;
   text-align: left;
@@ -14,6 +16,7 @@
   display: block;
 }
 
+/* Main feature split layout */
 .feature-stage {
   margin: 30px auto 0;
   width: min(94vw, 960px);
@@ -30,6 +33,7 @@
   align-items: center;
 }
 
+/* Carousel viewport and frame shell */
 .feature-screen {
   width: 100%;
   background: transparent;
@@ -99,6 +103,7 @@
   pointer-events: none;
 }
 
+/* Carousel arrow controls */
 .feature-screen-arrow {
   position: absolute;
   top: 8.75%;
@@ -194,6 +199,7 @@
   background: #f4f5f7;
 }
 
+/* Character portrait area */
 .feature-portrait {
   flex: 0 0 30%;
   display: flex;
@@ -218,6 +224,7 @@
   display: block;
 }
 
+/* Mid-to-large desktop refinements */
 @media (max-width: 1599px) and (min-width: 1201px) {
   .bg-page-2 {
     height: auto;
@@ -270,6 +277,7 @@
   }
 }
 
+/* Tablet refinements */
 @media (max-width: 1200px) and (min-width: 901px) {
   .bg-page-2 {
     min-height: 0;
@@ -319,12 +327,14 @@
   }
 }
 
+/* Wide tablet/desktop spacing tweak */
 @media (max-width: 1400px) and (min-width: 901px) {
   .feature-detail-image {
     margin-bottom: clamp(14px, 1.8vw, 26px);
   }
 }
 
+/* Large desktop refinements */
 @media (min-width: 1600px) {
   #game-guide .section-content {
     padding-top: 30px;
@@ -379,6 +389,7 @@
   }
 }
 
+/* Mobile layout */
 @media (max-width: 900px) {
   .bg-page-2 {
     background-size: cover;
@@ -436,3 +447,5 @@
     margin: 0 auto;
   }
 }
+
+

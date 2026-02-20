@@ -1,4 +1,5 @@
 (function (window, document) {
+  // Handles top navigation actions and mobile menu state.
   const MOBILE_BREAKPOINT = 900;
   const app = (window.PrinceSite = window.PrinceSite || {});
   const mobileMenu = document.getElementById("mobile-nav-overlay");
@@ -11,6 +12,7 @@
       return;
     }
 
+    // Return focus to the menu trigger when closing from inside the overlay.
     if (!nextState && mobileMenu.contains(document.activeElement)) {
       mobileMenuToggle.focus();
     }
@@ -60,36 +62,46 @@
         app.registerModal.open(triggerButton);
         return;
       }
+      // Placeholder: register modal integration fallback.
       alert("Register modal is not available yet.");
     },
     topup: function () {
+      // Placeholder button action: replace with topup page route/link.
       alert("Topup page link not added yet.");
     },
     "game-guide": function () {
       scrollToSection("game-guide");
     },
     news: function () {
+      // Placeholder button action: replace with news page route/link.
       alert("News page link not added yet.");
     },
     community: function () {
+      // Placeholder button action: replace with community page route/link.
       alert("Community page link not added yet.");
     },
     "app-store": function () {
+      // Placeholder button action: replace with App Store deep link.
       alert("App Store link not added yet.");
     },
     "google-play": function () {
+      // Placeholder button action: replace with Google Play deep link.
       alert("Google Play link not added yet.");
     },
     "google-play-games": function () {
+      // Placeholder button action: replace with Google Play Games link.
       alert("Google Play Games link not added yet.");
     },
     "play-game": function () {
+      // Placeholder button action: replace with game launch/login flow.
       alert("Play Game action not added yet.");
     },
     download: function () {
+      // Placeholder button action: replace with game download flow.
       alert("Download action not added yet.");
     },
     member: function () {
+      // Placeholder button action: replace with member/account page.
       alert("Member action not added yet.");
     },
     "toggle-mobile-menu": function () {

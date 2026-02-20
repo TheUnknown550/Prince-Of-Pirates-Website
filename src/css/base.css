@@ -1,4 +1,5 @@
-﻿@font-face {
+﻿/* Global font asset */
+@font-face {
   font-family: "JK JING THAYKHRAW";
   src: url("../../assests/fonts/JK_JING-THAYKHRAW.ttf") format("truetype");
   font-style: normal;
@@ -6,6 +7,7 @@
   font-display: swap;
 }
 
+/* Base element reset and typography */
 * {
   box-sizing: border-box;
 }
@@ -25,6 +27,7 @@ body {
 }
 
 :root {
+  /* Shared scroll-reveal motion variables */
   --reveal-duration: 780ms;
   --reveal-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -42,6 +45,7 @@ img {
   height: auto;
 }
 
+/* Shared section background containers */
 .bg-frame {
   width: 100%;
   background-repeat: no-repeat;
@@ -70,6 +74,7 @@ img {
   height: clamp(560px, 60vw, 1000px);
 }
 
+/* Generic image-button primitive */
 .image-button {
   border: 0;
   background: transparent;
@@ -105,6 +110,7 @@ img {
   color: #ffb320;
 }
 
+/* Scroll reveal utility classes */
 .reveal-on-scroll {
   --reveal-delay: 0ms;
   opacity: 0;
@@ -160,6 +166,7 @@ img {
   transform-origin: center bottom;
 }
 
+/* Shared button animation keyframes */
 @keyframes play-btn-pulse {
   0%,
   100% {
@@ -180,6 +187,7 @@ img {
   }
 }
 
+/* Large desktop adjustments */
 @media (min-width: 1600px) {
   .bg-page-1 {
     height: 960px;
@@ -198,6 +206,7 @@ img {
   }
 }
 
+/* Mid-to-large desktop adjustments */
 @media (max-width: 1599px) and (min-width: 1201px) {
   .bg-page-1 {
     height: clamp(700px, 57vw, 920px);
@@ -212,6 +221,7 @@ img {
   }
 }
 
+/* Tablet adjustments */
 @media (max-width: 1200px) {
   .bg-page-1 {
     height: auto;
@@ -234,6 +244,7 @@ img {
   }
 }
 
+/* Mobile adjustments */
 @media (max-width: 900px) {
   .bg-page-1,
   .bg-page-2,
@@ -248,6 +259,7 @@ img {
   }
 }
 
+/* Section snap classes toggled by JS */
 html.section-snap-enabled {
   scroll-behavior: smooth;
 }
@@ -256,6 +268,7 @@ body.section-snap-enabled {
   overflow-y: auto;
 }
 
+/* Reduced motion accessibility support */
 @media (prefers-reduced-motion: reduce) {
   .reveal-on-scroll {
     opacity: 1 !important;

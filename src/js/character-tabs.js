@@ -1,4 +1,5 @@
 (function (window, document) {
+  // Handles character tab activation and previous/next cycling controls.
   const app = (window.PrinceSite = window.PrinceSite || {});
   let isInitialized = false;
 
