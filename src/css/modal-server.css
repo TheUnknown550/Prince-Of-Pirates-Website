@@ -128,6 +128,13 @@
   margin-top: clamp(2px, 0.3vw, 4px);
 }
 
+@media (min-width: 901px) {
+  .server-option-copy {
+    left: calc(clamp(24px, 2.2vw, 34px) + 12px);
+    max-width: 58%;
+  }
+}
+
 .server-option {
   --server-card-width: clamp(146px, 18.7vw, 232px);
   position: relative;
@@ -448,6 +455,13 @@ body.server-modal-open {
     width: clamp(180px, 52vw, 280px);
     max-width: 100%;
     transform: translateY(30%);
+  }
+}
+
+@media (max-width: 750px) {
+  .server-option-copy {
+    left: calc(clamp(24px, 2.2vw, 34px) + 12px);
+    max-width: 58%;
   }
 }
 
