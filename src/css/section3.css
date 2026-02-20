@@ -71,6 +71,29 @@
   gap: 10px;
 }
 
+.character-tab-viewport {
+  overflow: hidden;
+  position: relative;
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+.character-tab-track {
+  display: flex;
+  align-items: flex-end;
+  width: max-content;
+  will-change: transform;
+  transform: translateX(0);
+}
+
+.character-tab-track .char-tab-image {
+  flex: 0 0 auto;
+}
+
+.char-tab-clone {
+  pointer-events: none;
+}
+
 .char-tab-image,
 .char-arrow-btn {
   border: 0;
