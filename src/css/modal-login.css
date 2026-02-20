@@ -9,6 +9,9 @@
   padding: clamp(10px, 3vw, 28px);
   display: grid;
   place-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
   opacity: 0;
   pointer-events: none;
   transition: opacity 240ms ease;
@@ -20,7 +23,7 @@
 }
 
 .register-modal-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: rgba(12, 16, 33, 0.74);
   backdrop-filter: blur(1.5px);
@@ -29,6 +32,7 @@
 .register-modal-stage {
   position: relative;
   width: min(94vw, 1167px);
+  margin: auto;
   --modal-stage-pad-top: clamp(68px, 7vw, 108px);
   --modal-logo-width: clamp(330px, 58vw, 656px);
   --modal-content-gap: clamp(10px, 1.8vw, 24px);
@@ -330,5 +334,15 @@ body.register-modal-open {
   .register-modal,
   .register-modal-stage {
     transition: none !important;
+  }
+}
+
+@media (max-height: 860px) {
+  .register-modal {
+    place-items: start center;
+  }
+
+  .register-modal-stage {
+    margin: 0 auto;
   }
 }
