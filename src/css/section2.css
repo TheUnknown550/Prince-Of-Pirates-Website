@@ -154,20 +154,22 @@
 
 .feature-slide-indicator {
   position: absolute;
-  left: calc(50% - clamp(22px, 1.95vw, 34px));
-  bottom: clamp(14px, 1.5vw, 24px);
-  transform: translateX(-50%);
-  display: flex;
+  left: calc(100% * 551 / 1178);
+  top: calc(100% * 586 / 617);
+  transform: translate(-50%, -50%);
+  width: calc(100% * 100 / 1150);
+  height: calc(100% * 25 / 617);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 0.85vw, 14px);
+  justify-items: center;
   z-index: 6;
   pointer-events: none;
 }
 
 .feature-slide-dot {
-  width: clamp(6px, 0.56vw, 9px);
-  height: clamp(6px, 0.56vw, 9px);
+  width: calc(100% * 60/ 95);
+  height: calc(100% * 60/ 95);
   border-radius: 50%;
   background: #06090f;
   opacity: 0;
