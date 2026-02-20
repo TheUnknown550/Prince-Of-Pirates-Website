@@ -246,7 +246,7 @@
 .server-option-new {
   position: absolute;
   left: clamp(4px, 0.6vw, 8px);
-  top: clamp(-14px, -1.2vw, -8px);
+  top: clamp(-7px, -0.6vw, -3px);
   width: clamp(40px, 5vw, 60px);
   height: auto;
   pointer-events: none;
