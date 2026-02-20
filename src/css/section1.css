@@ -1205,4 +1205,48 @@
   }
 }
 
+/* Anchor Ace to section bottom and overlap next section by 10% of image height */
+#main {
+  --ace-overlap-ratio: 10%;
+}
+
+.hero-character {
+  bottom: 0;
+  transform: translateY(var(--ace-overlap-ratio));
+}
+
+@media (max-width: 900px) {
+  #main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-character {
+    transform: translate(-57%, var(--ace-overlap-ratio));
+  }
+
+  .hero-layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+  }
+
+  .hero-character-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+  }
+
+  .hero-cta {
+    margin-bottom: 0;
+  }
+}
+
+/* Keep Ace bottom-anchored to section height on tablet widths */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .hero-layout {
+    height: 100%;
+  }
+}
+
 
