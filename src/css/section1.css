@@ -933,32 +933,57 @@
   }
 
   .hero-cta {
-    max-width: calc(720px * var(--compact-ui));
+    flex: 0 0 46%;
+    max-width: calc(900px * var(--compact-ui));
     margin-top: calc(82px * var(--compact-space));
     transform: translateX(calc(-52px * var(--compact-ui)));
   }
 
   .hero-title-image img {
-    width: min(100%, calc(730px * var(--compact-ui)));
+    width: min(100%, calc(900px * var(--compact-ui)));
   }
 
   .hero-detail-image img {
-    width: min(100%, calc(510px * var(--compact-ui)));
+    width: min(100%, calc(660px * var(--compact-ui)));
+  }
+
+  .app-store-btn {
+    width: clamp(
+      calc(78px * var(--compact-ui)),
+      calc(8.2vw * var(--compact-ui)),
+      calc(110px * var(--compact-ui))
+    );
+  }
+
+  .google-play-btn {
+    width: clamp(
+      calc(90px * var(--compact-ui)),
+      calc(9.4vw * var(--compact-ui)),
+      calc(124px * var(--compact-ui))
+    );
+  }
+
+  .google-play-games-btn {
+    width: clamp(
+      calc(132px * var(--compact-ui)),
+      calc(13.8vw * var(--compact-ui)),
+      calc(186px * var(--compact-ui))
+    );
   }
 
   .play-btn {
     width: clamp(
-      calc(320px * var(--compact-ui)),
-      calc(27vw * var(--compact-ui)),
-      calc(470px * var(--compact-ui))
+      calc(400px * var(--compact-ui)),
+      calc(33vw * var(--compact-ui)),
+      calc(560px * var(--compact-ui))
     );
   }
 
   .action-btn {
     width: clamp(
-      calc(126px * var(--compact-ui)),
-      calc(10.6vw * var(--compact-ui)),
-      calc(180px * var(--compact-ui))
+      calc(150px * var(--compact-ui)),
+      calc(12.6vw * var(--compact-ui)),
+      calc(210px * var(--compact-ui))
     );
   }
 }
@@ -1017,32 +1042,57 @@
   }
 
   .hero-cta {
-    max-width: calc(540px * var(--compact-ui));
+    flex: 0 0 50%;
+    max-width: calc(620px * var(--compact-ui));
     margin-top: calc(44px * var(--compact-space));
     transform: translateX(calc(-6px * var(--compact-ui)));
   }
 
   .hero-title-image img {
-    width: min(100%, calc(620px * var(--compact-ui)));
+    width: min(100%, calc(790px * var(--compact-ui)));
   }
 
   .hero-detail-image img {
-    width: min(100%, calc(450px * var(--compact-ui)));
+    width: min(100%, calc(620px * var(--compact-ui)));
+  }
+
+  .app-store-btn {
+    width: clamp(
+      calc(82px * var(--compact-ui)),
+      calc(8.8vw * var(--compact-ui)),
+      calc(116px * var(--compact-ui))
+    );
+  }
+
+  .google-play-btn {
+    width: clamp(
+      calc(96px * var(--compact-ui)),
+      calc(10vw * var(--compact-ui)),
+      calc(132px * var(--compact-ui))
+    );
+  }
+
+  .google-play-games-btn {
+    width: clamp(
+      calc(142px * var(--compact-ui)),
+      calc(15vw * var(--compact-ui)),
+      calc(198px * var(--compact-ui))
+    );
   }
 
   .play-btn {
     width: clamp(
-      calc(275px * var(--compact-ui)),
-      calc(26vw * var(--compact-ui)),
-      calc(360px * var(--compact-ui))
+      calc(370px * var(--compact-ui)),
+      calc(36vw * var(--compact-ui)),
+      calc(490px * var(--compact-ui))
     );
   }
 
   .action-btn {
     width: clamp(
-      calc(108px * var(--compact-ui)),
-      calc(10.2vw * var(--compact-ui)),
-      calc(145px * var(--compact-ui))
+      calc(146px * var(--compact-ui)),
+      calc(14vw * var(--compact-ui)),
+      calc(202px * var(--compact-ui))
     );
   }
 }
@@ -1088,37 +1138,38 @@
   }
 
   .hero-cta {
-    max-width: calc(820px * var(--compact-ui));
+    flex: 0 0 48%;
+    max-width: calc(1040px * var(--compact-ui));
     margin-top: calc(106px * var(--compact-space));
     transform: translateX(calc(-72px * var(--compact-ui)));
   }
 
   .hero-title-image img {
-    width: min(100%, calc(760px * var(--compact-ui)));
+    width: min(100%, calc(980px * var(--compact-ui)));
   }
 
   .hero-detail-image img {
-    width: min(100%, calc(520px * var(--compact-ui)));
+    width: min(100%, calc(700px * var(--compact-ui)));
   }
 
   .app-store-btn {
-    width: calc(118px * var(--compact-ui));
+    width: calc(136px * var(--compact-ui));
   }
 
   .google-play-btn {
-    width: calc(130px * var(--compact-ui));
+    width: calc(150px * var(--compact-ui));
   }
 
   .google-play-games-btn {
-    width: calc(190px * var(--compact-ui));
+    width: calc(220px * var(--compact-ui));
   }
 
   .play-btn {
-    width: calc(510px * var(--compact-ui));
+    width: calc(580px * var(--compact-ui));
   }
 
   .action-btn {
-    width: calc(198px * var(--compact-ui));
+    width: calc(225px * var(--compact-ui));
   }
 }
 
@@ -1278,6 +1329,10 @@
 @media (max-width: 1200px) and (min-width: 901px) {
   .hero-layout {
     height: 100%;
+  }
+
+  .hero-character {
+    height: calc(var(--section-screen-height) * 0.6);
   }
 }
 
