@@ -217,8 +217,8 @@
 
 .server-option-character {
   position: absolute;
-  right: 0%;
-  bottom: -8%;
+  right: -2%;
+  bottom: 6%;
   height: clamp(56px, 6.8vw, 88px);
   width: auto;
   max-width: none;
@@ -226,6 +226,21 @@
   object-position: center bottom;
   user-select: none;
   pointer-events: none;
+}
+
+.server-option-character[src$="Character/nami.png"] {
+  right: -8%;
+  bottom: 7%;
+}
+
+.server-option-character[src$="Character/chopper.png"] {
+  right: -9%;
+  bottom: 7%;
+}
+
+.server-option-character[src$="Character/mihawk.png"] {
+  right: -10%;
+  bottom: 6%;
 }
 
 .server-option-new {
@@ -244,17 +259,18 @@
   position: relative;
   z-index: 3;
   transform: translateY(30%);
+  transition: transform 200ms ease, filter 200ms ease;
 }
 
 .server-modal-join-btn:hover,
 .server-modal-join-btn:focus-visible {
-  transform: translateY(calc(30% - 1px)) scale(1.003);
+  transform: translateY(calc(30% - 8px)) scale(1.01);
   filter: drop-shadow(0 6px 10px rgba(19, 27, 66, 0.16));
   outline: none;
 }
 
 .server-modal-join-btn:active {
-  transform: translateY(30%) scale(0.998);
+  transform: translateY(calc(30% - 4px)) scale(0.998);
 }
 
 .server-modal-join-btn img {
@@ -330,6 +346,19 @@ body.server-modal-open {
 
   .server-option-character {
     height: clamp(50px, 7.5vw, 78px);
+    right: -1%;
+  }
+
+  .server-option-character[src$="Character/nami.png"] {
+    right: -5%;
+  }
+
+  .server-option-character[src$="Character/chopper.png"] {
+    right: -6%;
+  }
+
+  .server-option-character[src$="Character/mihawk.png"] {
+    right: -7%;
   }
 
   .server-modal-join-btn {
@@ -376,6 +405,19 @@ body.server-modal-open {
   .server-option-character {
     height: clamp(48px, 11vw, 72px);
     width: auto;
+    right: 0%;
+  }
+
+  .server-option-character[src$="Character/nami.png"] {
+    right: -3%;
+  }
+
+  .server-option-character[src$="Character/chopper.png"] {
+    right: -4%;
+  }
+
+  .server-option-character[src$="Character/mihawk.png"] {
+    right: -5%;
   }
 
   .server-modal-join-btn {
@@ -389,6 +431,10 @@ body.server-modal-open {
   .server-option,
   .server-option-bg,
   .server-modal-close {
+    transition: none !important;
+  }
+
+  .server-modal-join-btn {
     transition: none !important;
   }
 }
