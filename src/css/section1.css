@@ -1288,7 +1288,7 @@
 
 @media (min-width: 901px) {
   .hero-character {
-    transform: translate(-20%, var(--ace-overlap-ratio));
+    transform: translate(-15%, var(--ace-overlap-ratio));
   }
 }
 
