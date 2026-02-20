@@ -316,7 +316,8 @@ body.server-modal-open {
 @media (max-width: 900px) {
   .server-modal-stage {
     width: min(96vw, 860px);
-    min-height: clamp(640px, 110vw, 820px);
+    min-height: 0;
+    height: auto;
   }
 
   .server-modal-close {
@@ -326,6 +327,9 @@ body.server-modal-open {
   }
 
   .server-modal-content {
+    position: relative;
+    inset: auto;
+    width: 100%;
     padding:
       clamp(50px, 6.8vw, 66px)
       clamp(20px, 3.8vw, 32px)
@@ -362,6 +366,7 @@ body.server-modal-open {
   }
 
   .server-modal-join-btn {
+    margin: clamp(8px, 1.4vw, 14px) auto 0;
     transform: translateY(30%);
   }
 }
@@ -369,7 +374,8 @@ body.server-modal-open {
 @media (max-width: 760px) {
   .server-modal-stage {
     width: min(96vw, 620px);
-    min-height: clamp(860px, 190vw, 1040px);
+    min-height: 0;
+    height: auto;
   }
 
   .server-modal-content {
