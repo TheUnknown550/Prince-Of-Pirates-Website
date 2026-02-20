@@ -1045,7 +1045,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 1080px);
+    width: min(100%, 820px);
   }
 
   .character-nameplate img {
@@ -1116,7 +1116,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 1320px);
+    width: min(100%, 980px);
   }
 
   .character-nameplate img {
@@ -1166,6 +1166,19 @@
   .char-arrow-btn {
     min-width: clamp(24px, 7.2vw, 38px);
     min-height: clamp(30px, 8.8vw, 44px);
+  }
+}
+
+/* Sanji downscale for <=1200: about 80% of previous size */
+@media (max-width: 1200px) and (min-width: 901px) {
+  .character-silhouette {
+    width: min(100%, 496px);
+  }
+}
+
+@media (max-width: 900px) {
+  .character-right {
+    width: min(72vw, 384px);
   }
 }
 
