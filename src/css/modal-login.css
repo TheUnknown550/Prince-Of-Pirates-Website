@@ -36,8 +36,8 @@
   position: relative;
   width: min(94vw, 1167px);
   margin: auto;
-  --modal-stage-pad-top: clamp(68px, 7vw, 108px);
-  --modal-logo-width: clamp(330px, 58vw, 656px);
+  --modal-stage-pad-top: clamp(58px, 6vw, 92px);
+  --modal-logo-width: clamp(281px, 49.3vw, 558px);
   --modal-content-gap: clamp(10px, 1.8vw, 24px);
   --modal-content-max-width: clamp(390px, 50vw, 500px);
   --modal-field-max-width: clamp(320px, 46vw, 460px);
@@ -71,7 +71,7 @@
   top: 0;
   left: 50%;
   width: var(--modal-logo-width);
-  transform: translate(-50%, -17%);
+  transform: translate(-50%, -13%);
   z-index: 3;
   pointer-events: none;
   user-select: none;
@@ -107,9 +107,9 @@
 
 .register-modal-chopper {
   position: absolute;
-  left: clamp(-146px, -9vw, -42px);
-  bottom: clamp(-32px, -2vw, -12px);
-  width: clamp(190px, 37vw, 469px);
+  left: clamp(-124px, -7.6vw, -36px);
+  bottom: clamp(-24px, -1.5vw, -8px);
+  width: clamp(162px, 31.5vw, 399px);
   pointer-events: none;
   z-index: 4;
   user-select: none;
@@ -276,8 +276,8 @@ body.register-modal-open {
 @media (max-width: 900px) {
   .register-modal-stage {
     width: min(96vw, 860px);
-    --modal-stage-pad-top: clamp(54px, 8vw, 78px);
-    --modal-logo-width: min(76vw, 480px);
+    --modal-stage-pad-top: clamp(46px, 6.8vw, 66px);
+    --modal-logo-width: min(64.6vw, 408px);
     --modal-content-gap: clamp(8px, 1.5vw, 14px);
     --modal-content-max-width: clamp(300px, 60vw, 390px);
     --modal-field-max-width: clamp(250px, 56vw, 360px);
@@ -295,13 +295,13 @@ body.register-modal-open {
   }
 
   .register-modal-logo {
-    transform: translate(-50%, -15%);
+    transform: translate(-50%, -12%);
   }
 
   .register-modal-chopper {
-    width: clamp(148px, 38vw, 300px);
-    left: clamp(-72px, -7vw, -20px);
-    bottom: -6px;
+    width: clamp(126px, 32.3vw, 255px);
+    left: clamp(-61px, -6vw, -17px);
+    bottom: -4px;
   }
 
   .register-modal-label {
@@ -316,7 +316,7 @@ body.register-modal-open {
 /* Mobile refinements */
 @media (max-width: 700px) {
   .register-modal-stage {
-    --modal-logo-width: min(82vw, 430px);
+    --modal-logo-width: min(70vw, 366px);
     --modal-content-gap: clamp(8px, 2vw, 12px);
     --modal-content-max-width: clamp(260px, 80vw, 360px);
     --modal-field-max-width: clamp(230px, 76vw, 330px);
