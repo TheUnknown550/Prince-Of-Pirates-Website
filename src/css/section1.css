@@ -65,7 +65,7 @@
   background: rgba(10, 16, 39, 0.96);
   display: none;
   overflow: hidden;
-  --menu-edge-x: clamp(12px, 4vw, 18px);
+  --menu-edge-x: clamp(9px, 2.8vw, 14px);
   --menu-edge-y: clamp(10px, 3.5vh, 22px);
   --menu-panel-max-width: 440px;
 }
@@ -94,7 +94,7 @@
   line-height: 1;
   padding: 0 4px;
   margin-left: auto;
-  margin-right: clamp(10px, 3vw, 18px);
+  margin-right: clamp(4px, 1.4vw, 8px);
   cursor: pointer;
 }
 
@@ -111,7 +111,7 @@
   );
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding-right: clamp(11px, 3.2vw, 18px);
+  padding-right: clamp(5px, 1.6vw, 9px);
   scrollbar-gutter: stable;
 }
 
@@ -128,7 +128,7 @@
   flex-direction: column;
   align-items: flex-start;
   cursor: pointer;
-  width: calc(100% - clamp(9px, 2.4vw, 16px));
+  width: calc(100% - clamp(4px, 1.2vw, 7px));
   max-width: 100%;
   margin-right: 0;
 }
@@ -627,6 +627,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    padding-right: calc(
+      env(safe-area-inset-right, 0px) + clamp(58px, 14vw, 80px)
+    );
   }
 
   .logo-button img {
@@ -639,6 +642,12 @@
 
   .mobile-menu-toggle {
     display: flex;
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    right: calc(env(safe-area-inset-right, 0px) + 14px);
+    bottom: auto;
+    left: auto;
+    z-index: 1900;
   }
 
   .hero-layout {
@@ -751,18 +760,18 @@
 /* Small phone tweaks */
 @media (max-width: 520px) {
   .mobile-menu-overlay {
-    --menu-edge-x: 14px;
+    --menu-edge-x: 8px;
     --menu-edge-y: 8px;
   }
 
   .mobile-menu-toggle {
-    width: 46px;
-    height: 46px;
-    gap: 5px;
+    width: 52px;
+    height: 52px;
+    gap: 6px;
   }
 
   .mobile-menu-toggle span {
-    width: 22px;
+    width: 24px;
   }
 }
 
