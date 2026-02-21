@@ -973,7 +973,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 940px);
+    width: min(100%, 799px);
   }
 
   .character-nameplate img {
@@ -1045,7 +1045,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 700px);
+    width: min(100%, 595px);
   }
 
   .character-nameplate img {
@@ -1089,6 +1089,12 @@
   }
 }
 
+@media (max-width: 1400px) and (min-width: 1201px) {
+  .character-silhouette {
+    width: min(93.75%, 570px);
+  }
+}
+
 @media (min-width: 1600px) {
   #character .section-content {
     width: min(96vw, 1840px);
@@ -1116,7 +1122,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 800px);
+    width: min(100%, 680px);
   }
 
   .character-nameplate img {
