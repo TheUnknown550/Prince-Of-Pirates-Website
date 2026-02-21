@@ -540,7 +540,7 @@
   }
 
   .feature-title-image img {
-    width: min(100%, 700px);
+    width: min(100%, 560px);
     margin-left: clamp(
       calc(16px * var(--compact-space)),
       calc(4.8vw * var(--compact-space)),
@@ -658,7 +658,7 @@
   }
 
   .feature-title-image img {
-    width: min(100%, 780px);
+    width: min(100%, 624px);
     margin-left: clamp(
       calc(20px * var(--compact-space)),
       calc(6vw * var(--compact-space)),
@@ -677,7 +677,7 @@
   }
 
   .feature-screen {
-    width: 93%;
+    width: 80%;
     margin: 0 auto;
     padding: calc(10px * var(--compact-space))
       calc(10px * var(--compact-space))
