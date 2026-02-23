@@ -11,6 +11,7 @@
   const ROUNDING_GUARD_RATIO = 0.98;
   const MIN_FALLBACK_SCALE = 0.05;
   const DESKTOP_TABLET_SHRINK_RATIO = 0.8;
+  const STACK_LAYOUT_RATIO_THRESHOLD = 1.35;
 
   const CLASS_MODE = "section2-ratio-mode";
   const CLASS_PORTRAIT = "section2-ratio-portrait";
@@ -98,22 +99,22 @@
     clearRuntimeVars();
   }
 
-  function setModeClasses(isPortrait) {
+  function setModeClasses(useStackLayout) {
     if (!gameGuide) {
       return;
     }
 
     gameGuide.classList.add(CLASS_MODE);
-    gameGuide.classList.toggle(CLASS_PORTRAIT, isPortrait);
-    gameGuide.classList.toggle(CLASS_LANDSCAPE, !isPortrait);
+    gameGuide.classList.toggle(CLASS_PORTRAIT, useStackLayout);
+    gameGuide.classList.toggle(CLASS_LANDSCAPE, !useStackLayout);
   }
 
-  function setRuntimeScaleVars(scale, isPortrait) {
+  function setRuntimeScaleVars(scale, useStackLayout) {
     if (!gameGuide) {
       return;
     }
 
-    const stageGap = (isPortrait ? DESIGN.portraitStageGap : DESIGN.landscapeStageGap) * scale;
+    const stageGap = (useStackLayout ? DESIGN.portraitStageGap : DESIGN.landscapeStageGap) * scale;
     gameGuide.style.setProperty("--s2-scale", scale.toFixed(6));
     gameGuide.style.setProperty("--s2-title-w", (DESIGN.titleWidth * scale).toFixed(3) + "px");
     gameGuide.style.setProperty("--s2-screen-w", (DESIGN.screenWidth * scale).toFixed(3) + "px");
@@ -139,9 +140,9 @@
     );
   }
 
-  function applyRoundingGuard(scale, maxWidth, maxHeight, isPortrait) {
+  function applyRoundingGuard(scale, maxWidth, maxHeight, useStackLayout) {
     let guardedScale = scale;
-    setRuntimeScaleVars(guardedScale, isPortrait);
+    setRuntimeScaleVars(guardedScale, useStackLayout);
 
     for (let i = 0; i < ROUNDING_GUARD_STEPS; i += 1) {
       if (!doesContentOverflow(maxWidth, maxHeight)) {
@@ -149,46 +150,46 @@
       }
 
       guardedScale *= ROUNDING_GUARD_RATIO;
-      setRuntimeScaleVars(guardedScale, isPortrait);
+      setRuntimeScaleVars(guardedScale, useStackLayout);
     }
 
     return guardedScale;
   }
 
-  function fitScaleToBounds(maxWidth, maxHeight, isPortrait) {
+  function fitScaleToBounds(maxWidth, maxHeight, useStackLayout) {
     let low = SCALE_START;
     let high = SCALE_SCAN_START;
 
-    setRuntimeScaleVars(low, isPortrait);
+    setRuntimeScaleVars(low, useStackLayout);
     let lowOverflows = doesContentOverflow(maxWidth, maxHeight);
     while (lowOverflows && low > MIN_FALLBACK_SCALE) {
       low *= 0.85;
-      setRuntimeScaleVars(low, isPortrait);
+      setRuntimeScaleVars(low, useStackLayout);
       lowOverflows = doesContentOverflow(maxWidth, maxHeight);
     }
 
     if (lowOverflows) {
-      return applyRoundingGuard(low, maxWidth, maxHeight, isPortrait);
+      return applyRoundingGuard(low, maxWidth, maxHeight, useStackLayout);
     }
 
     high = Math.max(high, low);
-    setRuntimeScaleVars(high, isPortrait);
+    setRuntimeScaleVars(high, useStackLayout);
     let highOverflows = doesContentOverflow(maxWidth, maxHeight);
 
     while (!highOverflows && high < SCALE_SCAN_MAX) {
       low = high;
       high = Math.min(SCALE_SCAN_MAX, high * SCALE_SCAN_STEP);
-      setRuntimeScaleVars(high, isPortrait);
+      setRuntimeScaleVars(high, useStackLayout);
       highOverflows = doesContentOverflow(maxWidth, maxHeight);
     }
 
     if (!highOverflows) {
-      return applyRoundingGuard(high, maxWidth, maxHeight, isPortrait);
+      return applyRoundingGuard(high, maxWidth, maxHeight, useStackLayout);
     }
 
     for (let i = 0; i < BINARY_SEARCH_STEPS; i += 1) {
       const mid = (low + high) / 2;
-      setRuntimeScaleVars(mid, isPortrait);
+      setRuntimeScaleVars(mid, useStackLayout);
 
       if (doesContentOverflow(maxWidth, maxHeight)) {
         high = mid;
@@ -197,7 +198,7 @@
       }
     }
 
-    return applyRoundingGuard(low, maxWidth, maxHeight, isPortrait);
+    return applyRoundingGuard(low, maxWidth, maxHeight, useStackLayout);
   }
 
   function updateLayout() {
@@ -215,17 +216,19 @@
       return;
     }
 
-    const isPortrait = sectionRect.width < sectionRect.height;
-    setModeClasses(isPortrait);
+    const sectionRatio = sectionRect.width / sectionRect.height;
+    const useStackLayout = sectionRatio <= STACK_LAYOUT_RATIO_THRESHOLD;
+    setModeClasses(useStackLayout);
 
     const safeX = clamp(sectionRect.width * 0.02, 16, 40);
     const safeY = clamp(sectionRect.height * 0.02, 12, 36);
     const availableWidth = Math.max(1, sectionRect.width - safeX * 2);
     const availableHeight = Math.max(1, sectionRect.height - safeY * 2);
 
-    const fittedScale = fitScaleToBounds(availableWidth, availableHeight, isPortrait);
-    const finalScale = fittedScale * DESKTOP_TABLET_SHRINK_RATIO;
-    setRuntimeScaleVars(finalScale, isPortrait);
+    const fittedScale = fitScaleToBounds(availableWidth, availableHeight, useStackLayout);
+    const shrinkRatio = useStackLayout ? 1 : DESKTOP_TABLET_SHRINK_RATIO;
+    const finalScale = fittedScale * shrinkRatio;
+    setRuntimeScaleVars(finalScale, useStackLayout);
   }
 
   function scheduleLayout() {
