@@ -739,3 +739,67 @@
     width: min(calc(96vw * var(--compact-ui)), calc(520px * var(--compact-ui)));
   }
 }
+
+/* Final Section 2 desktop rebalance: center title/tag and prioritize carousel */
+@media (min-width: 901px) {
+  #game-guide .section-content {
+    width: min(94vw, 1180px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .feature-title-image {
+    text-align: center;
+    margin: 0 0 clamp(8px, 1.2vh, 14px);
+  }
+
+  .feature-title-image img {
+    width: min(100%, clamp(300px, 32vw, 460px));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .feature-stage {
+    width: min(96vw, 1180px);
+    margin: 0 auto;
+    align-items: center;
+    gap: clamp(8px, 1vw, 14px);
+  }
+
+  .feature-main {
+    flex: 0 0 76%;
+    align-items: center;
+  }
+
+  .feature-screen {
+    width: min(100%, 820px);
+    margin: 0 auto;
+    padding: clamp(6px, 0.8vw, 10px) clamp(6px, 0.8vw, 10px)
+      clamp(8px, 1vw, 12px);
+  }
+
+  .feature-detail-image {
+    margin-top: clamp(8px, 1vw, 14px);
+  }
+
+  .feature-detail-image img {
+    width: min(100%, 420px);
+  }
+
+  .feature-portrait {
+    flex: 0 0 24%;
+    min-height: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .feature-portrait img {
+    width: min(100%, 250px);
+    max-height: 320px;
+    transform: none;
+  }
+}

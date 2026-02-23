@@ -1188,5 +1188,191 @@
   }
 }
 
+/* Final layout lock: Section 3 desktop centering + strict downscale */
+@media (min-width: 901px) {
+  #character .section-content {
+    width: min(92vw, 1080px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .character-layout {
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 1.2vw, 16px);
+    height: auto;
+  }
+
+  .character-left {
+    flex: 0 0 52%;
+    padding: 0;
+    align-self: center;
+  }
+
+  .character-title-image {
+    margin: 0 auto;
+  }
+
+  .character-title-image img {
+    width: min(100%, 420px);
+    margin: 0 auto;
+  }
+
+  .character-nameplate {
+    margin: 6px auto 0;
+  }
+
+  .character-nameplate img {
+    width: clamp(180px, 20vw, 280px);
+  }
+
+  .character-copy {
+    max-width: min(100%, 300px);
+    font-size: clamp(11px, 0.95vw, 15px);
+    line-height: 1.34;
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin: 8px auto 0;
+  }
+
+  .character-tabs {
+    margin-top: 10px;
+    justify-content: center;
+    gap: clamp(4px, 0.5vw, 8px);
+  }
+
+  .luffy-tab img {
+    width: clamp(82px, 7vw, 112px);
+  }
+
+  .solo-tab img {
+    width: clamp(86px, 7.4vw, 118px);
+  }
+
+  .nami-tab img {
+    width: clamp(80px, 6.8vw, 110px);
+  }
+
+  .char-arrow-btn {
+    transform: translateY(0);
+  }
+
+  .char-arrow-btn img {
+    width: clamp(14px, 1.2vw, 20px);
+  }
+
+  .character-right {
+    flex: 0 0 48%;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    padding-right: 0;
+    min-height: 0;
+    height: auto;
+  }
+
+  .character-silhouette {
+    width: min(100%, 360px);
+    max-width: 360px;
+    max-height: min(72vh, 480px);
+    object-position: center bottom;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1600px) {
+  .character-title-image img {
+    width: min(100%, 460px);
+  }
+
+  .character-nameplate img {
+    width: clamp(210px, 16vw, 320px);
+  }
+
+  .character-copy {
+    max-width: 340px;
+    font-size: clamp(12px, 0.82vw, 16px);
+  }
+
+  .character-silhouette {
+    width: min(100%, 420px);
+    max-width: 420px;
+  }
+}
+
+/* Final mobile whitespace cleanup for Section 2 and Section 3 */
+@media (max-width: 900px) {
+  .bg-page-2,
+  .bg-page-3 {
+    height: auto;
+    min-height: 0;
+  }
+
+  #game-guide .section-content {
+    padding-top: 14px;
+    padding-bottom: 8px;
+  }
+
+  .feature-title-image {
+    margin-top: 8px;
+  }
+
+  .feature-stage {
+    margin-top: 4px;
+    gap: 6px;
+  }
+
+  .feature-detail-image {
+    margin-top: 8px;
+  }
+
+  .feature-portrait {
+    margin-top: clamp(18px, 4.5vw, 28px);
+    width: min(66vw, 280px);
+  }
+
+  #character .section-content {
+    padding-top: 10px;
+    padding-bottom: 0;
+  }
+
+  .character-layout {
+    gap: 4px;
+  }
+
+  .character-title-image {
+    margin-top: 4px;
+  }
+
+  .character-nameplate {
+    margin-top: 4px;
+  }
+
+  .character-copy {
+    margin-top: 6px;
+    line-height: 1.28;
+  }
+
+  .character-tabs {
+    margin-top: 8px;
+    gap: clamp(6px, 1.8vw, 12px);
+  }
+
+  .character-right {
+    width: min(72vw, 384px);
+    margin-top: 0;
+    margin-bottom: -4px;
+  }
+
+  .character-silhouette {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto -6px;
+  }
+}
+
 
 
