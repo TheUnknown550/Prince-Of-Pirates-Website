@@ -811,3 +811,105 @@
     transform: none;
   }
 }
+
+/* Section 2 ratio-driven desktop/tablet fit mode (enabled by JS runtime class) */
+@media (min-width: 901px) {
+  #game-guide.section2-ratio-mode {
+    --s2-scale: 1;
+    --s2-title-w: 690px;
+    --s2-screen-w: 1230px;
+    --s2-detail-w: 630px;
+    --s2-zoro-w: 375px;
+    --s2-title-stage-gap: 14px;
+    --s2-stage-gap: 21px;
+    --s2-detail-gap: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #game-guide.section2-ratio-mode .section-content {
+    width: max-content;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s2-title-stage-gap);
+    text-align: center;
+  }
+
+  #game-guide.section2-ratio-mode .feature-title-image {
+    margin: 0;
+    text-align: center;
+  }
+
+  #game-guide.section2-ratio-mode .feature-title-image img {
+    width: var(--s2-title-w);
+    margin: 0;
+  }
+
+  #game-guide.section2-ratio-mode .feature-stage {
+    width: max-content;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s2-stage-gap);
+  }
+
+  #game-guide.section2-ratio-mode .feature-main {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 0;
+    align-items: center;
+  }
+
+  #game-guide.section2-ratio-mode .feature-screen {
+    width: var(--s2-screen-w);
+    margin: 0;
+  }
+
+  #game-guide.section2-ratio-mode .feature-detail-image {
+    margin-top: var(--s2-detail-gap);
+    margin-bottom: 0;
+  }
+
+  #game-guide.section2-ratio-mode .feature-detail-image img {
+    width: var(--s2-detail-w);
+    margin: 0 auto;
+  }
+
+  #game-guide.section2-ratio-mode .feature-portrait {
+    flex: 0 0 auto;
+    width: var(--s2-zoro-w);
+    min-height: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #game-guide.section2-ratio-mode .feature-portrait img {
+    width: 100%;
+    max-height: none;
+    transform: none;
+  }
+
+  #game-guide.section2-ratio-landscape .feature-stage {
+    flex-direction: row;
+  }
+
+  #game-guide.section2-ratio-portrait .feature-stage {
+    flex-direction: column;
+  }
+
+  #game-guide.section2-ratio-portrait .feature-main {
+    order: 1;
+  }
+
+  #game-guide.section2-ratio-portrait .feature-portrait {
+    order: 2;
+  }
+}

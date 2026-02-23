@@ -11,6 +11,9 @@
   if (typeof app.initFeatureCarousel === "function") {
     app.initFeatureCarousel();
   }
+  if (typeof app.initSection2RatioLayout === "function") {
+    app.initSection2RatioLayout();
+  }
   if (typeof app.initSectionSnapScroll === "function") {
     app.initSectionSnapScroll();
   }
