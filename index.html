@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="src/css/section1.css">
     <link rel="stylesheet" href="src/css/section2.css">
     <link rel="stylesheet" href="src/css/section3.css">
+    <link rel="stylesheet" href="src/css/modal-common.css">
     <link rel="stylesheet" href="src/css/modal-login.css">
     <link rel="stylesheet" href="src/css/modal-server.css">
     <link rel="stylesheet" href="src/css/footer.css">
@@ -442,7 +443,12 @@
         </div>
     </div>
 
-    <!-- Script load order: features first, bootstrap last -->
+    <!-- Script load order:
+         1) shared utilities
+         2) feature modules (register onto window.PrinceSite)
+         3) bootstrap runner -->
+    <script src="src/js/utils/core.js"></script>
+    <script src="src/js/utils/modal-utils.js"></script>
     <script src="src/js/navigation.js"></script>
     <script src="src/js/character-tabs.js"></script>
     <script src="src/js/feature-carousel.js"></script>

@@ -1,4 +1,11 @@
-﻿/* Global font asset */
+﻿/* ==========================================================================
+   Base Styles
+   --------------------------------------------------------------------------
+   Global tokens, reset rules, shared motion primitives, and common utilities
+   consumed by section-level stylesheets.
+   ========================================================================== */
+
+/* Global font asset */
 @font-face {
   font-family: "JK JING THAYKHRAW";
   src: url("../../assests/fonts/JK_JING-THAYKHRAW.ttf") format("truetype");
@@ -386,4 +393,5 @@ body.section-snap-enabled {
     transition: none !important;
   }
 }
+
 

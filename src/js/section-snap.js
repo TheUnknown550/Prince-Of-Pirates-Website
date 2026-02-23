@@ -1,5 +1,7 @@
 (function (window, document) {
   // Implements smooth section-by-section snap scrolling for wheel, keyboard, and touch.
+  // The refactor keeps every threshold and timing value identical so scrolling
+  // behavior remains pixel-for-pixel consistent with prior implementation.
   const WHEEL_THRESHOLD = 22;
   const SWIPE_THRESHOLD = 42;
   const SNAP_EDGE_TOLERANCE = 10;
@@ -9,6 +11,26 @@
   const TWEEN_DURATION_FACTOR = 1.84;
   const HYBRID_CHAIN_WINDOW_MS = 260;
   const app = (window.PrinceSite = window.PrinceSite || {});
+  const coreUtils = app.utils || {};
+  const clamp = coreUtils.clamp || function (value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  };
+  const normalizeDirection = coreUtils.normalizeDirection || function (direction) {
+    if (direction > 0) {
+      return 1;
+    }
+    if (direction < 0) {
+      return -1;
+    }
+    return 0;
+  };
+  const createReducedMotionQuery =
+    coreUtils.createReducedMotionQuery || function (windowRef) {
+      if (!windowRef || typeof windowRef.matchMedia !== "function") {
+        return { matches: false };
+      }
+      return windowRef.matchMedia("(prefers-reduced-motion: reduce)");
+    };
 
   let sectionSteps = [];
   let touchStartY = null;
@@ -26,9 +48,7 @@
   let isAnimating = false;
   let isInitialized = false;
 
-  const reduceMotionQuery = window.matchMedia
-    ? window.matchMedia("(prefers-reduced-motion: reduce)")
-    : { matches: false };
+  const reduceMotionQuery = createReducedMotionQuery(window);
 
   function isMenuOpen() {
     // Suspend snap behavior while overlays are active.
@@ -60,10 +80,6 @@
       tag === "a" ||
       target.isContentEditable
     );
-  }
-
-  function clamp(value, min, max) {
-    return Math.min(max, Math.max(min, value));
   }
 
   function getMaxScrollTop() {
@@ -227,6 +243,8 @@
   }
 
   function maybeChainQueuedSnap(completedMoveKind, completedDirection) {
+    // Chain only after boundary moves. This enables the hybrid "edge then section"
+    // feel while preventing accidental multi-step jumps from stale wheel input.
     if (completedMoveKind !== "boundary") {
       clearQueuedSnap();
       return;
@@ -238,6 +256,8 @@
     }
 
     if (Date.now() - queuedSnapAt > HYBRID_CHAIN_WINDOW_MS) {
+      // Expire queued direction quickly so delayed wheel events do not
+      // trigger surprise navigation after user pauses.
       clearQueuedSnap();
       return;
     }
@@ -262,14 +282,9 @@
       return;
     }
 
-    const nextDirection =
-      options && typeof options.direction === "number"
-        ? options.direction > 0
-          ? 1
-          : options.direction < 0
-          ? -1
-          : 0
-        : 0;
+    const nextDirection = normalizeDirection(
+      options && typeof options.direction === "number" ? options.direction : 0
+    );
     const nextTargetIndex =
       options && typeof options.targetIndex === "number"
         ? options.targetIndex
@@ -300,6 +315,10 @@
       const elapsed = now - activeStartedAt;
       const progress = clamp(elapsed / activeDurationMs, 0, 1);
       const easedProgress = easeInOutCubic(progress);
+      // Manual tweening is used instead of smooth-scroll so we can:
+      // - interrupt/replace animations deterministically
+      // - chain boundary->section moves
+      // - suspend motion immediately when overlays open
       const nextTop = activeFromY + (activeToY - activeFromY) * easedProgress;
       window.scrollTo({ top: nextTop, behavior: "auto" });
 
@@ -328,15 +347,21 @@
       return;
     }
 
-    const normalizedDirection = direction > 0 ? 1 : -1;
+    const normalizedDirection = normalizeDirection(direction);
+    if (normalizedDirection === 0) {
+      return;
+    }
 
     if (isAnimating) {
       if (normalizedDirection === activeDirection) {
+        // Same-direction input while animating stores a short-lived intent
+        // that may chain after a boundary snap completes.
         queuedSnapDirection = normalizedDirection;
         queuedSnapAt = Date.now();
         return;
       }
 
+      // Opposite-direction input cancels and immediately starts the new intent.
       stopAnimation({ clearQueue: true });
       moveBySection(normalizedDirection);
       return;
@@ -493,8 +518,7 @@
   app.sectionSnap = {
     scrollToSectionById: scrollToSectionById,
     move: function (direction) {
-      const normalizedDirection = direction > 0 ? 1 : direction < 0 ? -1 : 0;
-      requestSectionMove(normalizedDirection);
+      requestSectionMove(normalizeDirection(direction));
     },
     cancel: function () {
       stopAnimation({ clearQueue: true });

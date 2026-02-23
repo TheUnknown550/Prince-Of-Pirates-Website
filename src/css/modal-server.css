@@ -1,34 +1,14 @@
-/* Modal visibility gate */
-.server-modal[hidden] {
-  display: none !important;
-}
+/* ==========================================================================
+   Server Modal
+   --------------------------------------------------------------------------
+   Shared shell/open/backdrop/transition rules live in modal-common.css.
+   This file keeps server-grid composition and server-card-specific styling.
+   ========================================================================== */
 
-/* Full-screen modal shell */
+/* Server modal shell sizing and spacing */
 .server-modal {
-  position: fixed;
-  inset: 0;
   z-index: 3300;
   padding: clamp(10px, 2.8vw, 28px);
-  display: grid;
-  place-items: center;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 240ms ease;
-}
-
-.server-modal.is-open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.server-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(12, 16, 33, 0.74);
-  backdrop-filter: blur(1.5px);
 }
 
 .server-modal-stage {
@@ -37,12 +17,6 @@
   width: min(95vw, 1167px);
   min-height: clamp(470px, 59vw, 692px);
   margin: auto;
-  transform: translateY(18px) scale(0.965);
-  transition: transform 240ms ease;
-}
-
-.server-modal.is-open .server-modal-stage {
-  transform: translateY(0) scale(1);
 }
 
 .server-modal-frame {
@@ -79,13 +53,6 @@
   cursor: pointer;
   z-index: 2;
   transition: transform 170ms ease, filter 170ms ease;
-}
-
-.server-modal-close:hover,
-.server-modal-close:focus-visible {
-  transform: scale(1.08);
-  filter: drop-shadow(0 6px 10px rgba(73, 5, 5, 0.25));
-  outline: none;
 }
 
 .server-modal-close img {
@@ -488,8 +455,6 @@ body.server-modal-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .server-modal,
-  .server-modal-stage,
   .server-option,
   .server-option-bg,
   .server-modal-close {

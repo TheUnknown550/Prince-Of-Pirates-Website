@@ -1,5 +1,7 @@
 (function (window, document) {
   // Applies ratio-based layout and fit-to-section scaling for Section 2 on desktop/tablet.
+  // This module intentionally keeps all numeric constants unchanged; refactor work
+  // is limited to shared helper reuse and clearer intent comments.
   const MOBILE_BREAKPOINT = 900;
   const SCALE_START = 0.2;
   const SCALE_SCAN_START = 1;
@@ -38,6 +40,10 @@
   };
 
   const app = (window.PrinceSite = window.PrinceSite || {});
+  const coreUtils = app.utils || {};
+  const clamp = coreUtils.clamp || function (value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  };
   let isInitialized = false;
   let frameId = null;
   let sectionObserver = null;
@@ -48,10 +54,6 @@
   let titleImage = null;
   let detailImage = null;
   let featurePortrait = null;
-
-  function clamp(value, min, max) {
-    return Math.min(max, Math.max(min, value));
-  }
 
   function cacheElements() {
     gameGuide = document.getElementById("game-guide");
@@ -141,6 +143,9 @@
   }
 
   function applyRoundingGuard(scale, maxWidth, maxHeight, useStackLayout) {
+    // Even when math says content should fit, sub-pixel rendering can still push
+    // dimensions over the boundary by a fraction. This post-pass nudges scale down
+    // a few times to eliminate intermittent overflow at specific viewport sizes.
     let guardedScale = scale;
     setRuntimeScaleVars(guardedScale, useStackLayout);
 
@@ -157,12 +162,17 @@
   }
 
   function fitScaleToBounds(maxWidth, maxHeight, useStackLayout) {
+    // Strategy:
+    // 1) Find any known-good lower bound.
+    // 2) Expand upward until we overflow (or hit max scan cap).
+    // 3) Binary-search the tight fit between known-good and known-overflow bounds.
     let low = SCALE_START;
     let high = SCALE_SCAN_START;
 
     setRuntimeScaleVars(low, useStackLayout);
     let lowOverflows = doesContentOverflow(maxWidth, maxHeight);
     while (lowOverflows && low > MIN_FALLBACK_SCALE) {
+      // Decrease gradually to avoid a harsh jump when content is initially oversized.
       low *= 0.85;
       setRuntimeScaleVars(low, useStackLayout);
       lowOverflows = doesContentOverflow(maxWidth, maxHeight);
@@ -177,6 +187,7 @@
     let highOverflows = doesContentOverflow(maxWidth, maxHeight);
 
     while (!highOverflows && high < SCALE_SCAN_MAX) {
+      // Geometric expansion is faster than linear stepping across unknown ranges.
       low = high;
       high = Math.min(SCALE_SCAN_MAX, high * SCALE_SCAN_STEP);
       setRuntimeScaleVars(high, useStackLayout);
@@ -188,6 +199,7 @@
     }
 
     for (let i = 0; i < BINARY_SEARCH_STEPS; i += 1) {
+      // Tight-fit binary search: keep low as the best non-overflow scale.
       const mid = (low + high) / 2;
       setRuntimeScaleVars(mid, useStackLayout);
 
@@ -217,6 +229,8 @@
     }
 
     const sectionRatio = sectionRect.width / sectionRect.height;
+    // Portrait-like desktop/tablet windows use a stacked composition;
+    // landscape windows preserve side-by-side composition.
     const useStackLayout = sectionRatio <= STACK_LAYOUT_RATIO_THRESHOLD;
     setModeClasses(useStackLayout);
 

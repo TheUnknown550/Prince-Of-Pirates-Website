@@ -1,4 +1,10 @@
-﻿/* Section 3 root layout */
+﻿/* ==========================================================================
+   Section 3 Styles
+   --------------------------------------------------------------------------
+   Character showcase composition, tab carousel, and breakpoint refinements.
+   ========================================================================== */
+
+/* Section 3 root layout */
 #character {
   display: flex;
   align-items: stretch;
@@ -1373,6 +1379,7 @@
     margin: 0 auto -6px;
   }
 }
+
 
 
 

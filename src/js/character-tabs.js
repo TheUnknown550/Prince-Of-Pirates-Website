@@ -1,6 +1,9 @@
 (function (window, document) {
   // Handles Section 3 character carousel ordering and selection state.
+  // Shared utility usage keeps repeated parsing/direction logic consistent
+  // across modules without changing carousel behavior.
   const app = (window.PrinceSite = window.PrinceSite || {});
+  const coreUtils = app.utils || {};
   const VISIBLE_COUNT = 3;
   const ANIM_MS = 220;
   const EASING = "cubic-bezier(0.22, 0.61, 0.36, 1)";
@@ -26,20 +29,11 @@
   let touchStartX = 0;
   let touchStartY = 0;
 
-  const reduceMotionQuery = window.matchMedia
-    ? window.matchMedia("(prefers-reduced-motion: reduce)")
-    : null;
-
-  function shouldReduceMotion() {
-    return Boolean(reduceMotionQuery && reduceMotionQuery.matches);
-  }
-
-  function toNumber(value) {
+  const toNumber = coreUtils.toNumber || function (value) {
     const parsed = parseFloat(value);
     return Number.isFinite(parsed) ? parsed : 0;
-  }
-
-  function normalizeDirection(direction) {
+  };
+  const normalizeDirection = coreUtils.normalizeDirection || function (direction) {
     if (direction > 0) {
       return 1;
     }
@@ -47,6 +41,20 @@
       return -1;
     }
     return 0;
+  };
+  const createReducedMotionQuery = coreUtils.createReducedMotionQuery || function (windowRef) {
+    if (!windowRef || typeof windowRef.matchMedia !== "function") {
+      return null;
+    }
+    return windowRef.matchMedia("(prefers-reduced-motion: reduce)");
+  };
+  const shouldReduceMotionQuery = coreUtils.shouldReduceMotion || function (query) {
+    return Boolean(query && query.matches);
+  };
+  const reduceMotionQuery = createReducedMotionQuery(window);
+
+  function shouldReduceMotion() {
+    return shouldReduceMotionQuery(reduceMotionQuery);
   }
 
   function getContainerGapPx() {
@@ -227,6 +235,8 @@
     const maxAvailable = tabsContainer.clientWidth - arrowsWidth - containerGap * 2;
 
     if (maxAvailable > 0 && desiredWidth > maxAvailable && cardsWidth > 0) {
+      // If card strip is wider than available slot between arrows, scale card
+      // images proportionally so all visible cards remain clickable.
       const availableCardsWidth = Math.max(0, maxAvailable - gapTotal);
       const fitRatio = Math.max(0, Math.min(1, availableCardsWidth / cardsWidth));
       applyScaleToNodes(nodesToScale, fitRatio);
@@ -320,6 +330,10 @@
     const outDuration = Math.round(ANIM_MS * 0.45);
     const inDuration = Math.round(ANIM_MS * 0.55);
 
+    // Two-phase animation:
+    // 1) current arrangement slides/fades out
+    // 2) reordered arrangement slides/fades in
+    // This keeps transitions smooth when all tabs are visible simultaneously.
     clearActiveTrackAnimation();
     isAnimating = true;
 
@@ -392,11 +406,13 @@
     let stripActions;
     let viewportNodes;
     if (direction > 0) {
+      // Rightward cycle prepends incoming leading card, then slides strip back.
       stripActions = [nextVisible[0]].concat(currentVisible);
       viewportNodes = [1, 2, 3].slice(0, visibleCount).map(function (index) {
         return index;
       });
     } else {
+      // Leftward cycle appends trailing card, then advances strip left.
       stripActions = currentVisible.concat(nextVisible[visibleCount - 1]);
       viewportNodes = [0, 1, 2].slice(0, visibleCount).map(function (index) {
         return index;
@@ -426,6 +442,8 @@
 
     const leadingWidth = stripNodes[0] ? stripNodes[0].getBoundingClientRect().width : 0;
     const offset = leadingWidth + getTrackGapPx();
+    // Translate by exactly one card width (+ gap) so the viewport lands
+    // on the reordered visible triplet after animation completes.
     const fromX = direction > 0 ? -offset : 0;
     const toX = direction > 0 ? 0 : -offset;
 

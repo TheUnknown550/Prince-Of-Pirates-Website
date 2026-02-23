@@ -1,35 +1,14 @@
-/* Modal visibility gate */
-.register-modal[hidden] {
-  display: none !important;
-}
+/* ==========================================================================
+   Register Modal
+   --------------------------------------------------------------------------
+   Shared shell/open/backdrop/transition rules live in modal-common.css.
+   This file keeps only register-specific layout, artwork, and form styling.
+   ========================================================================== */
 
-/* Full-screen modal container with overflow scroll support on short viewports */
+/* Register modal shell sizing and spacing */
 .register-modal {
-  position: fixed;
-  inset: 0;
   z-index: 3200;
   padding: clamp(10px, 3vw, 28px);
-  display: grid;
-  place-items: center;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 240ms ease;
-}
-
-.register-modal.is-open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Dimmed background layer */
-.register-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(12, 16, 33, 0.74);
-  backdrop-filter: blur(1.5px);
 }
 
 .register-modal-stage {
@@ -42,12 +21,6 @@
   --modal-content-max-width: clamp(300px, 40vw, 380px);
   --modal-field-max-width: clamp(240px, 36vw, 330px);
   padding-top: var(--modal-stage-pad-top);
-  transform: translateY(18px) scale(0.965);
-  transition: transform 240ms ease;
-}
-
-.register-modal.is-open .register-modal-stage {
-  transform: translateY(0) scale(1);
 }
 
 /* Inner paper/frame composition */
@@ -90,13 +63,6 @@
   cursor: pointer;
   z-index: 5;
   transition: transform 170ms ease, filter 170ms ease;
-}
-
-.register-modal-close:hover,
-.register-modal-close:focus-visible {
-  transform: scale(1.08);
-  filter: drop-shadow(0 6px 10px rgba(73, 5, 5, 0.25));
-  outline: none;
 }
 
 .register-modal-close img {
@@ -340,14 +306,6 @@ body.register-modal-open {
 
   .register-modal-links {
     gap: clamp(10px, 2.8vw, 18px);
-  }
-}
-
-/* Respect reduced motion settings */
-@media (prefers-reduced-motion: reduce) {
-  .register-modal,
-  .register-modal-stage {
-    transition: none !important;
   }
 }
 

@@ -1,4 +1,10 @@
-﻿/* Footer base layout */
+﻿/* ==========================================================================
+   Footer Styles
+   --------------------------------------------------------------------------
+   Footer layout and responsive typography/logo scaling rules.
+   ========================================================================== */
+
+/* Footer base layout */
 .site-footer {
   width: 100%;
   min-height: 96px;
@@ -166,4 +172,5 @@
     font-size: clamp(16px, 4.2vw, 20px);
   }
 }
+
 

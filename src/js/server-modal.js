@@ -1,6 +1,8 @@
 (function (window, document) {
   // Controls server-select modal open-close state, focus trap, and server selection syncing.
   const app = (window.PrinceSite = window.PrinceSite || {});
+  const modalUtils = app.modalUtils || {};
+  const coreUtils = app.utils || {};
   const MODAL_OPEN_CLASS = "is-open";
   const BODY_LOCK_CLASS = "server-modal-open";
   const CLOSE_SELECTOR = "[data-server-modal-close]";
@@ -15,63 +17,37 @@
   let isOpenState = false;
   let isInitialized = false;
 
+  const trapFocusWithin = modalUtils.trapFocusWithin || function () {};
+  const captureFocusTrigger = modalUtils.captureFocusTrigger || function (trigger) {
+    if (trigger && typeof trigger.focus === "function") {
+      return trigger;
+    }
+    if (document.activeElement && typeof document.activeElement.focus === "function") {
+      return document.activeElement;
+    }
+    return null;
+  };
+  const restoreFocusTrigger = modalUtils.restoreFocusTrigger || function (trigger) {
+    if (!trigger || typeof trigger.focus !== "function" || !document.contains(trigger)) {
+      return;
+    }
+    trigger.focus({ preventScroll: true });
+  };
+  const closeMobileMenuIfTriggeredFromOverlay =
+    modalUtils.closeMobileMenuIfTriggeredFromOverlay || function () {};
+  const safeFocus = coreUtils.safeFocus || function (node, options) {
+    if (!node || typeof node.focus !== "function") {
+      return;
+    }
+    node.focus(options || { preventScroll: true });
+  };
+
   function clearHideTimer() {
     if (!hideTimer) {
       return;
     }
     clearTimeout(hideTimer);
     hideTimer = null;
-  }
-
-  function getFocusableElements() {
-    if (!modalRoot) {
-      return [];
-    }
-
-    // Keep keyboard navigation inside the modal while open.
-    const nodes = modalRoot.querySelectorAll(
-      'button:not([disabled]), input:not([disabled]), [href], [tabindex]:not([tabindex="-1"])'
-    );
-    return Array.prototype.filter.call(nodes, function (node) {
-      return !node.hidden && node.offsetParent !== null;
-    });
-  }
-
-  function trapFocus(event) {
-    if (event.key !== "Tab") {
-      return;
-    }
-
-    const focusables = getFocusableElements();
-    if (!focusables.length) {
-      event.preventDefault();
-      return;
-    }
-
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-    const active = document.activeElement;
-
-    if (event.shiftKey && active === first) {
-      event.preventDefault();
-      last.focus();
-      return;
-    }
-
-    if (!event.shiftKey && active === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  }
-
-  function restoreTriggerFocus() {
-    if (!lastTrigger || typeof lastTrigger.focus !== "function") {
-      return;
-    }
-    if (!document.contains(lastTrigger)) {
-      return;
-    }
-    lastTrigger.focus({ preventScroll: true });
   }
 
   function setSelectedServer(serverId) {
@@ -101,9 +77,7 @@
     );
     const firstOption = modalRoot.querySelector(SERVER_SELECTOR);
     const initialFocusTarget = selectedOption || firstOption || joinButton;
-    if (initialFocusTarget && typeof initialFocusTarget.focus === "function") {
-      initialFocusTarget.focus({ preventScroll: true });
-    }
+    safeFocus(initialFocusTarget, { preventScroll: true });
   }
 
   function setModalOpenState(nextState) {
@@ -143,7 +117,7 @@
         return;
       }
       modalRoot.hidden = true;
-      restoreTriggerFocus();
+      restoreFocusTrigger(lastTrigger, document);
     }, TRANSITION_MS);
   }
 
@@ -152,23 +126,11 @@
       return;
     }
 
-    if (trigger && typeof trigger.focus === "function") {
-      lastTrigger = trigger;
-    } else if (document.activeElement && typeof document.activeElement.focus === "function") {
-      lastTrigger = document.activeElement;
-    } else {
-      lastTrigger = null;
-    }
+    // Persist opener for focus restoration when the modal closes.
+    lastTrigger = captureFocusTrigger(trigger, document);
 
-    if (
-      trigger &&
-      typeof trigger.closest === "function" &&
-      trigger.closest(".mobile-menu-overlay") &&
-      app.navigation &&
-      typeof app.navigation.closeMobileMenu === "function"
-    ) {
-      app.navigation.closeMobileMenu();
-    }
+    // Keep only one overlay system open when launched from mobile navigation.
+    closeMobileMenuIfTriggeredFromOverlay(trigger, app.navigation);
 
     if (isOpenState) {
       return;
@@ -200,7 +162,8 @@
       return;
     }
 
-    trapFocus(event);
+    // Keep tab focus cycling inside the active server modal controls.
+    trapFocusWithin(modalRoot, event);
   }
 
   function onModalClick(event) {

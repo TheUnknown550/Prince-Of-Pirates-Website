@@ -3,6 +3,25 @@
   const app = (window.PrinceSite = window.PrinceSite || {});
   let isInitialized = false;
 
+  function markVisible(item) {
+    if (!item) {
+      return;
+    }
+    item.classList.add("is-visible");
+  }
+
+  function applyRevealMetadata(item, group, index) {
+    if (!item || !group) {
+      return;
+    }
+    item.classList.add("reveal-on-scroll");
+    item.classList.add(group.animation);
+    item.style.setProperty(
+      "--reveal-delay",
+      group.startDelay + index * group.step + "ms"
+    );
+  }
+
   function initScrollAnimations() {
     if (isInitialized) {
       return;
@@ -62,12 +81,7 @@
           return;
         }
         seen.add(item);
-        item.classList.add("reveal-on-scroll");
-        item.classList.add(group.animation);
-        item.style.setProperty(
-          "--reveal-delay",
-          group.startDelay + index * group.step + "ms"
-        );
+        applyRevealMetadata(item, group, index);
         revealElements.push(item);
       });
     });
@@ -79,7 +93,7 @@
     const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (reduceMotionQuery.matches || !("IntersectionObserver" in window)) {
       revealElements.forEach(function (item) {
-        item.classList.add("is-visible");
+        markVisible(item);
       });
       return;
     }
@@ -88,7 +102,7 @@
       // Some paired elements should appear as a single visual unit.
       const groupItems = document.querySelectorAll(selector);
       groupItems.forEach(function (item) {
-        item.classList.add("is-visible");
+        markVisible(item);
         observer.unobserve(item);
       });
     }
@@ -99,7 +113,7 @@
           if (!entry.isIntersecting) {
             return;
           }
-          entry.target.classList.add("is-visible");
+          markVisible(entry.target);
           observer.unobserve(entry.target);
 
           if (
@@ -124,7 +138,7 @@
       revealElements.forEach(function (item) {
         const rect = item.getBoundingClientRect();
         if (rect.top <= window.innerHeight * 0.9) {
-          item.classList.add("is-visible");
+          markVisible(item);
           observer.unobserve(item);
 
           if (

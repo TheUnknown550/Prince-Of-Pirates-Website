@@ -58,6 +58,19 @@
     section.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  function placeholderAlert(message) {
+    // Placeholder behaviors are intentionally unchanged until real routes/flows exist.
+    alert(message);
+  }
+
+  function openModalOrAlert(modalApi, triggerButton, fallbackMessage) {
+    if (modalApi && typeof modalApi.open === "function") {
+      modalApi.open(triggerButton);
+      return;
+    }
+    placeholderAlert(fallbackMessage);
+  }
+
   const actionHandlers = {
     "reload-page": function () {
       window.location.reload();
@@ -66,55 +79,38 @@
       scrollToSection("main");
     },
     register: function (triggerButton) {
-      if (app.registerModal && typeof app.registerModal.open === "function") {
-        app.registerModal.open(triggerButton);
-        return;
-      }
-      // Placeholder: register modal integration fallback.
-      alert("Register modal is not available yet.");
+      // Keep fallback copy exactly the same as before.
+      openModalOrAlert(app.registerModal, triggerButton, "Register modal is not available yet.");
     },
     topup: function () {
-      // Placeholder button action: replace with topup page route/link.
-      alert("Topup page link not added yet.");
+      placeholderAlert("Topup page link not added yet.");
     },
     "game-guide": function () {
       scrollToSection("game-guide");
     },
     news: function () {
-      // Placeholder button action: replace with news page route/link.
-      alert("News page link not added yet.");
+      placeholderAlert("News page link not added yet.");
     },
     community: function () {
-      // Placeholder button action: replace with community page route/link.
-      alert("Community page link not added yet.");
+      placeholderAlert("Community page link not added yet.");
     },
     "app-store": function () {
-      // Placeholder button action: replace with App Store deep link.
-      alert("App Store link not added yet.");
+      placeholderAlert("App Store link not added yet.");
     },
     "google-play": function () {
-      // Placeholder button action: replace with Google Play deep link.
-      alert("Google Play link not added yet.");
+      placeholderAlert("Google Play link not added yet.");
     },
     "google-play-games": function () {
-      // Placeholder button action: replace with Google Play Games link.
-      alert("Google Play Games link not added yet.");
+      placeholderAlert("Google Play Games link not added yet.");
     },
     "play-game": function (triggerButton) {
-      if (app.serverModal && typeof app.serverModal.open === "function") {
-        app.serverModal.open(triggerButton);
-        return;
-      }
-      // Placeholder: server modal integration fallback.
-      alert("Server modal is not available yet.");
+      openModalOrAlert(app.serverModal, triggerButton, "Server modal is not available yet.");
     },
     download: function () {
-      // Placeholder button action: replace with game download flow.
-      alert("Download action not added yet.");
+      placeholderAlert("Download action not added yet.");
     },
     member: function () {
-      // Placeholder button action: replace with member/account page.
-      alert("Member action not added yet.");
+      placeholderAlert("Member action not added yet.");
     },
     "toggle-mobile-menu": function () {
       toggleMobileMenu();

@@ -1,5 +1,7 @@
 (function (window, document) {
   // Drives gameplay preview carousel: auto-rotate, arrows, and slide transitions.
+  // The refactor intentionally preserves every existing interval/duration and
+  // queueing rule so interaction feel remains unchanged.
   const FEATURE_SLIDE_INTERVAL_MS = 5000;
   const FEATURE_TRANSITION_MS = 420;
   const FEATURE_TRANSITION_SETTLE_MS = 48;
@@ -10,6 +12,16 @@
     { src: "assests/main_web/page2/Game/Game%20copy%203.png", alt: "Gameplay preview 4" }
   ];
   const app = (window.PrinceSite = window.PrinceSite || {});
+  const coreUtils = app.utils || {};
+  const normalizeDirection = coreUtils.normalizeDirection || function (direction) {
+    if (direction > 0) {
+      return 1;
+    }
+    if (direction < 0) {
+      return -1;
+    }
+    return 0;
+  };
   let featureImageElement = null;
   let featureSlideIndex = 0;
   let featureAutoTimer = null;
@@ -37,6 +49,14 @@
     });
   }
 
+  function applySlideToImage(image, slide) {
+    if (!image || !slide) {
+      return;
+    }
+    image.src = slide.src;
+    image.alt = slide.alt;
+  }
+
   function applyFeatureSlide(index) {
     if (!featureImageElement || !FEATURE_SLIDES.length) {
       return;
@@ -44,8 +64,7 @@
 
     featureSlideIndex = normalizeFeatureSlideIndex(index);
     const slide = FEATURE_SLIDES[featureSlideIndex];
-    featureImageElement.src = slide.src;
-    featureImageElement.alt = slide.alt;
+    applySlideToImage(featureImageElement, slide);
     updateFeatureSlideIndicator();
   }
 
@@ -101,13 +120,14 @@
   }
 
   function getFeatureSlideDirection(currentIndex, targetIndex, explicitDirection) {
-    if (explicitDirection === 1 || explicitDirection === -1) {
-      return explicitDirection;
+    const normalizedExplicit = normalizeDirection(explicitDirection);
+    if (normalizedExplicit !== 0) {
+      return normalizedExplicit;
     }
     if (targetIndex === currentIndex) {
       return 0;
     }
-    return targetIndex > currentIndex ? 1 : -1;
+    return normalizeDirection(targetIndex - currentIndex);
   }
 
   function finishFeatureAnimation() {
@@ -140,8 +160,7 @@
     const targetSlide = FEATURE_SLIDES[targetIndex];
     const incomingImage = currentImage.cloneNode(false);
 
-    incomingImage.src = targetSlide.src;
-    incomingImage.alt = targetSlide.alt;
+    applySlideToImage(incomingImage, targetSlide);
     incomingImage.classList.add("is-feature-incoming");
     incomingImage.classList.add(
       direction > 0 ? "is-enter-from-left" : "is-enter-from-right"
@@ -205,10 +224,11 @@
     }
 
     if (isFeatureAnimating) {
-      // Keep only the latest requested slide during an active transition.
+      // Keep only the newest request while animation is in-flight.
+      // This avoids transition buildup and preserves responsive controls.
       featurePendingSlideIndex = normalizedIndex;
-      if (direction === 1 || direction === -1) {
-        featurePendingDirection = direction;
+      if (normalizeDirection(direction) !== 0) {
+        featurePendingDirection = normalizeDirection(direction);
       }
       return;
     }
@@ -249,7 +269,7 @@
       return;
     }
 
-    const direction = step >= 0 ? 1 : -1;
+    const direction = normalizeDirection(step >= 0 ? 1 : -1);
     setFeatureSlide(featureSlideIndex + step, { direction: direction });
     if (!options || options.restartTimer !== false) {
       startFeatureAutoTimer();

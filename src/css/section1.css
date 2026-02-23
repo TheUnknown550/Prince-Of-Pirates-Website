@@ -1,4 +1,10 @@
-﻿/* Section 1 header/navigation shell */
+﻿/* ==========================================================================
+   Section 1 Styles
+   --------------------------------------------------------------------------
+   Hero area, desktop navigation, and mobile menu system styling.
+   ========================================================================== */
+
+/* Section 1 header/navigation shell */
 .first-page-header {
   position: absolute;
   top: 14px;
@@ -1459,6 +1465,7 @@
     background: #234e9c;
   }
 }
+
 
 
 

@@ -1,29 +1,21 @@
 (function (window) {
   // Boots each feature module after scripts are loaded.
   const app = window.PrinceSite || {};
+  const bootstrapSequence = [
+    "initNavigation",
+    "initCharacterTabs",
+    "initFeatureCarousel",
+    "initSection2RatioLayout",
+    "initSectionSnapScroll",
+    "initScrollAnimations",
+    "initRegisterModal",
+    "initServerModal"
+  ];
 
-  if (typeof app.initNavigation === "function") {
-    app.initNavigation();
-  }
-  if (typeof app.initCharacterTabs === "function") {
-    app.initCharacterTabs();
-  }
-  if (typeof app.initFeatureCarousel === "function") {
-    app.initFeatureCarousel();
-  }
-  if (typeof app.initSection2RatioLayout === "function") {
-    app.initSection2RatioLayout();
-  }
-  if (typeof app.initSectionSnapScroll === "function") {
-    app.initSectionSnapScroll();
-  }
-  if (typeof app.initScrollAnimations === "function") {
-    app.initScrollAnimations();
-  }
-  if (typeof app.initRegisterModal === "function") {
-    app.initRegisterModal();
-  }
-  if (typeof app.initServerModal === "function") {
-    app.initServerModal();
-  }
+  // Preserve feature start order; each module can rely on prior registrations.
+  bootstrapSequence.forEach(function (initKey) {
+    if (typeof app[initKey] === "function") {
+      app[initKey]();
+    }
+  });
 })(window);

@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Shared Modal Foundation
+   --------------------------------------------------------------------------
+   This file contains only styles that are truly identical across the
+   register modal and server modal. Module-specific geometry and artwork stay
+   in each modal file to avoid cascade risk.
+   ========================================================================== */
+
+/* Hidden-state gate used by both modal roots */
+.register-modal[hidden],
+.server-modal[hidden] {
+  display: none !important;
+}
+
+/* Full-screen modal shell and fade transition */
+.register-modal,
+.server-modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+/* Open state gates interaction only when fade-in class is active */
+.register-modal.is-open,
+.server-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Shared modal backdrop style */
+.register-modal-backdrop,
+.server-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 16, 33, 0.74);
+  backdrop-filter: blur(1.5px);
+}
+
+/* Stage entrance animation baseline */
+.register-modal-stage,
+.server-modal-stage {
+  transform: translateY(18px) scale(0.965);
+  transition: transform 240ms ease;
+}
+
+.register-modal.is-open .register-modal-stage,
+.server-modal.is-open .server-modal-stage {
+  transform: translateY(0) scale(1);
+}
+
+/* Shared close-control interaction polish */
+.register-modal-close:hover,
+.register-modal-close:focus-visible,
+.server-modal-close:hover,
+.server-modal-close:focus-visible {
+  transform: scale(1.08);
+  filter: drop-shadow(0 6px 10px rgba(73, 5, 5, 0.25));
+  outline: none;
+}
+
+/* Respect reduced-motion preference for both modal systems */
+@media (prefers-reduced-motion: reduce) {
+  .register-modal,
+  .register-modal-stage,
+  .server-modal,
+  .server-modal-stage {
+    transition: none !important;
+  }
+}

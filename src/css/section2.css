@@ -1,4 +1,10 @@
-﻿/* Section 2 container spacing */
+﻿/* ==========================================================================
+   Section 2 Styles
+   --------------------------------------------------------------------------
+   Feature carousel, section layout, and ratio-mode overrides driven by JS.
+   ========================================================================== */
+
+/* Section 2 container spacing */
 #game-guide .section-content {
   padding-top: 32px;
   padding-bottom: 0;
@@ -913,3 +919,4 @@
     order: 2;
   }
 }
+
