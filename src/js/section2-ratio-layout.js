@@ -10,6 +10,7 @@
   const ROUNDING_GUARD_STEPS = 6;
   const ROUNDING_GUARD_RATIO = 0.98;
   const MIN_FALLBACK_SCALE = 0.05;
+  const DESKTOP_TABLET_SHRINK_RATIO = 0.8;
 
   const CLASS_MODE = "section2-ratio-mode";
   const CLASS_PORTRAIT = "section2-ratio-portrait";
@@ -222,7 +223,9 @@
     const availableWidth = Math.max(1, sectionRect.width - safeX * 2);
     const availableHeight = Math.max(1, sectionRect.height - safeY * 2);
 
-    fitScaleToBounds(availableWidth, availableHeight, isPortrait);
+    const fittedScale = fitScaleToBounds(availableWidth, availableHeight, isPortrait);
+    const finalScale = fittedScale * DESKTOP_TABLET_SHRINK_RATIO;
+    setRuntimeScaleVars(finalScale, isPortrait);
   }
 
   function scheduleLayout() {
