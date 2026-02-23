@@ -825,7 +825,7 @@
   }
 
   .character-title-image img {
-    width: min(calc(96vw * var(--compact-ui)), calc(700px * var(--compact-ui)));
+    width: min(calc(96vw * var(--compact-ui)), calc(560px * var(--compact-ui)));
   }
 
   .character-nameplate img {
@@ -835,9 +835,9 @@
   .character-copy {
     max-width: min(calc(92vw * var(--compact-ui)), calc(500px * var(--compact-ui)));
     font-size: clamp(
-      calc(18px * var(--compact-type)),
-      calc(4.5vw * var(--compact-type)),
-      calc(24px * var(--compact-type))
+      calc(20px * var(--compact-type)),
+      calc(4.9vw * var(--compact-type)),
+      calc(27px * var(--compact-type))
     );
   }
 
@@ -889,9 +889,9 @@
 @media (max-width: 620px) {
   .character-copy {
     font-size: clamp(
-      calc(17px * var(--compact-type)),
-      calc(5vw * var(--compact-type)),
-      calc(22px * var(--compact-type))
+      calc(19px * var(--compact-type)),
+      calc(5.3vw * var(--compact-type)),
+      calc(24px * var(--compact-type))
     );
   }
 
@@ -1217,7 +1217,7 @@
   }
 
   .character-title-image img {
-    width: min(100%, 630px);
+    width: min(100%, 504px);
     margin: 0 auto;
   }
 
@@ -1230,9 +1230,9 @@
   }
 
   .character-copy {
-    max-width: min(100%, 450px);
-    font-size: clamp(16px, 1.4vw, 23px);
-    line-height: 1.34;
+    max-width: min(100%, 520px);
+    font-size: clamp(20px, 1.75vw, 28px);
+    line-height: 1.32;
     letter-spacing: 0.02em;
     text-align: center;
     margin: 12px auto 0;
@@ -1285,7 +1285,7 @@
 
 @media (min-width: 1600px) {
   .character-title-image img {
-    width: min(100%, 700px);
+    width: min(100%, 560px);
   }
 
   .character-nameplate img {
@@ -1293,8 +1293,8 @@
   }
 
   .character-copy {
-    max-width: 510px;
-    font-size: clamp(18px, 1.1vw, 24px);
+    max-width: 560px;
+    font-size: clamp(23px, 1.35vw, 32px);
   }
 
   .character-silhouette {
