@@ -1379,7 +1379,7 @@
 /* Final responsive menu redesign (menu-only scope, hero untouched) */
 @media (max-width: 900px) {
   .mobile-menu-overlay {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: none;
     --menu-edge-x: 0;
     --menu-edge-y: 0;
@@ -1406,7 +1406,7 @@
 
   .mobile-menu-close {
     color: #1f478f;
-    background: rgba(255, 255, 255, 0.88);
+    background: #fff;
     border: 1px solid rgba(45, 76, 140, 0.24);
     border-radius: 12px;
     width: clamp(36px, 10vw, 46px);
@@ -1435,7 +1435,7 @@
     align-items: center;
     border: 1px solid rgba(44, 83, 163, 0.24);
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.88);
+    background: #fff;
     color: #1f4fa7;
     padding: clamp(10px, 2vh, 14px) clamp(12px, 4.2vw, 18px);
   }
@@ -1454,7 +1454,7 @@
   .mobile-menu-link[data-action="main"] {
     color: #2a66c6;
     border-color: rgba(42, 102, 198, 0.42);
-    background: rgba(233, 242, 255, 0.94);
+    background: #fff;
   }
 
   .mobile-menu-toggle {
