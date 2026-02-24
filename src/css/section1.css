@@ -1379,21 +1379,23 @@
 /* Final responsive menu redesign (menu-only scope, hero untouched) */
 @media (max-width: 900px) {
   .mobile-menu-overlay {
-    background: rgba(245, 248, 255, 0.9);
-    backdrop-filter: blur(6px);
-    --menu-edge-x: clamp(10px, 3vw, 18px);
-    --menu-edge-y: clamp(12px, 3.2vh, 22px);
+    background: #fff;
+    backdrop-filter: none;
+    --menu-edge-x: 0;
+    --menu-edge-y: 0;
   }
 
   .mobile-menu-panel {
-    max-width: min(92vw, 430px);
+    max-width: none;
     grid-template-rows: auto auto minmax(0, 1fr);
-    background: rgba(255, 255, 255, 0.78);
-    border: 1px solid rgba(45, 76, 140, 0.2);
-    border-radius: 20px;
-    box-shadow: 0 18px 34px rgba(20, 43, 90, 0.15);
-    padding: clamp(10px, 2.2vh, 18px) clamp(10px, 2.8vw, 16px)
-      clamp(12px, 2.6vh, 20px);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding-top: calc(env(safe-area-inset-top, 0px) + clamp(10px, 2.2vh, 18px));
+    padding-right: calc(env(safe-area-inset-right, 0px) + clamp(10px, 2.8vw, 16px));
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 2.6vh, 20px));
+    padding-left: calc(env(safe-area-inset-left, 0px) + clamp(10px, 2.8vw, 16px));
   }
 
   .mobile-menu-logo {
