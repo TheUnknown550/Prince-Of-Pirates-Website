@@ -15,6 +15,7 @@
   let nextArrow = null;
   let viewport = null;
   let track = null;
+  
 
   let allActions = [];
   let tabByAction = Object.create(null);

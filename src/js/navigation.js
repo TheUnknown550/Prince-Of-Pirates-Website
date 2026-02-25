@@ -11,6 +11,7 @@
     if (!mobileMenu || !mobileMenuToggle) {
       return;
     }
+    
 
     // Return focus to the menu trigger when closing from inside the overlay.
     if (!nextState && mobileMenu.contains(document.activeElement)) {

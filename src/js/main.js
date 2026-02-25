@@ -11,6 +11,7 @@
     "initRegisterModal",
     "initServerModal"
   ];
+  
 
   // Preserve feature start order; each module can rely on prior registrations.
   bootstrapSequence.forEach(function (initKey) {

@@ -6,6 +6,7 @@
    in each modal file to avoid cascade risk.
    ========================================================================== */
 
+   
 /* Hidden-state gate used by both modal roots */
 .register-modal[hidden],
 .server-modal[hidden] {

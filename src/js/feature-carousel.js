@@ -31,6 +31,7 @@
   let featureIndicatorDots = [];
   let isFeatureAnimating = false;
   let isInitialized = false;
+  
 
   function normalizeFeatureSlideIndex(index) {
     if (!FEATURE_SLIDES.length) {

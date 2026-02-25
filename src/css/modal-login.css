@@ -23,6 +23,7 @@
   padding-top: var(--modal-stage-pad-top);
 }
 
+
 /* Inner paper/frame composition */
 .register-modal-paper {
   position: relative;

@@ -60,6 +60,7 @@
         step: 0,
         startDelay: 60
       },
+      
       { selector: ".feature-screen", animation: "reveal-left", step: 0, startDelay: 170 },
       { selector: ".feature-portrait", animation: "reveal-right", step: 0, startDelay: 120 },
       {

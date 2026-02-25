@@ -214,3 +214,4 @@
   };
   app.initRegisterModal = initRegisterModal;
 })(window, document);
+

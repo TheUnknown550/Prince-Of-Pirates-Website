@@ -2,6 +2,7 @@
   // Applies ratio-based layout and fit-to-section scaling for Section 2 on desktop/tablet.
   // This module intentionally keeps all numeric constants unchanged; refactor work
   // is limited to shared helper reuse and clearer intent comments.
+  
   const MOBILE_BREAKPOINT = 900;
   const SCALE_START = 0.2;
   const SCALE_SCAN_START = 1;

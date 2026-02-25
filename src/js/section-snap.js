@@ -15,6 +15,7 @@
   const clamp = coreUtils.clamp || function (value, min, max) {
     return Math.min(max, Math.max(min, value));
   };
+  
   const normalizeDirection = coreUtils.normalizeDirection || function (direction) {
     if (direction > 0) {
       return 1;

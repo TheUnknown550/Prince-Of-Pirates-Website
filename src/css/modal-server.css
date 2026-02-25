@@ -61,6 +61,7 @@
   height: auto;
 }
 
+
 .server-modal-group + .server-modal-group {
   margin-top: clamp(0px, 0.2vw, 4px);
 }

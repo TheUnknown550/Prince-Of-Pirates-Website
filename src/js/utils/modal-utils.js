@@ -12,6 +12,7 @@
     target.focus(options || { preventScroll: true });
     return true;
   };
+  
 
   function getFocusableElements(container) {
     if (!container) {

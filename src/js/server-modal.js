@@ -16,6 +16,7 @@
   let selectedServerId = DEFAULT_SERVER_ID;
   let isOpenState = false;
   let isInitialized = false;
+  
 
   const trapFocusWithin = modalUtils.trapFocusWithin || function () {};
   const captureFocusTrigger = modalUtils.captureFocusTrigger || function (trigger) {
