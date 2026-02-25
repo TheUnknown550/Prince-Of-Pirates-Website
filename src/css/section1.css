@@ -1379,7 +1379,7 @@
 /* Final responsive menu redesign (menu-only scope, hero untouched) */
 @media (max-width: 900px) {
   .mobile-menu-overlay {
-    background: rgba(255, 255, 255, 0.85);
+    background: #fff;
     backdrop-filter: none;
     --menu-edge-x: 0;
     --menu-edge-y: 0;
