@@ -316,7 +316,7 @@ body.register-modal-open {
   }
 
   .register-modal-paper {
-    min-height: clamp(300px, 84vw, 420px);
+    min-height: clamp(380px, 100vw, 440px);
   }
 
   .register-modal-character {
@@ -325,10 +325,14 @@ body.register-modal-open {
 
   .register-modal-content {
     top: clamp(
-      46px,
+      32px,
       calc(var(--register-title-width) * 0.2 - var(--register-stage-pad-top) + var(--register-content-gap)),
-      88px
+      76px
     );
+  }
+
+  .register-modal-form {
+    padding-top: clamp(12px, 2.4vw, 18px);
   }
 
   .register-modal-label {
