@@ -79,10 +79,7 @@
     main: function () {
       scrollToSection("main");
     },
-    register: function (triggerButton) {
-      // Keep fallback copy exactly the same as before.
-      openModalOrAlert(app.registerModal, triggerButton, "Register modal is not available yet.");
-    },
+    register: function () {},
     topup: function () {
       placeholderAlert("Topup page link not added yet.");
     },
@@ -110,8 +107,8 @@
     download: function () {
       placeholderAlert("Download action not added yet.");
     },
-    member: function () {
-      placeholderAlert("Member action not added yet.");
+    member: function (triggerButton) {
+      openModalOrAlert(app.registerModal, triggerButton, "Register modal is not available yet.");
     },
     "toggle-mobile-menu": function () {
       toggleMobileMenu();
@@ -132,8 +129,7 @@
     if (
       button.closest(".mobile-menu-overlay") &&
       action !== "toggle-mobile-menu" &&
-      action !== "close-mobile-menu" &&
-      action !== "register"
+      action !== "close-mobile-menu"
     ) {
       closeMobileMenu();
     }
