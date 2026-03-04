@@ -19,6 +19,12 @@
   --download-title-width: clamp(230px, 34vw, 436px);
   --download-content-max-width: clamp(320px, 44vw, 480px);
   --download-grid-gap: clamp(14px, 1.8vw, 24px);
+  --download-character-left: clamp(56px, 7.2vw, 108px);
+  --download-content-right: clamp(62px, 7.2vw, 110px);
+  --download-content-width: min(46%, var(--download-content-max-width));
+  --download-character-gap: clamp(18px, 2vw, 30px);
+  --download-character-min-width: 220px;
+  --download-character-max-width: 540px;
   padding-top: var(--download-stage-pad-top);
 }
 
@@ -72,9 +78,19 @@
 
 .download-modal-character {
   position: absolute;
-  left: clamp(56px, 7.2vw, 108px);
+  left: var(--download-character-left);
   bottom: 10%;
-  width: clamp(220px, 31vw, 460px);
+  width: clamp(
+    var(--download-character-min-width),
+    calc(
+      100% -
+      var(--download-character-left) -
+      var(--download-content-right) -
+      var(--download-content-width) -
+      var(--download-character-gap)
+    ),
+    var(--download-character-max-width)
+  );
   pointer-events: none;
   z-index: 4;
   user-select: none;
@@ -83,9 +99,9 @@
 /* Content layout and download targets */
 .download-modal-content {
   position: absolute;
-  right: clamp(62px, 7.2vw, 110px);
+  right: var(--download-content-right);
   top: clamp(86px, 10.8vw, 152px);
-  width: min(46%, var(--download-content-max-width));
+  width: var(--download-content-width);
   z-index: 5;
 }
 
@@ -174,17 +190,15 @@ body.download-modal-open {
     width: min(96vw, 1030px);
     --download-stage-pad-top: clamp(44px, 5.2vw, 64px);
     --download-content-max-width: clamp(290px, 46vw, 430px);
-  }
-
-  .download-modal-character {
-    width: clamp(210px, 30vw, 360px);
-    left: clamp(36px, 5.8vw, 72px);
+    --download-character-left: clamp(36px, 5.8vw, 72px);
+    --download-content-right: clamp(42px, 5.2vw, 82px);
+    --download-content-width: min(48%, var(--download-content-max-width));
+    --download-character-min-width: 210px;
+    --download-character-max-width: 430px;
   }
 
   .download-modal-content {
-    right: clamp(42px, 5.2vw, 82px);
     top: clamp(78px, 11.8vw, 140px);
-    width: min(48%, var(--download-content-max-width));
   }
 }
 
@@ -196,6 +210,12 @@ body.download-modal-open {
     --download-title-width: min(58vw, 320px);
     --download-content-max-width: clamp(260px, 64vw, 380px);
     --download-grid-gap: clamp(12px, 2.2vw, 18px);
+    --download-character-left: clamp(14px, 2.8vw, 26px);
+    --download-content-right: clamp(20px, 4vw, 44px);
+    --download-content-width: min(52%, var(--download-content-max-width));
+    --download-character-gap: clamp(10px, 1.8vw, 16px);
+    --download-character-min-width: 170px;
+    --download-character-max-width: 300px;
   }
 
   .download-modal-paper {
@@ -213,15 +233,11 @@ body.download-modal-open {
   }
 
   .download-modal-character {
-    width: clamp(170px, 27vw, 250px);
-    left: clamp(14px, 2.8vw, 26px);
     bottom: 10%;
   }
 
   .download-modal-content {
-    right: clamp(20px, 4vw, 44px);
     top: clamp(70px, 12vw, 110px);
-    width: min(52%, var(--download-content-max-width));
   }
 
   .download-modal-option-icon {
