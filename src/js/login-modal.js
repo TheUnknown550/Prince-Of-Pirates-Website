@@ -1,16 +1,16 @@
 (function (window, document) {
-  // Controls register modal open-close state, focus trap, and auth-link placeholders.
+  // Controls login modal open-close state, focus trap, and auth-link placeholders.
   const app = (window.PrinceSite = window.PrinceSite || {});
   const modalUtils = app.modalUtils || {};
   const coreUtils = app.utils || {};
   const MODAL_OPEN_CLASS = "is-open";
-  const BODY_LOCK_CLASS = "register-modal-open";
-  const CLOSE_SELECTOR = "[data-register-modal-close]";
-  const ACTION_SELECTOR = "[data-register-modal-action]";
+  const BODY_LOCK_CLASS = "login-modal-open";
+  const CLOSE_SELECTOR = "[data-login-modal-close]";
+  const ACTION_SELECTOR = "[data-login-modal-action]";
   const TRANSITION_MS = 240;
   let modalRoot = null;
   let usernameInput = null;
-  let registerForm = null;
+  let loginForm = null;
   let lastTrigger = null;
   let hideTimer = null;
   let isOpenState = false;
@@ -122,15 +122,15 @@
     return isOpenState;
   }
 
-  function switchToLoginModal() {
+  function switchToRegisterModal() {
     const switchTrigger = lastTrigger;
     close({ suppressFocusRestore: true });
     window.setTimeout(function () {
-      if (app.loginModal && typeof app.loginModal.open === "function") {
-        app.loginModal.open(switchTrigger);
+      if (app.registerModal && typeof app.registerModal.open === "function") {
+        app.registerModal.open(switchTrigger);
         return;
       }
-      alert("Login modal is not available yet.");
+      alert("Register modal is not available yet.");
     }, TRANSITION_MS);
   }
 
@@ -162,16 +162,22 @@
   }
 
   function onModalActionClick(event) {
-    const action = event.currentTarget.dataset.registerModalAction;
-    if (action === "login") {
-      switchToLoginModal();
+    const action = event.currentTarget.dataset.loginModalAction;
+    if (action === "signup") {
+      switchToRegisterModal();
+      return;
+    }
+
+    if (action === "forgot") {
+      // Placeholder button action: replace with forgot-password flow.
+      alert("Forgot password action not added yet.");
     }
   }
 
-  function onRegisterSubmit(event) {
+  function onLoginSubmit(event) {
     event.preventDefault();
-    // Placeholder form submit action: replace with real registration logic.
-    alert("Register action not added yet.");
+    // Placeholder form submit action: replace with real authentication logic.
+    alert("Login action not added yet.");
   }
 
   function bindModalEvents() {
@@ -187,32 +193,32 @@
       actionButton.addEventListener("click", onModalActionClick);
     });
 
-    if (registerForm) {
-      registerForm.addEventListener("submit", onRegisterSubmit);
+    if (loginForm) {
+      loginForm.addEventListener("submit", onLoginSubmit);
     }
   }
 
-  function initRegisterModal() {
+  function initLoginModal() {
     if (isInitialized) {
       return;
     }
     isInitialized = true;
 
-    modalRoot = document.getElementById("register-modal");
+    modalRoot = document.getElementById("login-modal");
     if (!modalRoot) {
       return;
     }
 
-    usernameInput = modalRoot.querySelector("#register-username");
-    registerForm = modalRoot.querySelector(".register-modal-form");
+    usernameInput = modalRoot.querySelector("#login-username");
+    loginForm = modalRoot.querySelector(".login-modal-form");
 
     bindModalEvents();
   }
 
-  app.registerModal = {
+  app.loginModal = {
     open: open,
     close: close,
     isOpen: isOpen
   };
-  app.initRegisterModal = initRegisterModal;
+  app.initLoginModal = initLoginModal;
 })(window, document);

@@ -8,6 +8,7 @@
     "initSection2RatioLayout",
     "initSectionSnapScroll",
     "initScrollAnimations",
+    "initLoginModal",
     "initRegisterModal",
     "initServerModal"
   ];

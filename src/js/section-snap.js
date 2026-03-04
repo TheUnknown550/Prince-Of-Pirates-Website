@@ -55,6 +55,7 @@
     // Suspend snap behavior while overlays are active.
     return (
       document.body.classList.contains("menu-open") ||
+      document.body.classList.contains("login-modal-open") ||
       document.body.classList.contains("register-modal-open") ||
       document.body.classList.contains("server-modal-open")
     );

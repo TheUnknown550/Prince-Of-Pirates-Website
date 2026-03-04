@@ -79,7 +79,9 @@
     main: function () {
       scrollToSection("main");
     },
-    register: function () {},
+    register: function (triggerButton) {
+      openModalOrAlert(app.registerModal, triggerButton, "Register modal is not available yet.");
+    },
     topup: function () {
       placeholderAlert("Topup page link not added yet.");
     },
@@ -108,7 +110,7 @@
       placeholderAlert("Download action not added yet.");
     },
     member: function (triggerButton) {
-      openModalOrAlert(app.registerModal, triggerButton, "Register modal is not available yet.");
+      openModalOrAlert(app.loginModal, triggerButton, "Login modal is not available yet.");
     },
     "toggle-mobile-menu": function () {
       toggleMobileMenu();

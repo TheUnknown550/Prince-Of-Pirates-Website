@@ -22,13 +22,14 @@ No install/build step is required.
   - `section2.css`: game-guide layout, feature carousel, section-2 ratio mode
   - `section3.css`: character layout and tab carousel visuals
   - `modal-common.css`: shared modal shell/open/backdrop behavior
-  - `modal-login.css`: register modal visuals
+  - `modal-login.css`: login modal visuals
+  - `modal-register.css`: register modal visuals
   - `modal-server.css`: server modal visuals
   - `footer.css`: footer layout/responsive rules
 - `src/js/`
   - `utils/core.js`: shared pure helpers
   - `utils/modal-utils.js`: shared modal/focus helpers
-  - feature modules: `navigation.js`, `feature-carousel.js`, `character-tabs.js`, `section-snap.js`, `scroll-animations.js`, `register-modal.js`, `server-modal.js`, `section2-ratio-layout.js`
+  - feature modules: `navigation.js`, `feature-carousel.js`, `character-tabs.js`, `section-snap.js`, `scroll-animations.js`, `login-modal.js`, `register-modal.js`, `server-modal.js`, `section2-ratio-layout.js`
   - `main.js`: bootstraps all `init*` modules
 - `assests/`: image/font assets (path name is intentionally spelled `assests`)
 
@@ -49,8 +50,9 @@ All modules register to `window.PrinceSite` and are loaded in this order:
 4. `initSection2RatioLayout`
 5. `initSectionSnapScroll`
 6. `initScrollAnimations`
-7. `initRegisterModal`
-8. `initServerModal`
+7. `initLoginModal`
+8. `initRegisterModal`
+9. `initServerModal`
 
 ## Public JavaScript API (`window.PrinceSite`)
 
@@ -60,6 +62,7 @@ All modules register to `window.PrinceSite` and are loaded in this order:
 - `initSection2RatioLayout()`
 - `initSectionSnapScroll()`
 - `initScrollAnimations()`
+- `initLoginModal()`
 - `initRegisterModal()`
 - `initServerModal()`
 - `navigation.scrollToSection(sectionId)`
@@ -74,8 +77,11 @@ All modules register to `window.PrinceSite` and are loaded in this order:
 - `sectionSnap.move(direction)`
 - `sectionSnap.cancel()`
 - `sectionSnap.refresh()`
+- `loginModal.open(trigger?)`
+- `loginModal.close(options?)`
+- `loginModal.isOpen()`
 - `registerModal.open(trigger?)`
-- `registerModal.close()`
+- `registerModal.close(options?)`
 - `registerModal.isOpen()`
 - `serverModal.open(trigger?)`
 - `serverModal.close()`
@@ -93,6 +99,7 @@ Stable IDs:
 - `main`
 - `game-guide`
 - `character`
+- `login-modal`
 - `register-modal`
 - `server-modal`
 - `mobile-nav-overlay`
@@ -100,7 +107,9 @@ Stable IDs:
 Stable data hooks:
 
 - `[data-action]`
-- `[data-modal-action]`
+- `[data-login-modal-action]`
+- `[data-register-modal-action]`
+- `[data-login-modal-close]`
 - `[data-register-modal-close]`
 - `[data-server-modal-close]`
 - `[data-server-id]`
@@ -117,6 +126,7 @@ Core JS-dependent classes/selectors:
 Body state classes used by JS/CSS:
 
 - `menu-open`
+- `login-modal-open`
 - `register-modal-open`
 - `server-modal-open`
 - `section-snap-enabled`
@@ -144,7 +154,7 @@ Dynamic classes used at runtime:
 - `google-play-games`: placeholder alert
 - `play-game`: open server modal (fallback alert if missing)
 - `download`: placeholder alert
-- `member`: placeholder alert
+- `member`: open login modal (fallback alert if missing)
 - `toggle-mobile-menu`: open/close mobile overlay menu
 - `close-mobile-menu`: close mobile overlay menu
 - `feature-prev` / `feature-next`: feature carousel controls
@@ -153,11 +163,14 @@ Dynamic classes used at runtime:
 
 ## Placeholder Behaviors (Intentional)
 
-- Navigation alerts for `topup`, `news`, `community`, `app-store`, `google-play`, `google-play-games`, `download`, `member`
-- Register modal actions:
-  - `signup` -> `alert("Register action not added yet.")`
+- Navigation alerts for `topup`, `news`, `community`, `app-store`, `google-play`, `google-play-games`, `download`
+- Login modal actions:
+  - `signup` switches to register modal
   - `forgot` -> `alert("Forgot password action not added yet.")`
-  - `login` submit -> `alert("Login action not added yet.")`
+  - login submit -> `alert("Login action not added yet.")`
+- Register modal actions:
+  - `เข้าสู่ระบบ` switches to login modal
+  - register submit -> `alert("Register action not added yet.")`
 - Server modal join button currently prevents default and performs no request
 
 ## Manual Regression Checklist
@@ -168,6 +181,14 @@ Dynamic classes used at runtime:
 - Mobile menu can open/close via toggle, close button, overlay click, and `Escape`.
 - Mobile menu closes on resize when viewport becomes wider than `900px`.
 
+### Login Modal
+
+- Opens from hero `member`.
+- Closes via backdrop/close button/`Escape`.
+- Focus trap loops with `Tab` and `Shift+Tab`.
+- Focus moves to username after open transition start.
+- Focus returns to trigger on close.
+
 ### Register Modal
 
 - Opens from desktop and mobile `register`.
@@ -175,6 +196,7 @@ Dynamic classes used at runtime:
 - Focus trap loops with `Tab` and `Shift+Tab`.
 - Focus moves to username after open transition start.
 - Focus returns to trigger on close.
+- Includes title image `assests/modals/register/Register_Title.png`.
 
 ### Server Modal
 
@@ -191,7 +213,7 @@ Dynamic classes used at runtime:
 - Feature auto-slide resumes after tab visibility restore.
 - Character prev/next and swipe still rotate order.
 - Section snap still works for wheel, keyboard, touch, plus `Home`/`End`.
-- Section snap pauses while menu/register/server modal is open.
+- Section snap pauses while menu/login/register/server modal is open.
 
 ### Responsive + Accessibility
 
@@ -204,7 +226,7 @@ Dynamic classes used at runtime:
 
 Current binary assets in `assests/`:
 
-- 49 `.png`
+- 57 `.png`
 - 3 `.jpg`
 - 1 `.ttf`
 
