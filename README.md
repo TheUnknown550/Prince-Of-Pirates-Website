@@ -24,12 +24,13 @@ No install/build step is required.
   - `modal-common.css`: shared modal shell/open/backdrop behavior
   - `modal-login.css`: login modal visuals
   - `modal-register.css`: register modal visuals
+  - `modal-download.css`: download modal visuals
   - `modal-server.css`: server modal visuals
   - `footer.css`: footer layout/responsive rules
 - `src/js/`
   - `utils/core.js`: shared pure helpers
   - `utils/modal-utils.js`: shared modal/focus helpers
-  - feature modules: `navigation.js`, `feature-carousel.js`, `character-tabs.js`, `section-snap.js`, `scroll-animations.js`, `login-modal.js`, `register-modal.js`, `server-modal.js`, `section2-ratio-layout.js`
+  - feature modules: `navigation.js`, `feature-carousel.js`, `character-tabs.js`, `section-snap.js`, `scroll-animations.js`, `login-modal.js`, `register-modal.js`, `download-modal.js`, `server-modal.js`, `section2-ratio-layout.js`
   - `main.js`: bootstraps all `init*` modules
 - `assests/`: image/font assets (path name is intentionally spelled `assests`)
 
@@ -52,7 +53,8 @@ All modules register to `window.PrinceSite` and are loaded in this order:
 6. `initScrollAnimations`
 7. `initLoginModal`
 8. `initRegisterModal`
-9. `initServerModal`
+9. `initDownloadModal`
+10. `initServerModal`
 
 ## Public JavaScript API (`window.PrinceSite`)
 
@@ -64,6 +66,7 @@ All modules register to `window.PrinceSite` and are loaded in this order:
 - `initScrollAnimations()`
 - `initLoginModal()`
 - `initRegisterModal()`
+- `initDownloadModal()`
 - `initServerModal()`
 - `navigation.scrollToSection(sectionId)`
 - `navigation.closeMobileMenu()`
@@ -83,6 +86,9 @@ All modules register to `window.PrinceSite` and are loaded in this order:
 - `registerModal.open(trigger?)`
 - `registerModal.close(options?)`
 - `registerModal.isOpen()`
+- `downloadModal.open(trigger?)`
+- `downloadModal.close()`
+- `downloadModal.isOpen()`
 - `serverModal.open(trigger?)`
 - `serverModal.close()`
 - `serverModal.isOpen()`
@@ -101,6 +107,7 @@ Stable IDs:
 - `character`
 - `login-modal`
 - `register-modal`
+- `download-modal`
 - `server-modal`
 - `mobile-nav-overlay`
 
@@ -111,6 +118,8 @@ Stable data hooks:
 - `[data-register-modal-action]`
 - `[data-login-modal-close]`
 - `[data-register-modal-close]`
+- `[data-download-modal-close]`
+- `[data-download-target]`
 - `[data-server-modal-close]`
 - `[data-server-id]`
 - `[data-server-modal-join]`
@@ -128,6 +137,7 @@ Body state classes used by JS/CSS:
 - `menu-open`
 - `login-modal-open`
 - `register-modal-open`
+- `download-modal-open`
 - `server-modal-open`
 - `section-snap-enabled`
 
@@ -153,7 +163,7 @@ Dynamic classes used at runtime:
 - `google-play`: placeholder alert
 - `google-play-games`: placeholder alert
 - `play-game`: open server modal (fallback alert if missing)
-- `download`: placeholder alert
+- `download`: open download modal (fallback alert if missing)
 - `member`: open login modal (fallback alert if missing)
 - `toggle-mobile-menu`: open/close mobile overlay menu
 - `close-mobile-menu`: close mobile overlay menu
@@ -163,7 +173,7 @@ Dynamic classes used at runtime:
 
 ## Placeholder Behaviors (Intentional)
 
-- Navigation alerts for `topup`, `news`, `community`, `app-store`, `google-play`, `google-play-games`, `download`
+- Navigation alerts for `topup`, `news`, `community`, `app-store`, `google-play`, `google-play-games`
 - Login modal actions:
   - `signup` switches to register modal
   - `forgot` -> `alert("Forgot password action not added yet.")`
@@ -171,6 +181,11 @@ Dynamic classes used at runtime:
 - Register modal actions:
   - `เข้าสู่ระบบ` switches to login modal
   - register submit -> `alert("Register action not added yet.")`
+- Download modal actions:
+  - `apk` -> `alert("APK download link not added yet.")`
+  - `ios` -> `alert("iOS download link not added yet.")`
+  - `windows` -> `alert("Windows download link not added yet.")`
+  - `browser` -> `alert("Browser download link not added yet.")`
 - Server modal join button currently prevents default and performs no request
 
 ## Manual Regression Checklist
@@ -198,6 +213,15 @@ Dynamic classes used at runtime:
 - Focus returns to trigger on close.
 - Includes title image `assests/modals/register/Register_Title.png`.
 
+### Download Modal
+
+- Opens from hero `download`.
+- Closes via backdrop/close button/`Escape`.
+- Focus trap loops with `Tab` and `Shift+Tab`.
+- Focus moves to first download target after open transition start.
+- Focus returns to trigger on close.
+- APK/iOS/Windows/Browser buttons show placeholder alerts.
+
 ### Server Modal
 
 - Opens from desktop and mobile `play-game`.
@@ -213,7 +237,7 @@ Dynamic classes used at runtime:
 - Feature auto-slide resumes after tab visibility restore.
 - Character prev/next and swipe still rotate order.
 - Section snap still works for wheel, keyboard, touch, plus `Home`/`End`.
-- Section snap pauses while menu/login/register/server modal is open.
+- Section snap pauses while menu/login/register/download/server modal is open.
 
 ### Responsive + Accessibility
 

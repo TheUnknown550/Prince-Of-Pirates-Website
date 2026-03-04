@@ -106,8 +106,8 @@
     "play-game": function (triggerButton) {
       openModalOrAlert(app.serverModal, triggerButton, "Server modal is not available yet.");
     },
-    download: function () {
-      placeholderAlert("Download action not added yet.");
+    download: function (triggerButton) {
+      openModalOrAlert(app.downloadModal, triggerButton, "Download modal is not available yet.");
     },
     member: function (triggerButton) {
       openModalOrAlert(app.loginModal, triggerButton, "Login modal is not available yet.");

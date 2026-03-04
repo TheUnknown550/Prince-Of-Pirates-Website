@@ -10,6 +10,7 @@
     "initScrollAnimations",
     "initLoginModal",
     "initRegisterModal",
+    "initDownloadModal",
     "initServerModal"
   ];
   
