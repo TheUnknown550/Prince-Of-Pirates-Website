@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="src/css/section3.css">
     <link rel="stylesheet" href="src/css/modal-common.css">
     <link rel="stylesheet" href="src/css/modal-login.css">
+    <link rel="stylesheet" href="src/css/modal-register.css">
+    <link rel="stylesheet" href="src/css/modal-download.css">
     <link rel="stylesheet" href="src/css/modal-server.css">
     <link rel="stylesheet" href="src/css/footer.css">
 </head>
@@ -240,25 +242,74 @@
         <img class="site-footer-logo" src="assests/main_web/footer/logoFooter.png" alt="Prince Of Pirates footer logo">
     </footer>
 
-    <!-- Register/Login modal -->
+    <!-- Login modal -->
+    <div class="login-modal" id="login-modal" hidden aria-hidden="true">
+        <div class="login-modal-backdrop" data-login-modal-close="true" aria-hidden="true"></div>
+        <div class="login-modal-stage login-modal-panel" role="dialog" aria-modal="true"
+            aria-labelledby="login-modal-title">
+            <img class="login-modal-logo" src="assests/modals/login/logo.png" alt="Prince Of Pirate logo">
+            <div class="login-modal-paper">
+                <img class="login-modal-frame" src="assests/modals/login/bg_frame.png" alt="" aria-hidden="true">
+
+                <button class="login-modal-close" type="button" data-login-modal-close="true"
+                    aria-label="Close login modal">
+                    <img src="assests/modals/login/Exit_Button.png" alt="" aria-hidden="true">
+                </button>
+
+                <img class="login-modal-character" src="assests/modals/login/Chopper_Character.png" alt=""
+                    aria-hidden="true">
+
+                <div class="login-modal-content">
+                    <h2 id="login-modal-title" class="login-modal-sr-only">Login Modal</h2>
+
+                    <form class="login-modal-form" novalidate>
+                        <label class="login-modal-label" for="login-username">ชื่อผู้ใช้</label>
+                        <div class="login-modal-field login-modal-field-username">
+                            <input id="login-username" class="login-modal-input" type="text" name="username"
+                                autocomplete="username" placeholder="USERNAME" aria-label="Username">
+                        </div>
+
+                        <label class="login-modal-label" for="login-password">รหัสผ่าน</label>
+                        <div class="login-modal-field login-modal-field-password">
+                            <input id="login-password" class="login-modal-input" type="password" name="password"
+                                autocomplete="current-password" placeholder="PASSWORD" aria-label="Password">
+                        </div>
+
+                        <button type="submit" class="image-button login-modal-login-btn" aria-label="Login">
+                            <img src="assests/modals/login/Login%20Button.png" alt="LOGIN!">
+                        </button>
+                    </form>
+
+                    <div class="login-modal-links">
+                        <button type="button" class="login-modal-link"
+                            data-login-modal-action="signup">ลงทะเบียน</button>
+                        <button type="button" class="login-modal-link"
+                            data-login-modal-action="forgot">ลืมรหัสผ่าน</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register modal -->
     <div class="register-modal" id="register-modal" hidden aria-hidden="true">
         <div class="register-modal-backdrop" data-register-modal-close="true" aria-hidden="true"></div>
         <div class="register-modal-stage register-modal-panel" role="dialog" aria-modal="true"
             aria-labelledby="register-modal-title">
-            <img class="register-modal-logo" src="assests/modals/login/logo.png" alt="Prince Of Pirate logo">
+            <img class="register-modal-title" src="assests/modals/register/Register_Title.png" alt="Register">
             <div class="register-modal-paper">
-                <img class="register-modal-frame" src="assests/modals/login/bg_frame.png" alt="" aria-hidden="true">
+                <img class="register-modal-frame" src="assests/modals/register/bg_frame.png" alt="" aria-hidden="true">
 
                 <button class="register-modal-close" type="button" data-register-modal-close="true"
                     aria-label="Close register modal">
-                    <img src="assests/modals/login/Exit_Button.png" alt="" aria-hidden="true">
+                    <img src="assests/modals/register/Exit_Button.png" alt="" aria-hidden="true">
                 </button>
 
-                <img class="register-modal-chopper" src="assests/modals/login/Chopper_Character.png" alt=""
+                <img class="register-modal-character" src="assests/modals/register/Character.png" alt=""
                     aria-hidden="true">
 
                 <div class="register-modal-content">
-                    <h2 id="register-modal-title" class="register-modal-sr-only">Register Login Modal</h2>
+                    <h2 id="register-modal-title" class="register-modal-sr-only">Register Modal</h2>
 
                     <form class="register-modal-form" novalidate>
                         <label class="register-modal-label" for="register-username">ชื่อผู้ใช้</label>
@@ -267,22 +318,86 @@
                                 autocomplete="username" placeholder="USERNAME" aria-label="Username">
                         </div>
 
+                        <label class="register-modal-label" for="register-email">อีเมลล์</label>
+                        <div class="register-modal-field register-modal-field-email">
+                            <input id="register-email" class="register-modal-input" type="email" name="email"
+                                autocomplete="email" placeholder="EMAIL" aria-label="Email">
+                        </div>
+
                         <label class="register-modal-label" for="register-password">รหัสผ่าน</label>
                         <div class="register-modal-field register-modal-field-password">
                             <input id="register-password" class="register-modal-input" type="password" name="password"
-                                autocomplete="current-password" placeholder="PASSWORD" aria-label="Password">
+                                autocomplete="new-password" placeholder="PASSWORD" aria-label="Password">
                         </div>
 
-                        <button type="submit" class="image-button register-modal-login-btn" data-modal-action="login"
-                            aria-label="Login">
-                            <img src="assests/modals/login/Login%20Button.png" alt="LOGIN!">
+                        <button type="submit" class="image-button register-modal-confirm-btn"
+                            aria-label="Confirm registration">
+                            <img src="assests/modals/register/Confirm_Button.png" alt="CONFIRM!">
                         </button>
                     </form>
 
                     <div class="register-modal-links">
-                        <!-- Modal action buttons use placeholder handlers in src/js/register-modal.js -->
-                        <button type="button" class="register-modal-link" data-modal-action="signup">ลงทะเบียน</button>
-                        <button type="button" class="register-modal-link" data-modal-action="forgot">ลืมรหัสผ่าน</button>
+                        <span class="register-modal-link-current" aria-current="page">ลงทะเบียน</span>
+                        <button type="button" class="register-modal-link"
+                            data-register-modal-action="login">เข้าสู่ระบบ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download modal -->
+    <div class="download-modal" id="download-modal" hidden aria-hidden="true">
+        <div class="download-modal-backdrop" data-download-modal-close="true" aria-hidden="true"></div>
+        <div class="download-modal-stage download-modal-panel" role="dialog" aria-modal="true"
+            aria-labelledby="download-modal-title">
+            <img class="download-modal-title" src="assests/modals/download/Download_Title.png" alt="Download">
+            <div class="download-modal-paper">
+                <img class="download-modal-frame" src="assests/modals/download/bg_frame.png" alt="" aria-hidden="true">
+
+                <button class="download-modal-close" type="button" data-download-modal-close="true"
+                    aria-label="Close download modal">
+                    <img src="assests/modals/download/Exit_Button.png" alt="" aria-hidden="true">
+                </button>
+
+                <img class="download-modal-character" src="assests/modals/download/Character.png" alt=""
+                    aria-hidden="true">
+
+                <div class="download-modal-content">
+                    <h2 id="download-modal-title" class="download-modal-sr-only">Download Modal</h2>
+
+                    <div class="download-modal-grid">
+                        <button type="button" class="download-modal-option" data-download-target="apk"
+                            aria-label="Download APK">
+                            <img class="download-modal-option-icon" src="assests/modals/download/Apk_download.png" alt=""
+                                aria-hidden="true">
+                            <span class="download-modal-option-title">APK</span>
+                            <span class="download-modal-option-subtitle">DOWNLOAD</span>
+                        </button>
+
+                        <button type="button" class="download-modal-option" data-download-target="ios"
+                            aria-label="Download iOS">
+                            <img class="download-modal-option-icon" src="assests/modals/download/IOS_download.png" alt=""
+                                aria-hidden="true">
+                            <span class="download-modal-option-title">iOS</span>
+                            <span class="download-modal-option-subtitle">DOWNLOAD</span>
+                        </button>
+
+                        <button type="button" class="download-modal-option" data-download-target="windows"
+                            aria-label="Download Windows">
+                            <img class="download-modal-option-icon" src="assests/modals/download/Windows_download.png"
+                                alt="" aria-hidden="true">
+                            <span class="download-modal-option-title">Windows</span>
+                            <span class="download-modal-option-subtitle">DOWNLOAD</span>
+                        </button>
+
+                        <button type="button" class="download-modal-option" data-download-target="browser"
+                            aria-label="Download Browser">
+                            <img class="download-modal-option-icon" src="assests/modals/download/Browser_Download.png"
+                                alt="" aria-hidden="true">
+                            <span class="download-modal-option-title">Browser</span>
+                            <span class="download-modal-option-subtitle">DOWNLOAD</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -453,7 +568,9 @@
     <script src="src/js/feature-carousel.js"></script>
     <script src="src/js/section-snap.js"></script>
     <script src="src/js/scroll-animations.js"></script>
+    <script src="src/js/login-modal.js"></script>
     <script src="src/js/register-modal.js"></script>
+    <script src="src/js/download-modal.js"></script>
     <script src="src/js/server-modal.js"></script>
     <script src="src/js/section2-ratio-layout.js"></script>
     <script src="src/js/main.js"></script>

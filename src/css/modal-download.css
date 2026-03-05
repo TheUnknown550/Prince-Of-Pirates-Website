@@ -1,0 +1,314 @@
+/* ==========================================================================
+   Download Modal
+   --------------------------------------------------------------------------
+   Shared shell/open/backdrop/transition rules live in modal-common.css.
+   This file keeps download-specific layout, artwork, and option-card styling.
+   ========================================================================== */
+
+/* Download modal shell sizing and spacing */
+.download-modal {
+  z-index: 3250;
+  padding: clamp(10px, 3vw, 28px);
+}
+
+.download-modal-stage {
+  position: relative;
+  width: min(95vw, 1167px);
+  margin: auto;
+  --download-stage-pad-top: clamp(48px, 4.8vw, 74px);
+  --download-title-width: clamp(230px, 34vw, 436px);
+  --download-content-max-width: clamp(320px, 44vw, 480px);
+  --download-grid-gap: clamp(14px, 1.8vw, 24px);
+  --download-character-left: clamp(56px, 7.2vw, 108px);
+  --download-content-right: clamp(62px, 7.2vw, 110px);
+  --download-content-width: min(46%, var(--download-content-max-width));
+  --download-character-gap: clamp(18px, 2vw, 30px);
+  --download-character-min-width: 220px;
+  --download-character-max-width: 540px;
+  padding-top: var(--download-stage-pad-top);
+}
+
+/* Inner paper/frame composition */
+.download-modal-paper {
+  position: relative;
+  min-height: clamp(440px, 62vw, 762px);
+}
+
+.download-modal-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  user-select: none;
+}
+
+.download-modal-title {
+  position: absolute;
+  top: var(--download-stage-pad-top);
+  left: 50%;
+  width: var(--download-title-width);
+  transform: translate(-50%, -20%);
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Modal close control */
+.download-modal-close {
+  position: absolute;
+  top: clamp(40px, 4.2vw, 58px);
+  right: clamp(34px, 4.2vw, 58px);
+  width: clamp(24px, 3.4vw, 48px);
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 6;
+  transition: transform 170ms ease, filter 170ms ease;
+}
+
+.download-modal-close img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.download-modal-character {
+  position: absolute;
+  left: var(--download-character-left);
+  bottom: 10%;
+  width: clamp(
+    var(--download-character-min-width),
+    calc(
+      100% -
+      var(--download-character-left) -
+      var(--download-content-right) -
+      var(--download-content-width) -
+      var(--download-character-gap)
+    ),
+    var(--download-character-max-width)
+  );
+  pointer-events: none;
+  z-index: 4;
+  user-select: none;
+}
+
+/* Content layout and download targets */
+.download-modal-content {
+  position: absolute;
+  right: var(--download-content-right);
+  top: clamp(86px, 10.8vw, 152px);
+  width: var(--download-content-width);
+  z-index: 5;
+}
+
+.download-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--download-grid-gap);
+}
+
+.download-modal-option {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: #070707;
+  font-family: "Prompt", sans-serif;
+  transition: transform 170ms ease, filter 170ms ease;
+}
+
+.download-modal-option:hover,
+.download-modal-option:focus-visible {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 9px 14px rgba(19, 27, 66, 0.2));
+  outline: none;
+}
+
+.download-modal-option:active {
+  transform: translateY(-1px) scale(0.992);
+}
+
+.download-modal-option-icon {
+  display: block;
+  width: clamp(96px, 12.4vw, 167px);
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+.download-modal-option-title {
+  margin-top: clamp(3px, 0.5vw, 7px);
+  font-size: clamp(24px, 3vw, 48px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: #030303;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.download-modal-option-subtitle {
+  margin-top: clamp(1px, 0.16vw, 3px);
+  font-size: clamp(14px, 1.35vw, 24px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #080808;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.download-modal-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* Lock body scroll while modal is open */
+body.download-modal-open {
+  overflow: hidden;
+}
+
+/* Desktop-medium refinements */
+@media (max-width: 1200px) {
+  .download-modal-stage {
+    width: min(96vw, 1030px);
+    --download-stage-pad-top: clamp(44px, 5.2vw, 64px);
+    --download-content-max-width: clamp(290px, 46vw, 430px);
+    --download-character-left: clamp(36px, 5.8vw, 72px);
+    --download-content-right: clamp(42px, 5.2vw, 82px);
+    --download-content-width: min(48%, var(--download-content-max-width));
+    --download-character-min-width: 210px;
+    --download-character-max-width: 430px;
+  }
+
+  .download-modal-content {
+    top: clamp(78px, 11.8vw, 140px);
+  }
+}
+
+/* Tablet refinements */
+@media (max-width: 900px) {
+  .download-modal-stage {
+    width: min(96vw, 760px);
+    --download-stage-pad-top: clamp(40px, 6.2vw, 58px);
+    --download-title-width: min(58vw, 320px);
+    --download-content-max-width: clamp(260px, 64vw, 380px);
+    --download-grid-gap: clamp(12px, 2.2vw, 18px);
+    --download-character-left: clamp(14px, 2.8vw, 26px);
+    --download-content-right: clamp(20px, 4vw, 44px);
+    --download-content-width: min(52%, var(--download-content-max-width));
+    --download-character-gap: clamp(10px, 1.8vw, 16px);
+    --download-character-min-width: 170px;
+    --download-character-max-width: 300px;
+  }
+
+  .download-modal-paper {
+    min-height: clamp(360px, 78vw, 620px);
+  }
+
+  .download-modal-close {
+    width: clamp(20px, 4.2vw, 34px);
+    top: clamp(34px, 6.2vw, 46px);
+    right: clamp(18px, 3.4vw, 28px);
+  }
+
+  .download-modal-title {
+    transform: translate(-50%, -20%);
+  }
+
+  .download-modal-character {
+    bottom: 10%;
+  }
+
+  .download-modal-content {
+    top: clamp(70px, 12vw, 110px);
+  }
+
+  .download-modal-option-icon {
+    width: clamp(80px, 13vw, 126px);
+  }
+
+  .download-modal-option-title {
+    font-size: clamp(20px, 3.4vw, 32px);
+  }
+
+  .download-modal-option-subtitle {
+    font-size: clamp(12px, 1.7vw, 17px);
+  }
+}
+
+/* Mobile refinements */
+@media (max-width: 700px) {
+  .download-modal-stage {
+    --download-title-width: min(64vw, 290px);
+    --download-content-max-width: clamp(220px, 86vw, 360px);
+    --download-grid-gap: clamp(10px, 2.6vw, 14px);
+  }
+
+  .download-modal-paper {
+    min-height: clamp(420px, 114vw, 560px);
+  }
+
+  .download-modal-close {
+    top: clamp(30px, 7.2vw, 40px);
+    right: clamp(14px, 4vw, 22px);
+    width: clamp(18px, 5.2vw, 28px);
+  }
+
+  .download-modal-character {
+    display: none;
+  }
+
+  .download-modal-content {
+    left: 50%;
+    right: auto;
+    top: clamp(76px, 20vw, 126px);
+    transform: translateX(-50%);
+    width: min(88%, var(--download-content-max-width));
+  }
+
+  .download-modal-option-icon {
+    width: clamp(78px, 24vw, 122px);
+  }
+
+  .download-modal-option-title {
+    font-size: clamp(17px, 5.2vw, 28px);
+  }
+
+  .download-modal-option-subtitle {
+    font-size: clamp(11px, 3.4vw, 16px);
+  }
+}
+
+/* On short screens, start modal at top so content can scroll to the bottom */
+@media (max-height: 860px) {
+  .download-modal {
+    place-items: start center;
+  }
+
+  .download-modal-stage {
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .download-modal-option {
+    transition: none !important;
+  }
+}

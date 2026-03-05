@@ -1,20 +1,24 @@
 /* ==========================================================================
    Shared Modal Foundation
    --------------------------------------------------------------------------
-   This file contains only styles that are truly identical across the
-   register modal and server modal. Module-specific geometry and artwork stay
+   This file contains only styles that are truly identical across login,
+   register, download, and server modals. Module-specific geometry and artwork stay
    in each modal file to avoid cascade risk.
    ========================================================================== */
 
    
-/* Hidden-state gate used by both modal roots */
+/* Hidden-state gate used by modal roots */
+.login-modal[hidden],
 .register-modal[hidden],
+.download-modal[hidden],
 .server-modal[hidden] {
   display: none !important;
 }
 
 /* Full-screen modal shell and fade transition */
+.login-modal,
 .register-modal,
+.download-modal,
 .server-modal {
   position: fixed;
   inset: 0;
@@ -29,14 +33,18 @@
 }
 
 /* Open state gates interaction only when fade-in class is active */
+.login-modal.is-open,
 .register-modal.is-open,
+.download-modal.is-open,
 .server-modal.is-open {
   opacity: 1;
   pointer-events: auto;
 }
 
 /* Shared modal backdrop style */
+.login-modal-backdrop,
 .register-modal-backdrop,
+.download-modal-backdrop,
 .server-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -45,20 +53,28 @@
 }
 
 /* Stage entrance animation baseline */
+.login-modal-stage,
 .register-modal-stage,
+.download-modal-stage,
 .server-modal-stage {
   transform: translateY(18px) scale(0.965);
   transition: transform 240ms ease;
 }
 
+.login-modal.is-open .login-modal-stage,
 .register-modal.is-open .register-modal-stage,
+.download-modal.is-open .download-modal-stage,
 .server-modal.is-open .server-modal-stage {
   transform: translateY(0) scale(1);
 }
 
 /* Shared close-control interaction polish */
+.login-modal-close:hover,
+.login-modal-close:focus-visible,
 .register-modal-close:hover,
 .register-modal-close:focus-visible,
+.download-modal-close:hover,
+.download-modal-close:focus-visible,
 .server-modal-close:hover,
 .server-modal-close:focus-visible {
   transform: scale(1.08);
@@ -66,10 +82,14 @@
   outline: none;
 }
 
-/* Respect reduced-motion preference for both modal systems */
+/* Respect reduced-motion preference for all modal systems */
 @media (prefers-reduced-motion: reduce) {
+  .login-modal,
+  .login-modal-stage,
   .register-modal,
   .register-modal-stage,
+  .download-modal,
+  .download-modal-stage,
   .server-modal,
   .server-modal-stage {
     transition: none !important;

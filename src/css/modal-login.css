@@ -1,17 +1,17 @@
 /* ==========================================================================
-   Register Modal
+   Login Modal
    --------------------------------------------------------------------------
    Shared shell/open/backdrop/transition rules live in modal-common.css.
-   This file keeps only register-specific layout, artwork, and form styling.
+   This file keeps only login-specific layout, artwork, and form styling.
    ========================================================================== */
 
-/* Register modal shell sizing and spacing */
-.register-modal {
+/* Login modal shell sizing and spacing */
+.login-modal {
   z-index: 3200;
   padding: clamp(10px, 3vw, 28px);
 }
 
-.register-modal-stage {
+.login-modal-stage {
   position: relative;
   width: min(88vw, 940px);
   margin: auto;
@@ -25,12 +25,12 @@
 
 
 /* Inner paper/frame composition */
-.register-modal-paper {
+.login-modal-paper {
   position: relative;
   min-height: clamp(320px, 46vw, 500px);
 }
 
-.register-modal-frame {
+.login-modal-frame {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -40,7 +40,7 @@
   user-select: none;
 }
 
-.register-modal-logo {
+.login-modal-logo {
   position: absolute;
   top: 0;
   left: 50%;
@@ -52,7 +52,7 @@
 }
 
 /* Modal close control */
-.register-modal-close {
+.login-modal-close {
   position: absolute;
   top: clamp(28px, 3.2vw, 42px);
   right: clamp(30px, 3.6vw, 46px);
@@ -66,13 +66,13 @@
   transition: transform 170ms ease, filter 170ms ease;
 }
 
-.register-modal-close img {
+.login-modal-close img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.register-modal-chopper {
+.login-modal-character {
   position: absolute;
   left: clamp(-96px, -5.5vw, -26px);
   bottom: clamp(-14px, -1vw, -2px);
@@ -83,7 +83,7 @@
 }
 
 /* Form content column */
-.register-modal-content {
+.login-modal-content {
   position: absolute;
   left: 50%;
   right: auto;
@@ -102,7 +102,7 @@
   color: #121212;
 }
 
-.register-modal-form {
+.login-modal-form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -110,7 +110,7 @@
 }
 
 /* Decorative text fields and inputs */
-.register-modal-label {
+.login-modal-label {
   margin: 0 0 6px;
   font-size: clamp(16px, 1.3vw, 24px);
   font-weight: 600;
@@ -119,7 +119,7 @@
   color: #0f0f0f;
 }
 
-.register-modal-field {
+.login-modal-field {
   width: min(100%, var(--modal-field-max-width));
   height: clamp(42px, 5vw, 62px);
   background-repeat: no-repeat;
@@ -132,15 +132,15 @@
   padding: 0 clamp(12px, 1.5vw, 24px);
 }
 
-.register-modal-field-username {
+.login-modal-field-username {
   background-image: url("../../assests/modals/login/Username_Text_Field.png");
 }
 
-.register-modal-field-password {
+.login-modal-field-password {
   background-image: url("../../assests/modals/login/Password_Text_Field.png");
 }
 
-.register-modal-input {
+.login-modal-input {
   width: 100%;
   border: 0;
   background: transparent;
@@ -153,10 +153,10 @@
   letter-spacing: 0.025em;
 }
 
-.register-modal-input:-webkit-autofill,
-.register-modal-input:-webkit-autofill:hover,
-.register-modal-input:-webkit-autofill:focus,
-.register-modal-input:-webkit-autofill:active {
+.login-modal-input:-webkit-autofill,
+.login-modal-input:-webkit-autofill:hover,
+.login-modal-input:-webkit-autofill:focus,
+.login-modal-input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
   box-shadow: 0 0 0 1000px transparent inset !important;
   -webkit-text-fill-color: #0f0f0f;
@@ -165,25 +165,25 @@
   transition: background-color 9999s ease-in-out 0s;
 }
 
-.register-modal-input::placeholder {
+.login-modal-input::placeholder {
   color: #bababa;
   opacity: 1;
   text-transform: uppercase;
 }
 
-.register-modal-login-btn {
+.login-modal-login-btn {
   width: clamp(170px, 20vw, 250px);
   margin-top: clamp(8px, 1vw, 14px);
 }
 
-.register-modal-login-btn img {
+.login-modal-login-btn img {
   display: block;
   width: 100%;
   height: auto;
 }
 
 /* Secondary text link row */
-.register-modal-links {
+.login-modal-links {
   margin-top: clamp(6px, 0.8vw, 10px);
   display: flex;
   align-items: center;
@@ -191,7 +191,7 @@
   gap: clamp(10px, 1.2vw, 18px);
 }
 
-.register-modal-link {
+.login-modal-link {
   border: 0;
   background: transparent;
   font-family: "Prompt", sans-serif;
@@ -206,14 +206,14 @@
   padding: 0;
 }
 
-.register-modal-link:hover,
-.register-modal-link:focus-visible {
+.login-modal-link:hover,
+.login-modal-link:focus-visible {
   color: #ff8f1f;
   outline: none;
 }
 
 /* Accessibility helper for visually hidden headings */
-.register-modal-sr-only {
+.login-modal-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -226,13 +226,13 @@
 }
 
 /* Lock body scroll while modal is open */
-body.register-modal-open {
+body.login-modal-open {
   overflow: hidden;
 }
 
 /* Desktop-medium refinements */
 @media (max-width: 1200px) {
-  .register-modal-stage {
+  .login-modal-stage {
     --modal-content-gap: clamp(8px, 1.2vw, 14px);
     --modal-content-max-width: clamp(280px, 40vw, 360px);
     --modal-field-max-width: clamp(230px, 35vw, 320px);
@@ -241,7 +241,7 @@ body.register-modal-open {
 
 /* Tablet refinements */
 @media (max-width: 900px) {
-  .register-modal-stage {
+  .login-modal-stage {
     width: min(94vw, 680px);
     --modal-stage-pad-top: clamp(36px, 5.8vw, 52px);
     --modal-logo-width: min(56vw, 280px);
@@ -251,72 +251,72 @@ body.register-modal-open {
     padding-top: var(--modal-stage-pad-top);
   }
 
-  .register-modal-close {
+  .login-modal-close {
     width: clamp(20px, 3.5vw, 28px);
     top: clamp(26px, 4.8vw, 38px);
     right: clamp(18px, 3.6vw, 28px);
   }
 
-  .register-modal-paper {
+  .login-modal-paper {
     min-height: clamp(300px, 66vw, 470px);
   }
 
-  .register-modal-logo {
+  .login-modal-logo {
     transform: translate(-50%, -12%);
   }
 
-  .register-modal-chopper {
+  .login-modal-character {
     width: clamp(104px, 22vw, 190px);
     left: clamp(-40px, -5vw, -8px);
     bottom: -2px;
   }
 
-  .register-modal-label {
+  .login-modal-label {
     margin-bottom: 4px;
   }
 
-  .register-modal-field {
+  .login-modal-field {
     margin-bottom: 10px;
   }
 }
 
 /* Mobile refinements */
 @media (max-width: 700px) {
-  .register-modal-stage {
+  .login-modal-stage {
     --modal-logo-width: min(62vw, 250px);
     --modal-content-gap: clamp(6px, 1.8vw, 10px);
     --modal-content-max-width: clamp(220px, 74vw, 300px);
     --modal-field-max-width: clamp(190px, 70vw, 270px);
   }
 
-  .register-modal-paper {
+  .login-modal-paper {
     min-height: clamp(300px, 84vw, 420px);
   }
 
-  .register-modal-chopper {
+  .login-modal-character {
     display: none;
   }
 
-  .register-modal-label {
+  .login-modal-label {
     font-size: clamp(17px, 4.2vw, 24px);
   }
 
-  .register-modal-input {
+  .login-modal-input {
     font-size: clamp(15px, 3.8vw, 20px);
   }
 
-  .register-modal-links {
+  .login-modal-links {
     gap: clamp(10px, 2.8vw, 18px);
   }
 }
 
 /* On short screens, start modal at top so content can scroll to the bottom */
 @media (max-height: 860px) {
-  .register-modal {
+  .login-modal {
     place-items: start center;
   }
 
-  .register-modal-stage {
+  .login-modal-stage {
     margin: 0 auto;
   }
 }

@@ -1,16 +1,15 @@
 (function (window, document) {
-  // Controls register modal open-close state, focus trap, and auth-link placeholders.
+  // Controls download modal open-close state, focus trap, and target-link placeholders.
   const app = (window.PrinceSite = window.PrinceSite || {});
   const modalUtils = app.modalUtils || {};
   const coreUtils = app.utils || {};
   const MODAL_OPEN_CLASS = "is-open";
-  const BODY_LOCK_CLASS = "register-modal-open";
-  const CLOSE_SELECTOR = "[data-register-modal-close]";
-  const ACTION_SELECTOR = "[data-register-modal-action]";
+  const BODY_LOCK_CLASS = "download-modal-open";
+  const CLOSE_SELECTOR = "[data-download-modal-close]";
+  const TARGET_SELECTOR = "[data-download-target]";
   const TRANSITION_MS = 240;
   let modalRoot = null;
-  let usernameInput = null;
-  let registerForm = null;
+  let firstTargetButton = null;
   let lastTrigger = null;
   let hideTimer = null;
   let isOpenState = false;
@@ -49,12 +48,11 @@
     hideTimer = null;
   }
 
-  function setModalOpenState(nextState, options) {
+  function setModalOpenState(nextState) {
     if (!modalRoot) {
       return;
     }
 
-    const closeOptions = options || {};
     isOpenState = nextState;
     modalRoot.setAttribute("aria-hidden", nextState ? "false" : "true");
 
@@ -70,16 +68,15 @@
       });
 
       window.setTimeout(function () {
-        if (!isOpenState || !usernameInput) {
+        if (!isOpenState || !firstTargetButton) {
           return;
         }
-        // Move focus into the form after the open animation starts.
-        safeFocus(usernameInput, { preventScroll: true });
+        // Move focus into the download choices after open animation starts.
+        safeFocus(firstTargetButton, { preventScroll: true });
       }, 90);
       return;
     }
 
-    const shouldRestoreFocus = !closeOptions.suppressFocusRestore;
     modalRoot.classList.remove(MODAL_OPEN_CLASS);
     document.body.classList.remove(BODY_LOCK_CLASS);
     clearHideTimer();
@@ -88,9 +85,7 @@
         return;
       }
       modalRoot.hidden = true;
-      if (shouldRestoreFocus) {
-        restoreFocusTrigger(lastTrigger, document);
-      }
+      restoreFocusTrigger(lastTrigger, document);
     }, TRANSITION_MS);
   }
 
@@ -99,10 +94,10 @@
       return;
     }
 
-    // Persist the opener so focus can be restored on close for keyboard users.
+    // Persist opener for focus restoration when the modal closes.
     lastTrigger = captureFocusTrigger(trigger, document);
 
-    // If launched from the mobile overlay, close it first to avoid stacked focus traps.
+    // Keep only one overlay system open when launched from mobile navigation.
     closeMobileMenuIfTriggeredFromOverlay(trigger, app.navigation);
 
     if (isOpenState) {
@@ -111,27 +106,15 @@
     setModalOpenState(true);
   }
 
-  function close(options) {
+  function close() {
     if (!modalRoot || (!isOpenState && modalRoot.hidden)) {
       return;
     }
-    setModalOpenState(false, options || {});
+    setModalOpenState(false);
   }
 
   function isOpen() {
     return isOpenState;
-  }
-
-  function switchToLoginModal() {
-    const switchTrigger = lastTrigger;
-    close({ suppressFocusRestore: true });
-    window.setTimeout(function () {
-      if (app.loginModal && typeof app.loginModal.open === "function") {
-        app.loginModal.open(switchTrigger);
-        return;
-      }
-      alert("Login modal is not available yet.");
-    }, TRANSITION_MS);
   }
 
   function onDocumentKeydown(event) {
@@ -145,7 +128,7 @@
       return;
     }
 
-    // Constrain tab focus to controls inside the active modal.
+    // Keep tab focus cycling inside the active download modal controls.
     trapFocusWithin(modalRoot, event);
   }
 
@@ -161,17 +144,26 @@
     }
   }
 
-  function onModalActionClick(event) {
-    const action = event.currentTarget.dataset.registerModalAction;
-    if (action === "login") {
-      switchToLoginModal();
+  function onDownloadTargetClick(event) {
+    const target = event.currentTarget.dataset.downloadTarget;
+    if (target === "apk") {
+      alert("APK download link not added yet.");
+      return;
     }
-  }
 
-  function onRegisterSubmit(event) {
-    event.preventDefault();
-    // Placeholder form submit action: replace with real registration logic.
-    alert("Register action not added yet.");
+    if (target === "ios") {
+      alert("iOS download link not added yet.");
+      return;
+    }
+
+    if (target === "windows") {
+      alert("Windows download link not added yet.");
+      return;
+    }
+
+    if (target === "browser") {
+      alert("Browser download link not added yet.");
+    }
   }
 
   function bindModalEvents() {
@@ -182,37 +174,31 @@
     modalRoot.addEventListener("click", onModalClick);
     document.addEventListener("keydown", onDocumentKeydown);
 
-    const actions = modalRoot.querySelectorAll(ACTION_SELECTOR);
-    actions.forEach(function (actionButton) {
-      actionButton.addEventListener("click", onModalActionClick);
+    const targets = modalRoot.querySelectorAll(TARGET_SELECTOR);
+    targets.forEach(function (targetButton) {
+      targetButton.addEventListener("click", onDownloadTargetClick);
     });
-
-    if (registerForm) {
-      registerForm.addEventListener("submit", onRegisterSubmit);
-    }
   }
 
-  function initRegisterModal() {
+  function initDownloadModal() {
     if (isInitialized) {
       return;
     }
     isInitialized = true;
 
-    modalRoot = document.getElementById("register-modal");
+    modalRoot = document.getElementById("download-modal");
     if (!modalRoot) {
       return;
     }
 
-    usernameInput = modalRoot.querySelector("#register-username");
-    registerForm = modalRoot.querySelector(".register-modal-form");
-
+    firstTargetButton = modalRoot.querySelector(TARGET_SELECTOR);
     bindModalEvents();
   }
 
-  app.registerModal = {
+  app.downloadModal = {
     open: open,
     close: close,
     isOpen: isOpen
   };
-  app.initRegisterModal = initRegisterModal;
+  app.initDownloadModal = initDownloadModal;
 })(window, document);
