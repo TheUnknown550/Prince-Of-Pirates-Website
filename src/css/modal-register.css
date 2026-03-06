@@ -116,7 +116,7 @@
 /* Decorative text fields and inputs */
 .register-modal-label {
   margin: 0 0 6px;
-  font-size: clamp(16px, 1.3vw, 24px);
+  font-size: clamp(18px, 1.6vw, 28px);
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -328,15 +328,15 @@ body.register-modal-open {
   .register-modal-content {
     top: calc(
       clamp(
-        32px,
+        40px,
         calc(var(--register-title-width) * 0.2 - var(--register-stage-pad-top) + var(--register-content-gap)),
-        76px
+        84px
       ) + var(--register-balance-shift-y)
     );
   }
 
   .register-modal-form {
-    padding-top: clamp(12px, 2.4vw, 18px);
+    padding-top: clamp(16px, 3vw, 24px);
   }
 
   .register-modal-label {
