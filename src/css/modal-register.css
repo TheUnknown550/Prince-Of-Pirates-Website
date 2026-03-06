@@ -328,15 +328,15 @@ body.register-modal-open {
   .register-modal-content {
     top: calc(
       clamp(
-        32px,
+        40px,
         calc(var(--register-title-width) * 0.2 - var(--register-stage-pad-top) + var(--register-content-gap)),
-        76px
+        84px
       ) + var(--register-balance-shift-y)
     );
   }
 
   .register-modal-form {
-    padding-top: clamp(12px, 2.4vw, 18px);
+    padding-top: clamp(16px, 3vw, 24px);
   }
 
   .register-modal-label {
