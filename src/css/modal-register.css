@@ -21,6 +21,7 @@
   --register-content-max-width: clamp(360px, 56vw, 560px);
   --register-field-max-width: clamp(300px, 50vw, 500px);
   --register-content-shift-x: clamp(60px, 7.5vw, 100px);
+  --register-balance-shift-y: clamp(18px, 2.2vw, 28px);
   padding-top: var(--register-stage-pad-top);
 }
 
@@ -42,7 +43,7 @@
 
 .register-modal-title {
   position: absolute;
-  top: var(--register-stage-pad-top);
+  top: calc(var(--register-stage-pad-top) + var(--register-balance-shift-y));
   left: 50%;
   width: var(--register-title-width);
   transform: translate(-50%, -30%);
@@ -87,10 +88,12 @@
   position: absolute;
   left: 50%;
   right: auto;
-  top: clamp(
-    56px,
-    calc(var(--register-title-width) * 0.23 - var(--register-stage-pad-top) + var(--register-content-gap)),
-    126px
+  top: calc(
+    clamp(
+      56px,
+      calc(var(--register-title-width) * 0.23 - var(--register-stage-pad-top) + var(--register-content-gap)),
+      126px
+    ) + var(--register-balance-shift-y)
   );
   transform: translateX(calc(-50% + var(--register-content-shift-x)));
   width: min(92%, var(--register-content-max-width));
@@ -196,8 +199,7 @@
   gap: clamp(10px, 1.2vw, 18px);
 }
 
-.register-modal-link,
-.register-modal-link-current {
+.register-modal-link {
   border: 0;
   background: transparent;
   font-family: "Prompt", sans-serif;
@@ -213,10 +215,6 @@
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
-}
-
-.register-modal-link-current {
-  cursor: default;
 }
 
 .register-modal-link:hover,
@@ -262,6 +260,7 @@ body.register-modal-open {
     --register-content-max-width: clamp(260px, 70vw, 420px);
     --register-field-max-width: clamp(230px, 64vw, 370px);
     --register-content-shift-x: clamp(30px, 6vw, 60px);
+    --register-balance-shift-y: clamp(14px, 2.8vw, 24px);
     padding-top: var(--register-stage-pad-top);
   }
 
@@ -288,10 +287,12 @@ body.register-modal-open {
   .register-modal-content {
     left: 50%;
     right: auto;
-    top: clamp(
-      50px,
-      calc(var(--register-title-width) * 0.22 - var(--register-stage-pad-top) + var(--register-content-gap)),
-      102px
+    top: calc(
+      clamp(
+        50px,
+        calc(var(--register-title-width) * 0.22 - var(--register-stage-pad-top) + var(--register-content-gap)),
+        102px
+      ) + var(--register-balance-shift-y)
     );
     transform: translateX(calc(-50% + var(--register-content-shift-x)));
   }
@@ -313,6 +314,7 @@ body.register-modal-open {
     --register-content-max-width: clamp(220px, 78vw, 330px);
     --register-field-max-width: clamp(190px, 72vw, 300px);
     --register-content-shift-x: 0px;
+    --register-balance-shift-y: clamp(10px, 3.4vw, 18px);
   }
 
   .register-modal-paper {
@@ -324,10 +326,12 @@ body.register-modal-open {
   }
 
   .register-modal-content {
-    top: clamp(
-      32px,
-      calc(var(--register-title-width) * 0.2 - var(--register-stage-pad-top) + var(--register-content-gap)),
-      76px
+    top: calc(
+      clamp(
+        32px,
+        calc(var(--register-title-width) * 0.2 - var(--register-stage-pad-top) + var(--register-content-gap)),
+        76px
+      ) + var(--register-balance-shift-y)
     );
   }
 
